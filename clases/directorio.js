@@ -1,9 +1,11 @@
+const fs = require('fs')
+
 class Directorio {
-    constructor(nombre, ruta, archivos, subDirectorios){
+    constructor(nombre, ruta) {
         this.nombre = nombre;
         this.ruta = ruta;
-        this.archivos = archivos;
-        this.subDirectorios = Directorio;
+        this.archivos = [];
+        this.subDirectorios = [];
     }
 
     getNombre() {
@@ -37,6 +39,31 @@ class Directorio {
     setSubDirectorios(subDirectorios) {
         this.subDirectorios = subDirectorios
     }
+
+
+    getFiles() {
+        let archivos = []
+        fs.readdirSync(this.ruta).forEach(file => {
+            if(file.includes('.')){
+                archivos.push(file)
+            }
+        });
+        return archivos;
+    }
+
+    getInnerDir() {
+        let subDir = []
+        fs.readdirSync(this.ruta).forEach(dir => {
+            if(!dir.includes('.')){
+                let dirObj = new Directorio(dir, (this.ruta + dir + '/'))
+                dirObj.setArchivos(dirObj.getFiles())
+                dirObj.setSubDirectorios(dirObj.getInnerDir())
+                subDir.push(dirObj)
+            }
+        });
+        return subDir;
+    }
+    
 }
 
 module.exports = Directorio

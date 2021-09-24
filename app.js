@@ -2,46 +2,40 @@ const { throws } = require('assert');
 const { dir } = require('console');
 const { get } = require('http');
 const { arch } = require('os');
+const express = require('express')
 const path = require('path');
 const fs = require('fs');
+const app = express()
+
 const Directorio = require('./clases/directorio');
 
 // Variables
-const rutaRaiz = '//serverdoc/E/SAP/'
-const directorios = []
+const rutaRaiz = 'C:/Users/Klau/Desktop/Avorion.v2.0/Avorion.v2.0/'
+const estructura = []
 
-getDir(rutaRaiz)
+// Config
+app.set('view engine', 'ejs')
 
-function getDir(ruta) {
-    fs.readdirSync(ruta).forEach(dir => {
+app.get('/', (req, res) => {
+    try {
+        inicializar(rutaRaiz)
+    } catch (e) {
+        console.log('Error en la inicialización.')
+    }
+    estructura.forEach(carpeta => {
+        console.log(carpeta.getNombre())
+    })
+})
+
+app.listen(3000)
+
+async function inicializar(ruta) {
+    await fs.readdirSync(ruta).forEach(dir => {
         if(!dir.includes('.')){
-            let dirObj = new Directorio(dir, (ruta + dir))
-            let archivos = getFiles(rutaRaiz + dir + '/')
-            let subDir = getSubDir(rutaRaiz + dir + '/')            
-            dirObj.setSubDirectorios(subDir)
-            dirObj.setArchivos(archivos)
-            directorios.push(dirObj)
-            console.log(directorios)
+            let dirObj = new Directorio(dir, (ruta + dir + '/'))
+            dirObj.setArchivos(dirObj.getFiles())
+            dirObj.setSubDirectorios(dirObj.getInnerDir())
+            estructura.push(dirObj)
         }
     });
-}
-
-function getSubDir(ruta) {
-    let subDirectorios = []
-    fs.readdirSync(ruta).forEach(subDir => {
-        if(!subDir.includes('.')){
-            subDirectorios.push(subDir)
-        }
-    });
-    return subDirectorios
-}
-
-function getFiles(ruta) {
-    let archivos = []
-    fs.readdirSync(ruta).forEach(file => {
-        if(file.includes('.')){
-            archivos.push(file)
-        }
-    });
-    return archivos
 }
