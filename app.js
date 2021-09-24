@@ -6,7 +6,6 @@ const express = require('express')
 const path = require('path');
 const fs = require('fs');
 const app = express()
-
 const Directorio = require('./clases/directorio');
 
 // Variables
@@ -19,13 +18,20 @@ app.set('view engine', 'ejs')
 app.get('/', (req, res) => {
     try {
         inicializar(rutaRaiz)
+        estructura.forEach(dir => {
+            console.log(dir.getNombre())
+            app.get('/' + dir.getNombre(), (req, res) => {
+                res.render('index.ejs', { estructura: estructura[1].getNombre() })
+            })
+        })
     } catch (e) {
         console.log('Error en la inicialización.')
     }
-    estructura.forEach(carpeta => {
-        console.log(carpeta.getNombre())
-    })
+    res.render('index.ejs', { estructura: estructura[1].getNombre() })
 })
+
+
+
 
 app.listen(3000)
 

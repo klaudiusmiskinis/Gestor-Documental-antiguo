@@ -8,6 +8,7 @@ class Directorio {
         this.subDirectorios = [];
     }
 
+    //GETTERs
     getNombre() {
         return this.nombre;
     }
@@ -24,6 +25,7 @@ class Directorio {
         return this.subDirectorios;
     }
 
+    //SETTERs
     setNombre(nombre) {
         this.nombre = nombre;
     }
@@ -40,7 +42,7 @@ class Directorio {
         this.subDirectorios = subDirectorios
     }
 
-
+    //METHODs
     getFiles() {
         let archivos = []
         fs.readdirSync(this.ruta).forEach(file => {
@@ -62,8 +64,7 @@ class Directorio {
             }
         });
         return subDir;
-    }
-    
+    } 
 }
 
-module.exports = Directorio
+module.exports = Directorio, fs
