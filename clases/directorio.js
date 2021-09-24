@@ -3,7 +3,7 @@ class Directorio {
         this.nombre = nombre;
         this.ruta = ruta;
         this.archivos = archivos;
-        this.subDirectorios = subDirectorios;
+        this.subDirectorios = Directorio;
     }
 
     getNombre() {
