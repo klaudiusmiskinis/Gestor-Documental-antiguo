@@ -1,13 +1,13 @@
 const { throws } = require('assert');
 const { dir } = require('console');
-const fs = require('fs');
 const { get } = require('http');
 const { arch } = require('os');
 const path = require('path');
+const fs = require('fs');
 const Directorio = require('./clases/directorio');
 
 // Variables
-const rutaRaiz = '//serverdoc/E/z_Informatica/'
+const rutaRaiz = '//serverdoc/E/SAP/'
 const directorios = []
 
 getDir(rutaRaiz)
