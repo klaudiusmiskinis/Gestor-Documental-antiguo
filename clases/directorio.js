@@ -1,3 +1,4 @@
+const { dir } = require('console');
 const fs = require('fs')
 
 class Directorio {
@@ -46,7 +47,8 @@ class Directorio {
     getFiles() {
         let archivos = []
         fs.readdirSync(this.ruta).forEach(file => {
-            if(file.includes('.')){
+            let type = fs.lstatSync(this.ruta + file)
+            if(type.isFile()) {
                 archivos.push(file)
             }
         });
@@ -56,7 +58,8 @@ class Directorio {
     getInnerDir() {
         let subDir = []
         fs.readdirSync(this.ruta).forEach(dir => {
-            if(!dir.includes('.')){
+            let type = fs.lstatSync(this.ruta + dir)
+            if(type.isDirectory()) {
                 let dirObj = new Directorio(dir, (this.ruta + dir + '/'))
                 dirObj.setArchivos(dirObj.getFiles())
                 dirObj.setSubDirectorios(dirObj.getInnerDir())
