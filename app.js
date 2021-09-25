@@ -14,14 +14,18 @@ const estructura = []
 const subDirectorios = []
 try {
     inicializar(rutaRaiz)
+    console.log('Entrando a rutaraiz')
     estructura.forEach(dir => {
         app.get('/' + dir.getNombre(), (req, res) => {
+            console.log('Conectando' + app)
             res.render('index.ejs', { dir: dir = {
                 nombre: dir.getNombre(),
                 ruta: dir.getRuta(),
                 archivos: dir.getArchivos(),
                 subDirectorios: dir.getInnerDir()
-            } })
+            },
+            estructura: estructura
+        })
         })
     })
 } catch (e) {
@@ -40,6 +44,7 @@ function inicializar(ruta) {
             let dirObj = new Directorio(dir, (ruta + dir + '/'))
             dirObj.setArchivos(dirObj.getFiles())
             dirObj.setSubDirectorios(dirObj.getInnerDir())
+            subDirectorios.push(dirObj.getSubDirectiorios())
             estructura.push(dirObj)
         }
     });
@@ -48,7 +53,7 @@ function inicializar(ruta) {
 // HTTP METHODs
 app.get('/', (req, res) => {
     console.log(subDirectorios)
-    res.redirect('/' + estructura[0].getNombre())
+    res.redirect('/' + estructura[3].getNombre())
 })
 
 app.listen(3000)
