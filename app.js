@@ -9,35 +9,34 @@ const app = express()
 const Directorio = require('./clases/directorio');
 
 // Variables
-const rutaRaiz = 'C:/Users/Klau/Desktop/Avorion.v2.0/Avorion.v2.0/'
+const rutaRaiz = 'C:/Users/Klau/AppData/Local/Programs/Microsoft VS Code/'
 const estructura = []
+const subDirectorios = []
+try {
+    inicializar(rutaRaiz)
+    estructura.forEach(dir => {
+        app.get('/' + dir.getNombre(), (req, res) => {
+            res.render('index.ejs', { dir: dir = {
+                nombre: dir.getNombre(),
+                ruta: dir.getRuta(),
+                archivos: dir.getArchivos(),
+                subDirectorios: dir.getInnerDir()
+            } })
+        })
+    })
+} catch (e) {
+    console.log(e)
+}
 
 // Config
 app.set('view engine', 'ejs')
 
-app.get('/', (req, res) => {
-    try {
-        inicializar(rutaRaiz)
-        estructura.forEach(dir => {
-            console.log(dir.getNombre())
-            app.get('/' + dir.getNombre(), (req, res) => {
-                res.render('index.ejs', { estructura: estructura[1].getNombre() })
-            })
-        })
-    } catch (e) {
-        console.log('Error en la inicialización.')
-    }
-    res.render('index.ejs', { estructura: estructura[1].getNombre() })
-})
-
-
-
-
-app.listen(3000)
-
-async function inicializar(ruta) {
-    await fs.readdirSync(ruta).forEach(dir => {
-        if(!dir.includes('.')){
+// Funciones 
+function inicializar(ruta) {
+    fs.readdirSync(ruta).forEach(dir => {
+    let type = fs.lstatSync(ruta + dir)
+        if(type.isDirectory()) {
+            console.log(ruta + dir)
             let dirObj = new Directorio(dir, (ruta + dir + '/'))
             dirObj.setArchivos(dirObj.getFiles())
             dirObj.setSubDirectorios(dirObj.getInnerDir())
@@ -45,3 +44,11 @@ async function inicializar(ruta) {
         }
     });
 }
+
+// HTTP METHODs
+app.get('/', (req, res) => {
+    console.log(subDirectorios)
+    res.redirect('/' + estructura[0].getNombre())
+})
+
+app.listen(3000)
