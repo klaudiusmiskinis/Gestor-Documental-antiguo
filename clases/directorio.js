@@ -1,11 +1,12 @@
 const fs = require('fs')
 
 class Directorio {
-    constructor(nombre, ruta) {
+    constructor(nombre, ruta, padre) {
         this.nombre = nombre;
         this.ruta = ruta;
-        this.archivos = [];
-        this.subDirectorios = [];
+        this.padre = padre;
+        this.archivos = false;
+        this.subDirectorios = false;
     }
 
     //GETTERs
@@ -17,11 +18,15 @@ class Directorio {
         return this.ruta;
     }
 
+    getPadre() {
+        return this.padre;
+    }
+
     getArchivos() {
         return this.archivos;
     }
 
-    getSubDirectiorios() {
+    getSubDirectorios() {
         return this.subDirectorios;
     }
 
@@ -32,6 +37,10 @@ class Directorio {
 
     setRuta(ruta) {
         this.ruta = ruta;
+    }
+
+    setPadre(padre) {
+        this.padre = padre
     }
 
     setArchivos(archivos){
@@ -46,7 +55,7 @@ class Directorio {
     getFiles() {
         let archivos = []
         fs.readdirSync(this.ruta).forEach(file => {
-            if(file.includes('.')){
+            if(fs.lstatSync((this.ruta + file)).isFile()){
                 archivos.push(file)
             }
         });
@@ -56,8 +65,8 @@ class Directorio {
     getInnerDir() {
         let subDir = []
         fs.readdirSync(this.ruta).forEach(dir => {
-            if(!dir.includes('.')){
-                let dirObj = new Directorio(dir, (this.ruta + dir + '/'))
+            if(fs.lstatSync((this.ruta + dir)).isDirectory()){
+                let dirObj = new Directorio(dir, (this.ruta + dir + '/'), (this.padre + this.nombre + '/' + dir))
                 dirObj.setArchivos(dirObj.getFiles())
                 dirObj.setSubDirectorios(dirObj.getInnerDir())
                 subDir.push(dirObj)
