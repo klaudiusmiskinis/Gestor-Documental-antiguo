@@ -5,8 +5,8 @@ class Directorio {
         this.nombre = nombre;
         this.ruta = ruta;
         this.padre = padre;
-        this.archivos = false;
-        this.subDir = false;
+        this.archivos = [];
+        this.subDir = [];
     }
 
     //GETTERs
