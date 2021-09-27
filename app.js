@@ -9,8 +9,11 @@ const app = express()
 const Directorio = require('./clases/directorio');
 
 // Variables
-const rutaRaiz = 'C:/Users/Klau/Desktop/Avorion.v2.0/Avorion.v2.0/'
-const estructura = []
+const rutaRaiz = '//Serverdoc/e/z_Informatica/Z_Documentacio/'
+const nivelU = []
+const nivelD = []
+const nivelT = []
+const nivelC = []
 
 // Config
 app.set('view engine', 'ejs')
@@ -19,7 +22,6 @@ app.get('/', (req, res) => {
     try {
         inicializar(rutaRaiz)
         estructura.forEach(dir => {
-            console.log(dir.getNombre())
             app.get('/' + dir.getNombre(), (req, res) => {
                 res.render('index.ejs', { estructura: estructura[1].getNombre() })
             })
@@ -38,10 +40,18 @@ app.listen(3000)
 async function inicializar(ruta) {
     await fs.readdirSync(ruta).forEach(dir => {
         if(!dir.includes('.')){
-            let dirObj = new Directorio(dir, (ruta + dir + '/'))
+            let dirObj = new Directorio(dir, (ruta + dir + '/'), '/')
             dirObj.setArchivos(dirObj.getFiles())
             dirObj.setSubDirectorios(dirObj.getInnerDir())
             estructura.push(dirObj)
         }
     });
+    console.log('EST: ' + estructura)
+    estructura.forEach(dir => {
+        console.log('dir ' + dir.getPadre())
+        directorios.push(dir.getSubDirectorios())
+    })
+    directorios.forEach(dir => {
+        directorios.push(dir.getPadre())
+    })
 }
