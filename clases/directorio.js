@@ -1,12 +1,12 @@
 const { dir } = require('console');
-const fs = require('fs')
 
 class Directorio {
-    constructor(nombre, ruta) {
+    constructor(nombre, ruta, padre) {
         this.nombre = nombre;
         this.ruta = ruta;
-        this.archivos = [];
-        this.subDirectorios = [];
+        this.padre = padre;
+        this.archivos = false;
+        this.subDir = false;
     }
 
     //GETTERs
@@ -18,12 +18,16 @@ class Directorio {
         return this.ruta;
     }
 
+    getPadre() {
+        return this.padre;
+    }
+
     getArchivos() {
         return this.archivos;
     }
 
-    getSubDirectiorios() {
-        return this.subDirectorios;
+    getSubDir() {
+        return this.subDir;
     }
 
     //SETTERs
@@ -35,39 +39,18 @@ class Directorio {
         this.ruta = ruta;
     }
 
+    setPadre(padre) {
+        this.padre = padre
+    }
+
     setArchivos(archivos){
         this.archivos = archivos;
     }
 
-    setSubDirectorios(subDirectorios) {
-        this.subDirectorios = subDirectorios
+    setSubDir(subDir) {
+        this.subDir = subDir;
     }
-
-    //METHODs
-    getFiles() {
-        let archivos = []
-        fs.readdirSync(this.ruta).forEach(file => {
-            let type = fs.lstatSync(this.ruta + file)
-            if(type.isFile()) {
-                archivos.push(file)
-            }
-        });
-        return archivos;
-    }
-
-    getInnerDir() {
-        let subDir = []
-        fs.readdirSync(this.ruta).forEach(dir => {
-            let type = fs.lstatSync(this.ruta + dir)
-            if(type.isDirectory()) {
-                let dirObj = new Directorio(dir, (this.ruta + dir + '/'))
-                dirObj.setArchivos(dirObj.getFiles())
-                dirObj.setSubDirectorios(dirObj.getInnerDir())
-                subDir.push(dirObj)
-            }
-        });
-        return subDir;
-    } 
 }
+    
 
-module.exports = Directorio, fs
+module.exports = Directorio
