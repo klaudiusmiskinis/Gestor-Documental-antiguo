@@ -75,7 +75,6 @@ function actualizar() {
             if(separador.length == 1 && dir.nombre == '/'){
                dir.archivos.push(separador)
             }
-
             if (dir.nombre == separador[separador.length-2] && dir.padre == ((separador[separador.length-3]) + '/'))  {
                 dir.archivos.push(separador[separador.length-1])
             } else if (dir.nombre == separador){
