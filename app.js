@@ -93,6 +93,7 @@ function actualizar() {
     })
     console.log(app._router.stack)
 }
+
 // Config
 app.set('view engine', 'ejs')
 app.use(express.static(__dirname + '/views'))
