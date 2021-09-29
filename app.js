@@ -7,11 +7,13 @@ var wrench = require("wrench");
 const app = express()
 const fs = require('fs');
 const { sep } = require('path');
+const { render } = require('ejs');
 
 // Variables
 const rutaRaiz = '//serverdoc/e/X_Dpt_RRHH i Qualitat/SGC y seguridad alimentaria/Sistema documental/'
 const allDirectories = []
 const allFiles = []
+let dirFilter = []
 
 // Funciones
 var files = wrench.readdirSyncRecursive(rutaRaiz);
@@ -27,24 +29,21 @@ files.forEach(file => {
     }
 })
 
-let directorio;
-let dirFilter = []
-
 //LOOP ALLDIR
 function actualizar() {
     dirFilter.push(
         dirObj = {
             nombre: '/',
-            padre: rutaRaiz,
-            rutaRelativa: rutaRaiz,
-            rutaAbsoluta: rutaRaiz,
+            padre: null,
+            rutaRelativa: null,
+            rutaAbsoluta: null,
             archivos: []
         }
     )
     
     allDirectories.forEach(dir => {
         let separador = dir.split('/')
-        directorio = getPadre(separador)
+        let directorio = getPadre(separador)
         function getPadre(sep) {
             if (sep.length > 1) {
                 let dirObj = {
@@ -73,6 +72,10 @@ function actualizar() {
     allFiles.forEach(file => {
         let separador = file.split('/')
         dirFilter.find(dir => {
+            if(separador.length == 1 && dir.nombre == '/'){
+               dir.archivos.push(separador)
+            }
+
             if (dir.nombre == separador[separador.length-2] && dir.padre == ((separador[separador.length-3]) + '/'))  {
                 dir.archivos.push(separador[separador.length-1])
             } else if (dir.nombre == separador){
@@ -82,17 +85,16 @@ function actualizar() {
     })
 
     dirFilter.forEach(dir => {
-        if (dir.nombre == '/') {
+        if (dir.nombre == '/' || dir.padre == null || dir.padre == '/') {
             app.get('/home', (req, res) => {
-                res.render('index.ejs', {dir: dir})
+                res.render('index.ejs', {dirFilter: dirFilter})
             })
         } else {
             app.get(dir.padre + '/' + dir.nombre, (req, res) => {
-                res.render('index.ejs')
+                res.render('index.ejs', {dirFilter: dirFilter})
             })
         }
     })
-    console.log(app._router.stack)
 }
 
 // CONFIG
@@ -106,7 +108,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/home', (req, res) => {
-    res.render('index.ejs', {dir: dir})
+    res.render('index.ejs', {dirFilter: dirFilter})
 })
 
 app.listen(3000)
