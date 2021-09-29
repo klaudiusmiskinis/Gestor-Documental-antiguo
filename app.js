@@ -12,10 +12,11 @@ const { sep } = require('path');
 const rutaRaiz = '//serverdoc/e/X_Dpt_RRHH i Qualitat/SGC y seguridad alimentaria/Sistema documental/'
 const allDirectories = []
 const allFiles = []
+
+// Funciones
 var files = wrench.readdirSyncRecursive(rutaRaiz);
 wrench.readdirRecursive(rutaRaiz, function (error, files) {});
 
-// Funciones
 // GET directorios y archivos recursivos con replace de \ a /
 files.forEach(file => {
     file = file.replace(/\\/g, '/');
@@ -94,7 +95,7 @@ function actualizar() {
     console.log(app._router.stack)
 }
 
-// Config
+// CONFIG
 app.set('view engine', 'ejs')
 app.use(express.static(__dirname + '/views'))
 
