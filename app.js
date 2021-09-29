@@ -14,6 +14,7 @@ const rutaRaiz = '//serverdoc/e/X_Dpt_RRHH i Qualitat/SGC y seguridad alimentari
 const allDirectories = []
 const allFiles = []
 let dirFilter = []
+let nomRutas = []
 
 // Funciones
 var files = wrench.readdirSyncRecursive(rutaRaiz);
@@ -28,6 +29,14 @@ files.forEach(file => {
         allFiles.push(file)
     }
 })
+
+function rutas(dir){
+    if(dir.padre == null) {
+        return dir.nombre
+    } else {
+        return dir.rutaRelativa
+    }
+}
 
 //LOOP ALLDIR
 function actualizar() {
@@ -49,7 +58,7 @@ function actualizar() {
                 let dirObj = {
                     nombre: sep[sep.length -1],
                     padre: sep[sep.length -2] + '/',
-                    rutaRelativa: dir + '/',
+                    rutaRelativa: dir,
                     rutaAbsoluta: rutaRaiz + dir + '/',
                     archivos: []
                 }
@@ -58,7 +67,7 @@ function actualizar() {
                 let dirObj = {
                     nombre: sep[sep.length -1],
                     padre: '/',
-                    rutaRelativa: '/',
+                    rutaRelativa: dir,
                     rutaAbsoluta: rutaRaiz,
                     archivos: []
                 } 
@@ -67,9 +76,13 @@ function actualizar() {
         }    
         dirFilter.push(directorio)
     })
+
+    dirFilter.forEach(dir => {
+        nomRutas.push(rutas(dir))
+    })
     
     //LOOP ALLFILES
-    allFiles.forEach(file => {
+    allFiles.forEach(file => {   
         let separador = file.split('/')
         dirFilter.find(dir => {
             if(separador.length == 1 && dir.nombre == '/'){
@@ -83,18 +96,25 @@ function actualizar() {
         })
     })
 
-    dirFilter.forEach(dir => {
-        if (dir.nombre == '/' || dir.padre == null || dir.padre == '/') {
-            app.get('/home', (req, res) => {
-                res.render('index.ejs', {dirFilter: dirFilter})
+    nomRutas.forEach(nom => {
+        console.log('B',nom)
+        if(nom.includes(' ')){
+            nom = nom.split(' ').join('%20')
+        }
+        console.log('A',nom)
+        if(nom.charAt(0) == '/'){
+            app.get(nom, (req, res) => {
+                res.send(nom)
             })
         } else {
-            app.get(dir.padre + '/' + dir.nombre, (req, res) => {
-                res.render('index.ejs', {dirFilter: dirFilter})
+            app.get('/' + nom, (req, res) =>{
+                res.send(nom)
             })
         }
     })
 }
+
+
 
 // CONFIG
 app.set('view engine', 'ejs')
@@ -104,6 +124,11 @@ app.use(express.static(__dirname + '/views'))
 app.get('/', (req, res) => {
     actualizar();
     res.redirect('/home')
+})
+
+app.get('/%20/', (req, res) => {
+    actualizar();
+    res.send('ASDs')
 })
 
 app.get('/home', (req, res) => {
