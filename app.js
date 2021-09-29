@@ -10,7 +10,7 @@ const { sep } = require('path');
 const { render } = require('ejs');
 
 // Variables
-const rutaRaiz = '//serverdoc/e/X_Dpt_RRHH i Qualitat/SGC y seguridad alimentaria/Sistema documental/'
+const rutaRaiz = 'C:/Users/Klau/Desktop/Klau/'
 const allDirectories = []
 const allFiles = []
 let dirFilter = []
@@ -97,13 +97,15 @@ function actualizar() {
     })
 
     nomRutas.forEach(nom => {
-        console.log('B',nom)
+        let replaced;
         if(nom.includes(' ')){
-            nom = nom.split(' ').join('%20')
+            replaced = nom.split(' ').join('%20')
         }
-        console.log('A',nom)
+        console.log(nom)
         if(nom.charAt(0) == '/'){
-            app.get(nom, (req, res) => {
+            app.get(replaced, (req, res) => {
+                
+
                 res.send(nom)
             })
         } else {
@@ -124,11 +126,6 @@ app.use(express.static(__dirname + '/views'))
 app.get('/', (req, res) => {
     actualizar();
     res.redirect('/home')
-})
-
-app.get('/%20/', (req, res) => {
-    actualizar();
-    res.send('ASDs')
 })
 
 app.get('/home', (req, res) => {
