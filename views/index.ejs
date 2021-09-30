@@ -6,41 +6,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="./assets/css/style.css" rel="stylesheet">
+    <link href="./assets/css/card.css" rel="stylesheet">
     <link rel="icon" href="assets/img/icon600x600.png"/>
     <% if (data.nom == '/') { %>
         <title>Home</title>
     <% } else { %>
         <title><% data.nom %></title>
     <% } %>
-    
 </head>
 <body>
     <nav class="navbar navbar-light bg-light shadow">
-        <div class="container-fluid">
+        <div class="container-fluid justify-content-left">
             <a class="navbar-brand" href="/home"><h5 class="mt-2">G. Documental</h5></a>
-            <div class="col">Te encuentras en: <%= data.nom %></div>
+            <div>
+                <span class="input-group-text">Te encuentras en: <%= ' ' + data.nom %></span>
+            </div>
         </div>
     </nav>
     <div class="container-fluid mt-2">
         <div class="d-flex text-light">Directorios <%= data.hijos.length %></div>
         <div class="dir mt-2">
-                <% data.hijos.forEach(hijo => { %>
-                    <div class="col card m-2">
-                        <h3 class="btn card-body">
-                        <%= hijo.nombre %>
-                        </h3>
+                <% data.hijos.forEach(function(hijo, i) { %> 
+                    <% if ((i % 3) == 0) { %>
+                        <div class="row">
+                    <% }  %>
+                    <div class="col card shadow m-2">
+                        <a class="btn card-body" href="<%= '/' + hijo.nombre %>">
+                            <%= hijo.nombre %>
+                        </a>
                     </div>
-                <% }) %> 
+                    <% if ((i % 3) == 2) { %>
+                        </div>
+                    <% } %>
+                <% }) %>
         </div>
         <div class="d-flex text-light">Archivos <%= data.archivos.length %></div>
         <div class="archivos mt-2">
-            <% data.archivos.forEach(archivo => { %>
-                <div class="col card shadow m-2">
-                    <div class="btn card-body">
-                    <%= archivo %>
+                <% data.archivos.forEach(function(ar, i) { %>
+                    <% if ((i % 3) == 0) { %>
+                        <div class="row">
+                    <% } %>
+                    <div class="col card shadow m-2">
+                        <div class="btn card-body">
+                        <%= ar %>
+                        </div>
                     </div>
-                </div>
-            <% }) %> 
+                    <% if ((i % 3) == 2) { %>
+                        </div>
+                    <% } %>
+                <% }) %>
         </div>
     </div>
 </body>
