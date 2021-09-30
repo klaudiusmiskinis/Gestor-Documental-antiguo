@@ -7,3 +7,20 @@
 body {
     background-color: #3f3f3f;
 }
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3f3f3f;
+    border-radius: .25rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

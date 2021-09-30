@@ -10,25 +10,29 @@ const { sep } = require('path');
 const { render } = require('ejs');
 
 // Variables
-const rutaRaiz = 'C:/Users/Klau/Desktop/Klau/'
-const allDirectories = []
-const allFiles = []
+const rutaRaiz = '//Serverdoc/e/X_Dpt_RRHH i Qualitat/SGC y seguridad alimentaria/Sistema documental/'
+let allDirectories = []
+let allFiles = []
 let dirFilter = []
 let nomRutas = []
 
-// Funciones
-var files = wrench.readdirSyncRecursive(rutaRaiz);
-wrench.readdirRecursive(rutaRaiz, function (error, files) {});
-
 // GET directorios y archivos recursivos con replace de \ a /
-files.forEach(file => {
-    file = file.replace(/\\/g, '/');
-    if(fs.lstatSync(rutaRaiz + file).isDirectory()) {
-        allDirectories.push(file)
-    } else  if(fs.lstatSync(rutaRaiz + file).isFile()){
-        allFiles.push(file)
+function getFolder(nom) {
+    let data = {
+        nom: nom,
+        hijos: [],
+        archivos: []
     }
-})
+    dirFilter.find(dir => {
+        if (dir.padre == nom) {
+            data.hijos.push(dir);
+        }
+        if(dir.nombre == nom) {
+            data.archivos = dir.archivos;
+        }
+    })
+    return data;
+}
 
 function rutas(dir){
     if(dir.padre == null) {
@@ -38,8 +42,25 @@ function rutas(dir){
     }
 }
 
-//LOOP ALLDIR
+// LOOP ALLDIR
 function actualizar() {
+    allDirectories = []
+    allFiles = []
+    dirFilter = []
+    nomRutas = []
+
+    var files = wrench.readdirSyncRecursive(rutaRaiz);
+    wrench.readdirRecursive(rutaRaiz, function (error, files) {});
+
+    files.forEach(file => {
+        file = file.replace(/\\/g, '/');
+        if(fs.lstatSync(rutaRaiz + file).isDirectory()) {
+            allDirectories.push(file)
+        } else  if(fs.lstatSync(rutaRaiz + file).isFile()){
+            allFiles.push(file)
+        }
+    })
+
     dirFilter.push(
         dirObj = {
             nombre: '/',
@@ -81,7 +102,7 @@ function actualizar() {
         nomRutas.push(rutas(dir))
     })
     
-    //LOOP ALLFILES
+    // LOOP ALLFILES
     allFiles.forEach(file => {   
         let separador = file.split('/')
         dirFilter.find(dir => {
@@ -96,40 +117,35 @@ function actualizar() {
         })
     })
 
+    let transformado = '';
     nomRutas.forEach(nom => {
-        let replaced;
         if(nom.includes(' ')){
-            replaced = nom.split(' ').join('%20')
+            transformado = nom.split(' ').join('%20')
         }
-        console.log(nom)
         if(nom.charAt(0) == '/'){
-            app.get(replaced, (req, res) => {
-                
-
-                res.send(nom)
+            app.get(transformado, (req, res) => {
+                res.render('index.ejs', {data: getFolder(nom)})
             })
         } else {
-            app.get('/' + nom, (req, res) =>{
-                res.send(nom)
+            app.get('/' + transformado, (req, res) =>{
+                res.render('index.ejs', {data: getFolder(nom)})
             })
         }
     })
 }
 
-
-
 // CONFIG
 app.set('view engine', 'ejs')
 app.use(express.static(__dirname + '/views'))
 
-//HTTPs
+// HTTPs
 app.get('/', (req, res) => {
     actualizar();
     res.redirect('/home')
 })
 
 app.get('/home', (req, res) => {
-    res.render('index.ejs', {dirFilter: dirFilter})
+    res.render('index.ejs', {data: getFolder('/')})
 })
 
 app.listen(3000)
