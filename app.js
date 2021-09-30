@@ -2,12 +2,13 @@ const { throws } = require('assert');
 const { dir } = require('console');
 const { get } = require('http');
 const { arch, type } = require('os');
+const { sep } = require('path');
+const { render } = require('ejs');
 const express = require('express')
 var wrench = require("wrench");
 const app = express()
 const fs = require('fs');
-const { sep } = require('path');
-const { render } = require('ejs');
+
 
 // Variables
 const rutaRaiz = '//Serverdoc/e/X_Dpt_RRHH i Qualitat/SGC y seguridad alimentaria/Sistema documental/'
