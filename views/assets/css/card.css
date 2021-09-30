@@ -1,0 +1,14 @@
+.card {
+    transition: 0.5s;
+}
+
+.card:hover {
+    transition: 0.5s;
+    background-color: #3f3f3f;
+    border: 1px solid white;
+    color: white !important;
+}
+
+.card:hover .btn {
+    color: white !important;
+}
