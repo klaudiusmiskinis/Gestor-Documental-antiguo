@@ -16,7 +16,7 @@ let allFiles = []
 let dirFilter = []
 let nomRutas = []
 
-// GET directorios y archivos recursivos con replace de \ a /
+// Funciones
 function getFolder(nom) {
     let data = {
         nom: nom,
@@ -31,6 +31,7 @@ function getFolder(nom) {
             data.archivos = dir.archivos;
         }
     })
+    console.log(data)
     return data;
 }
 
@@ -42,7 +43,6 @@ function rutas(dir){
     }
 }
 
-// LOOP ALLDIR
 function actualizar() {
     allDirectories = []
     allFiles = []
@@ -98,11 +98,12 @@ function actualizar() {
         dirFilter.push(directorio)
     })
 
+    // LOOP de nombre de rutas para el HTTP
     dirFilter.forEach(dir => {
         nomRutas.push(rutas(dir))
     })
     
-    // LOOP ALLFILES
+    // LOOP para saber que archivo pertenece a que directorio
     allFiles.forEach(file => {   
         let separador = file.split('/')
         dirFilter.find(dir => {
