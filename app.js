@@ -18,21 +18,25 @@ let dirFilter = []
 let nomRutas = []
 
 // Funciones
+
+
 function getFolder(nom) {
     let data = {
         nom: nom,
         hijos: [],
         archivos: []
     }
+
     dirFilter.find(dir => {
-        if (dir.padre == nom) {
+        if (dir.padre == nom + '/') {
+            data.hijos.push(dir);
+        } else if (dir.padre == nom){
             data.hijos.push(dir);
         }
         if(dir.nombre == nom) {
             data.archivos = dir.archivos;
         }
     })
-    console.log(data)
     return data;
 }
 
@@ -57,7 +61,7 @@ function actualizar() {
         file = file.replace(/\\/g, '/');
         if(fs.lstatSync(rutaRaiz + file).isDirectory()) {
             allDirectories.push(file)
-        } else  if(fs.lstatSync(rutaRaiz + file).isFile()){
+        } else if(fs.lstatSync(rutaRaiz + file).isFile()){
             allFiles.push(file)
         }
     })
@@ -90,7 +94,7 @@ function actualizar() {
                     nombre: sep[sep.length -1],
                     padre: '/',
                     rutaRelativa: dir,
-                    rutaAbsoluta: rutaRaiz,
+                    rutaAbsoluta: rutaRaiz + dir,
                     archivos: []
                 } 
                 return dirObj; 
@@ -107,16 +111,28 @@ function actualizar() {
     // LOOP para saber que archivo pertenece a que directorio
     allFiles.forEach(file => {   
         let separador = file.split('/')
+        if (separador.length == 2) {
+            console.log(separador)
+        }
         dirFilter.find(dir => {
             if(separador.length == 1 && dir.nombre == '/'){
-               dir.archivos.push(separador)
+                dir.archivos.push(separador)
+            } else if(separador.length == 2 && dir.nombre == separador[0] && dir.padre == '/') {
+                dir.archivos.push(separador[1])
             }
+
             if (dir.nombre == separador[separador.length-2] && dir.padre == ((separador[separador.length-3]) + '/'))  {
                 dir.archivos.push(separador[separador.length-1])
             } else if (dir.nombre == separador){
                 dir.archivos.push(separador)
             }
+
+            if (separador.length == 2 && dir.nombre == separador[0] && dir.padre == '/') {
+                console.log(dir)
+            }
         })
+
+        
     })
 
     let transformado = '';
