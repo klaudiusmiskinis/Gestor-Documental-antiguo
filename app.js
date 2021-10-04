@@ -19,7 +19,6 @@ let nomRutas = []
 
 // Funciones
 
-
 function getFolder(nom) {
     let data = {
         nom: nom,
@@ -28,15 +27,32 @@ function getFolder(nom) {
     }
 
     dirFilter.find(dir => {
+
+        if (dir.rutaRelativa == nom) {
+            console.log('A', dir)
+        }
+
+        if (dir.padre == nom){
+            console.log('B', dir)
+            data.hijos.push(dir); //PARA LA RUTA PADRE
+        }
+
         if (dir.padre == nom + '/') {
-            data.hijos.push(dir);
-        } else if (dir.padre == nom){
+            console.log('C', dir)
             data.hijos.push(dir);
         }
+
         if(dir.nombre == nom) {
+            console.log('D', dir)
+            data.archivos = dir.archivos;
+        }
+
+        if(dir.nombre == nom + '/'){
+            console.log('E', dir)
             data.archivos = dir.archivos;
         }
     })
+
     return data;
 }
 
@@ -110,13 +126,13 @@ function actualizar() {
     
     // LOOP para saber que archivo pertenece a que directorio
     allFiles.forEach(file => {   
+
         let separador = file.split('/')
-        if (separador.length == 2) {
-            console.log(separador)
-        }
+
         dirFilter.find(dir => {
+
             if(separador.length == 1 && dir.nombre == '/'){
-                dir.archivos.push(separador)
+                dir.archivos.push(separador[0])
             } else if(separador.length == 2 && dir.nombre == separador[0] && dir.padre == '/') {
                 dir.archivos.push(separador[1])
             }
@@ -127,12 +143,7 @@ function actualizar() {
                 dir.archivos.push(separador)
             }
 
-            if (separador.length == 2 && dir.nombre == separador[0] && dir.padre == '/') {
-                console.log(dir)
-            }
         })
-
-        
     })
 
     let transformado = '';
@@ -142,11 +153,13 @@ function actualizar() {
         }
         if(nom.charAt(0) == '/'){
             app.get(transformado, (req, res) => {
-                res.render('index.ejs', {data: getFolder(nom)})
+                let data = getFolder(nom)
+                res.render('index.ejs', {data: data})
             })
         } else {
             app.get('/' + transformado, (req, res) =>{
-                res.render('index.ejs', {data: getFolder(nom)})
+                let data = getFolder(nom)
+                res.render('index.ejs', {data: data})
             })
         }
     })
@@ -158,11 +171,11 @@ app.use(express.static(__dirname + '/views'))
 
 // HTTPs
 app.get('/', (req, res) => {
-    actualizar();
     res.redirect('/home')
 })
 
 app.get('/home', (req, res) => {
+    actualizar();
     res.render('index.ejs', {data: getFolder('/')})
 })
 
