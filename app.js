@@ -20,44 +20,43 @@ let nomRutas = []
 // Funciones
 
 function getFolder(nom) {
+    let separador = nom.split('/')
+    let cont = 0;
     let data = {
         nom: nom,
         hijos: [],
         archivos: []
     }
 
+    let encontrado = false;
     dirFilter.find(dir => {
+        cont++;   
 
-        if (dir.rutaRelativa == nom) {
-            console.log('A', dir)
+        //Primero buscamos al padre
+        if(dir.nombre == nom && !encontrado) {  //PARA LOS SUBDIR DE LA RUTA PADRE. PADRE = '/'
+            console.log('Padre', nom, dir)
+            data.archivos = dir.archivos;
+            encontrado = true;
+        } else if (dir.nombre == nom + '/'){
+            console.log('E', nom, dir)
+            data.archivos = dir.archivos;
         }
 
         if (dir.padre == nom){
-            console.log('B', dir)
-            data.hijos.push(dir); //PARA LA RUTA PADRE
-        }
-
-        if (dir.padre == nom + '/') {
-            console.log('C', dir)
+            console.log('B', nom , dir)
+            data.hijos.push(dir);
+        } else if (dir.padre == nom + '/') {
+            console.log('C', nom, dir)
             data.hijos.push(dir);
         }
 
-        if(dir.nombre == nom) {
-            console.log('D', dir)
-            data.archivos = dir.archivos;
-        }
-
-        if(dir.nombre == nom + '/'){
-            console.log('E', dir)
-            data.archivos = dir.archivos;
-        }
+        
     })
-
     return data;
 }
 
 function rutas(dir){
-    if(dir.padre == null) {
+    if(dir.padre == rutaRaiz) {
         return dir.nombre
     } else {
         return dir.rutaRelativa
@@ -85,9 +84,9 @@ function actualizar() {
     dirFilter.push(
         dirObj = {
             nombre: '/',
-            padre: null,
+            padre: rutaRaiz,
             rutaRelativa: null,
-            rutaAbsoluta: null,
+            rutaAbsoluta: rutaRaiz,
             archivos: []
         }
     )
@@ -153,11 +152,13 @@ function actualizar() {
         }
         if(nom.charAt(0) == '/'){
             app.get(transformado, (req, res) => {
+                console.log('\x1b[33m%s\x1b[0m', nom)
                 let data = getFolder(nom)
                 res.render('index.ejs', {data: data})
             })
         } else {
             app.get('/' + transformado, (req, res) =>{
+                console.log('\x1b[33m%s\x1b[0m',nom)
                 let data = getFolder(nom)
                 res.render('index.ejs', {data: data})
             })
