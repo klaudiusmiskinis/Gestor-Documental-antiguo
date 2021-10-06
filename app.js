@@ -144,11 +144,13 @@ function actualizar() {
         
         if(nom.charAt(0) == '/'){
             app.get(transformado, (req, res) => {
+                actualizar();
                 let data = getFolder(nom)
                 res.render('index.ejs', {data: data})
             })
         } else {
             app.get('/' + transformado, (req, res) =>{
+                actualizar();
                 let data = getFolder(nom)
                 res.render('index.ejs', {data: data})
             })
