@@ -57,20 +57,20 @@
         <% if (data.archivos.length != 0) { %>
         <div class="d-flex text-light">Archivos <%= data.archivos.length %></div>
         <div class="archivos mt-2">
-                <% data.archivos.forEach(function(ar, i) { %>
-                    <% if ((i % 4) == 0) { %>
-                        <div class="row">
-                    <% } %>
-                    <div class="col card shadow-sm m-2">
-                        <a class="btn card-body">
-                        <%= ar %>
-                        </a>
+            <% data.archivos.forEach(function(ar, i) { %>
+                <% if ((i % 4) == 0) { %>
+                    <div class="row">
+                <% } %>
+                <div class="col card shadow-sm m-2">
+                    <a class="btn card-body">
+                    <%=ar%>
+                    </a>
+                </div>
+                <% if ((i % 4) == 3) { %>
                     </div>
-                    <% if ((i % 4) == 3) { %>
-                        </div>
-                    <% } %>
-                <% }) %>
-            </div>
+                <% } %>
+            <% }) %>
+        </div>
             <hr>
         <% } %>
         <% if (data.archivos.length == 0 && data.hijos.length == 0) { %>
@@ -88,10 +88,20 @@
                 </div>
             </div>
         <% } %>
-    </div>
+        </div>
+        <div class="container">
+            <div class="dropzone-wrapper">
+                <div class="dropzone-desc">
+                  <p>Selecciona o arrastra un archivo</p>
+                </div>
+                <input type="file" name="img_logo" class="dropzone">
+            </div>
+        </div>
     <script type="text/javascript" src="/script/seleccionado.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
 </body>
 </html>
