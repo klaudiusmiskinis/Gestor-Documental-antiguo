@@ -23,27 +23,22 @@ function getFolder(nom) {
     let data = {
         nom: nom,
         hijos: [],
-        archivos: []
+        archivos: [],
+        css: [__dirname + ]
     }
 
-    let encontrado = false;
     dirFilter.find(dir => {
         //Primero buscamos al padre
-        if(dir.nombre == nom && !encontrado) {  //PARA LOS SUBDIR DE LA RUTA PADRE. PADRE = '/'
-            console.log('A =>', nom, dir)
+        if(dir.rutaRelativa == nom) {  //PARA LOS SUBDIR DE LA RUTA PADRE. PADRE = '/'
             data.archivos = dir.archivos;
-            encontrado = true;
         } else if (dir.nombre == nom + '/'){
-            console.log('B =>', nom, dir)
             data.archivos = dir.archivos;
         }
 
         //Buscamos a los subdirectorios (hijos)
         if (dir.padre == nom){
-            console.log('C =>', nom , dir)
             data.hijos.push(dir);
         } else if ((nom + '/' + dir.nombre) == dir.rutaRelativa) {
-            console.log('D =>', dir)
             data.hijos.push(dir);
         }
     })
@@ -147,13 +142,11 @@ function actualizar() {
         }
         if(nom.charAt(0) == '/'){
             app.get(transformado, (req, res) => {
-                console.log('\x1b[33m%s\x1b[0m', nom)
                 let data = getFolder(nom)
                 res.render('index.ejs', {data: data})
             })
         } else {
             app.get('/' + transformado, (req, res) =>{
-                console.log('\x1b[33m%s\x1b[0m',nom)
                 let data = getFolder(nom)
                 res.render('index.ejs', {data: data})
             })
