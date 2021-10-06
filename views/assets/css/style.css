@@ -10,7 +10,7 @@ body {
 
 ::selection {
     filter: invert(100%);
-    background-color: black;
+    background-color: #3f3f3f;
     color: white;
 }
 
