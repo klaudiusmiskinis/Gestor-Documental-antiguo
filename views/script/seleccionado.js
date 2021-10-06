@@ -4,6 +4,12 @@ if(document.getElementById('volver')) {
     }
 }
 
+if(document.getElementById('regresar')) {
+    document.getElementById('regresar').onclick = function() {
+        volver()
+    }
+}
+
 //FUNCTION
 function volver() {
     window.history.back()
