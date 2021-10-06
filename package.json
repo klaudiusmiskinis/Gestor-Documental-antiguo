@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "super": "supervisor app.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
     "filehound": "^1.17.5",
     "fs": "^0.0.1-security",
     "promisify": "^0.0.3",
+    "supervisor": "^0.12.0",
     "wrench": "^1.5.9"
   }
 }

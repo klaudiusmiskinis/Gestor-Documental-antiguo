@@ -20,8 +20,6 @@ let nomRutas = []
 // Funciones
 
 function getFolder(nom) {
-    let separador = nom.split('/')
-    let cont = 0;
     let data = {
         nom: nom,
         hijos: [],
@@ -30,27 +28,24 @@ function getFolder(nom) {
 
     let encontrado = false;
     dirFilter.find(dir => {
-        cont++;   
-
         //Primero buscamos al padre
         if(dir.nombre == nom && !encontrado) {  //PARA LOS SUBDIR DE LA RUTA PADRE. PADRE = '/'
-            console.log('Padre', nom, dir)
+            console.log('A =>', nom, dir)
             data.archivos = dir.archivos;
             encontrado = true;
         } else if (dir.nombre == nom + '/'){
-            console.log('E', nom, dir)
+            console.log('B =>', nom, dir)
             data.archivos = dir.archivos;
         }
 
+        //Buscamos a los subdirectorios (hijos)
         if (dir.padre == nom){
-            console.log('B', nom , dir)
+            console.log('C =>', nom , dir)
             data.hijos.push(dir);
-        } else if (dir.padre == nom + '/') {
-            console.log('C', nom, dir)
+        } else if ((nom + '/' + dir.nombre) == dir.rutaRelativa) {
+            console.log('D =>', dir)
             data.hijos.push(dir);
         }
-
-        
     })
     return data;
 }
