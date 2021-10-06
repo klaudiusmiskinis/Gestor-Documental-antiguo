@@ -161,17 +161,13 @@ app.set('view engine', 'ejs')
 app.use('/assets', express.static('views/assets'));
 
 // HTTPs
-app.get('/', (req, res) => {
-    res.redirect('/home')
-})
-
 app.get('/home', (req, res) => {
     actualizar();
     res.render('index.ejs', {data: getFolder('/')})
 })
 
 app.get('*', function(req, res) {
-    res.redirect('/');
+    res.redirect('/home');
 });
 
 app.listen(3000)
