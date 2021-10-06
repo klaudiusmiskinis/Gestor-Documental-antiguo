@@ -159,6 +159,7 @@ function actualizar() {
 // CONFIG
 app.set('view engine', 'ejs')
 app.use('/assets', express.static('views/assets'));
+app.use('/script', express.static('views/script'));
 
 // HTTPs
 app.get('/home', (req, res) => {
@@ -166,7 +167,7 @@ app.get('/home', (req, res) => {
     res.render('index.ejs', {data: getFolder('/')})
 })
 
-app.get('*', function(req, res) {
+app.get('/', (req, res) => {
     res.redirect('/home');
 });
 
