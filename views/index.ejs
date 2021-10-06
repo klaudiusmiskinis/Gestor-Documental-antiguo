@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="./assets/css/style.css" rel="stylesheet"/>
-    <link href="./assets/css/card.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/card.css">
     <link rel="icon" href="assets/img/icon600x600.png"/>
     <title><%= data.nom %> </title>
 </head>
@@ -20,26 +19,30 @@
         </div>
     </nav>
     <div class="container-fluid mt-2">
-        <div class="d-flex text-light">Directorios <%= data.hijos.length %></div>
-        <div class="dir mt-2">
-                <% data.hijos.forEach(function(hijo, i) { %> 
-                    <% if ((i % 3) == 0) { %>
-                        <div class="row">
-                    <% }  %>
-                    <div class="col card shadow m-2">
-                        <a class="btn card-body" href="<%= '/'+ hijo.rutaRelativa %>">
-                            <%= hijo.nombre %>
-                        </a>
-                    </div>
-                    <% if ((i % 3) == 2) { %>
+        
+        <% if (data.hijos.length != 0) { %>
+            <div class="d-flex text-light">Directorios <%= data.hijos.length  %></div>
+            <div class="dir mt-2">
+                    <% data.hijos.forEach(function(hijo, i) { %> 
+                        <% if ((i % 4) == 0) { %>
+                            <div class="row">
+                        <% }  %>
+                        <div class="col card shadow m-2">
+                            <a class="btn card-body" href="<%= '/'+ hijo.rutaRelativa %>">
+                                <%= hijo.nombre %>
+                            </a>
                         </div>
-                    <% } %>
-                <% }) %>
-        </div>
+                        <% if ((i % 4) == 3) { %>
+                            </div>
+                        <% } %>
+                    <% }) %>
+            </div>
+        <% } %>
+        <% if (data.archivos.length != 0) { %>
         <div class="d-flex text-light">Archivos <%= data.archivos.length %></div>
         <div class="archivos mt-2">
                 <% data.archivos.forEach(function(ar, i) { %>
-                    <% if ((i % 3) == 0) { %>
+                    <% if ((i % 4) == 0) { %>
                         <div class="row">
                     <% } %>
                     <div class="col card shadow m-2">
@@ -47,14 +50,49 @@
                         <%= ar %>
                         </a>
                     </div>
-                    <% if ((i % 3) == 2) { %>
+                    <% if ((i % 4) == 3) { %>
                         </div>
                     <% } %>
                 <% }) %>
         </div>
+        <% } %>
     </div>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+*, html, body {
+    font-family: 'Open Sans', sans-serif;
+}
+body {
+    background-color: #3f3f3f;
+}
+::-webkit-scrollbar {
+    width: 5px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: #3f3f3f;
+    border-radius: .25rem;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.card {
+    transition: 0.5s;
+}
+.card:hover {
+    transition: 0.5s;
+    background-color: #3f3f3f;
+    border: 1px solid white;
+    color: white !important;
+}
+.card:hover .btn {
+    color: white !important;
+}
+</style> 
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 </body>
 </html>
