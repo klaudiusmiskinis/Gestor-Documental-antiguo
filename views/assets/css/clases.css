@@ -5,7 +5,22 @@
 }
 
 a:hover .invertido {
-    -webkit-filter: invert(50%);
-    filter: invert(50%);
+    -webkit-filter: invert(100%);
+    filter: invert(100%);
     transition: 0.5s;
+}
+
+div a:hover {
+    transition: 0.5s;
+}
+
+.peq {
+    font-size: 12px;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+}
+
+#regresar {
+    cursor: pointer;
 }
