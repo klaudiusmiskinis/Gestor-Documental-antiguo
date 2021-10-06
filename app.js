@@ -17,8 +17,9 @@ let allFiles = []
 let dirFilter = []
 let nomRutas = []
 
-// Funciones
+actualizar()
 
+// Funciones
 function getFolder(nom) {
     let data = {
         nom: nom,
@@ -115,9 +116,7 @@ function actualizar() {
     
     // LOOP para saber que archivo pertenece a que directorio
     allFiles.forEach(file => {   
-
         let separador = file.split('/')
-
         dirFilter.find(dir => {
 
             if(separador.length == 1 && dir.nombre == '/'){
@@ -142,15 +141,16 @@ function actualizar() {
         } else {
             transformado = nom
         }
+        
         if(nom.charAt(0) == '/'){
             app.get(transformado, (req, res) => {
-                console.log(nom)
+                console.log('a' ,transformado)
                 let data = getFolder(nom)
                 res.render('index.ejs', {data: data})
             })
         } else {
             app.get('/' + transformado, (req, res) =>{
-                console.log(nom)
+                console.log('b', '/' + transformado)
                 let data = getFolder(nom)
                 res.render('index.ejs', {data: data})
             })
