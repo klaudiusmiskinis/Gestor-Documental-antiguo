@@ -1,4 +1,11 @@
 .invertido {
     -webkit-filter: invert(100%);
     filter: invert(100%);
+    transition: 0.5s;
+}
+
+a:hover .invertido {
+    -webkit-filter: invert(50%);
+    filter: invert(50%);
+    transition: 0.5s;
 }
