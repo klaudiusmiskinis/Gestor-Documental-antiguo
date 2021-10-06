@@ -11,7 +11,7 @@ const fs = require('fs');
 
 
 // Variables
-const rutaRaiz = 'C:/Users/Usuari/Desktop/'
+const rutaRaiz = '//serverdoc/e/X_Dpt_RRHH i Qualitat/SGC y seguridad alimentaria/Sistema documental/'
 let allDirectories = []
 let allFiles = []
 let dirFilter = []
@@ -144,13 +144,11 @@ function actualizar() {
         
         if(nom.charAt(0) == '/'){
             app.get(transformado, (req, res) => {
-                console.log('a' ,transformado)
                 let data = getFolder(nom)
                 res.render('index.ejs', {data: data})
             })
         } else {
             app.get('/' + transformado, (req, res) =>{
-                console.log('b', '/' + transformado)
                 let data = getFolder(nom)
                 res.render('index.ejs', {data: data})
             })
@@ -171,6 +169,10 @@ app.get('/home', (req, res) => {
     actualizar();
     res.render('index.ejs', {data: getFolder('/')})
 })
+
+app.get('*', function(req, res) {
+    res.redirect('/');
+});
 
 
 app.listen(3000)
