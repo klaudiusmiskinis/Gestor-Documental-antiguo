@@ -9,18 +9,32 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/card.css">
     <link rel="icon" href="/assets/img/icon600x600.png"/>
-    <title><%= data.nom %> </title>
+    <% if(data.nom == '/') { %> 
+        <title>Home</title>
+    <% } else { %>
+        <title><%= data.nom %></title>
+    <% } %>
 </head>
 <body>
+
     <nav class="navbar navbar-light bg-light shadow-sm">
-        <div class="container-fluid justify-content-left">
-            <a class="navbar-brand" href="/home"><h5 class="mt-2">G. Documental</h5></a>
-            <div>
-                <span class="input-group-text">Te encuentras en: <%= ' ' + data.nom %></span>
+        <div class="row container-fluid p-2">
+            <div class="col-auto justify-content-left">
+                <a class="navbar-brand" href="/home"><h5 class="mt-2">Gestor Documental</h5></a>
+            </div>
+            <div class="col-auto justify-content-right text-center">
+                <a class="btn" id="volver"><img src="/assets/img/volver.png" class="img-fluid" width="25"></a>
+                <a class="btn" href="/home"><img src="/assets/img/home.png" class="img-fluid" width="35"></a>
             </div>
         </div>
     </nav>
-    <div class="container-fluid mt-2">
+    <div class="container-xxl">
+        <div class="col text-center text-light">
+            <p class="peq">Te encuentras en: <%= ' ' + data.nom %></p>
+        </div>
+    </div>
+
+    <div class="container-fluid mt-1">
         <% if (data.hijos.length != 0) { %>
             <div class="d-flex text-light">Directorios <%= data.hijos.length  %></div>
             <div class="dir mt-2">
@@ -38,6 +52,7 @@
                         <% } %>
                     <% }) %>
             </div>
+            <hr>
         <% } %>
         <% if (data.archivos.length != 0) { %>
         <div class="d-flex text-light">Archivos <%= data.archivos.length %></div>
@@ -55,20 +70,21 @@
                         </div>
                     <% } %>
                 <% }) %>
-        </div>
+            </div>
+            <hr>
         <% } %>
         <% if (data.archivos.length == 0 && data.hijos.length == 0) { %>
             <div class="container-fluid mt-5">
                 <div class="row">
-                    <div class="col text-center"><img src="assets/img/vacio.png" class="img-fluid invertido" width="150"></div>
+                    <div class="col text-center"><img src="/assets/img/vacio.png" class="img-fluid invertido" width="150"></div>
                 </div>
                 <div class="row mt-2">
                     <div class="col text-center justify-content-center invertido">
                         <h3>UPS, aqui no hay ni directorios ni archivos.</h3>
                     </div>
                 </div>
-                <div class="row">
-                    <a id="volver" class="btn"><img src="assets/img/volver.png" class="img-fluid invertido" width="40"></a>
+                <div class="row text-center">
+                    <a id="regresar"><img src="/assets/img/volver.png" class="img-fluid invertido" width="45"></a>
                 </div>
             </div>
         <% } %>
