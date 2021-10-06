@@ -11,7 +11,7 @@ const fs = require('fs');
 
 
 // Variables
-const rutaRaiz = '//Serverdoc/e/X_Dpt_RRHH i Qualitat/SGC y seguridad alimentaria/Sistema documental/'
+const rutaRaiz = 'C:/Users/Usuari/Desktop/'
 let allDirectories = []
 let allFiles = []
 let dirFilter = []
@@ -24,7 +24,7 @@ function getFolder(nom) {
         nom: nom,
         hijos: [],
         archivos: [],
-        css: [__dirname + 'views/assets/css/style.css', __dirname + 'views/assets/css/card.css']
+        css: __dirname
     }
 
     dirFilter.find(dir => {
@@ -139,14 +139,18 @@ function actualizar() {
     nomRutas.forEach(nom => {
         if(nom.includes(' ')){
             transformado = nom.split(' ').join('%20')
+        } else {
+            transformado = nom
         }
         if(nom.charAt(0) == '/'){
             app.get(transformado, (req, res) => {
+                console.log(nom)
                 let data = getFolder(nom)
                 res.render('index.ejs', {data: data})
             })
         } else {
             app.get('/' + transformado, (req, res) =>{
+                console.log(nom)
                 let data = getFolder(nom)
                 res.render('index.ejs', {data: data})
             })
@@ -156,7 +160,7 @@ function actualizar() {
 
 // CONFIG
 app.set('view engine', 'ejs')
-app.use(express.static(__dirname + '/views'))
+app.use('/assets', express.static('views/assets'));
 
 // HTTPs
 app.get('/', (req, res) => {
@@ -167,5 +171,6 @@ app.get('/home', (req, res) => {
     actualizar();
     res.render('index.ejs', {data: getFolder('/')})
 })
+
 
 app.listen(3000)
