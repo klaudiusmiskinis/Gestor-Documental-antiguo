@@ -24,7 +24,7 @@ function getFolder(nom) {
         nom: nom,
         hijos: [],
         archivos: [],
-        css: [__dirname + ]
+        css: [__dirname + 'views/assets/css/style.css', __dirname + 'views/assets/css/card.css']
     }
 
     dirFilter.find(dir => {
