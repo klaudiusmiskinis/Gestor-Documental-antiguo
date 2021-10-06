@@ -24,3 +24,55 @@ div a:hover {
 #regresar {
     cursor: pointer;
 }
+
+.dropzone-wrapper {
+    border: 2px dashed #ccc;
+    color: #ccc;
+    position: relative;
+    height: 150px;
+    transition: 0.5s;
+}
+   
+.dropzone-desc {
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    width: 40%;
+    top: 50px;
+    font-size: 16px;
+}
+   
+  .dropzone,
+  .dropzone:focus {
+    position: absolute;
+    outline: none !important;
+    width: 100%;
+    height: 150px;
+    cursor: pointer;
+    opacity: 0;
+  }
+   
+  .dropzone-wrapper:hover,
+  .dropzone-wrapper.dragover {
+    background: #ecf0f5;
+    transition: 0.5s;
+    color: #3f3f3f;
+    border-color: #3f3f3f;
+  }
+   
+  .preview-zone {
+    text-align: center;
+  }
+   
+  .preview-zone .box {
+    box-shadow: none;
+    border-radius: 0;
+    margin-bottom: 0;
+  }
+   
+  .btn-primary {
+    background-color: crimson;
+    border: 1px solid #212121;
+  }
