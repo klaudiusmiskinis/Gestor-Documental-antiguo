@@ -4,11 +4,12 @@ const { get } = require('http');
 const { arch, type } = require('os');
 const { sep } = require('path');
 const { render } = require('ejs');
+const fileupload = require("express-fileupload");
+const bodyParser = require('body-parser')
 const express = require('express')
 var wrench = require("wrench");
 const app = express()
 const fs = require('fs');
-
 
 // Variables
 const rutaRaiz = '//serverdoc/e/X_Dpt_RRHH i Qualitat/SGC y seguridad alimentaria/Sistema documental/'
@@ -29,10 +30,11 @@ function getFolder(nom) {
     }
 
     dirFilter.find(dir => {
-        //Primero buscamos al padre
         if(dir.rutaRelativa == nom) {  //PARA LOS SUBDIR DE LA RUTA PADRE. PADRE = '/'
             data.archivos = dir.archivos;
         } else if (dir.nombre == nom + '/'){
+            data.archivos = dir.archivos;
+        } else if(dir.nombre == nom){
             data.archivos = dir.archivos;
         }
 
@@ -146,13 +148,15 @@ function actualizar() {
             app.get(transformado, (req, res) => {
                 actualizar();
                 let data = getFolder(nom)
-                res.render('index.ejs', {data: data})
+                res.cookie('position', nom);
+                res.render('index.ejs', {data: data});
             })
         } else {
             app.get('/' + transformado, (req, res) =>{
                 actualizar();
                 let data = getFolder(nom)
-                res.render('index.ejs', {data: data})
+                res.cookie('position', nom);
+                res.render('index.ejs', {data: data});
             })
         }
     })
@@ -160,17 +164,47 @@ function actualizar() {
 
 // CONFIG
 app.set('view engine', 'ejs')
+app.use(express.urlencoded({ extended: false }))
+app.use(fileupload());
 app.use('/assets', express.static('views/assets'));
 app.use('/script', express.static('views/script'));
 
 // HTTPs
+// GET
+app.get('/', (req, res) => {
+    res.redirect('/home');
+});
+
 app.get('/home', (req, res) => {
     actualizar();
+    res.cookie('position','/');
     res.render('index.ejs', {data: getFolder('/')})
 })
 
-app.get('/', (req, res) => {
-    res.redirect('/home');
+// POST
+app.post('/subir', async (req, res) => {
+    if (req.files.archivoSubir) {
+        var cookie = req.headers.cookie
+        cookie = cookie.split('=')[1]
+        let transformado = '';
+        if(cookie == '%2F') {
+            transformado = '/';
+            cookie = '/'
+        } else {
+            transformado = cookie.split('%20').join('/')
+        }
+        let rutaArchivo = rutaRaiz + transformado + req.files.archivoSubir.name
+        try {
+            if(!fs.existsSync(rutaArchivo)){
+                await req.files.archivoSubir.mv(rutaArchivo) 
+            } else {
+                console.log('Existe')
+            }
+        } catch(e){
+            console.log(e)
+        }
+    }
+    res.redirect(cookie)
 });
 
 app.listen(3000)
