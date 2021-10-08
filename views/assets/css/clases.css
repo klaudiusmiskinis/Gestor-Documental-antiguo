@@ -24,3 +24,19 @@ div a:hover {
 #regresar {
     cursor: pointer;
 }
+
+.btn-close:focus, .btn:focus {
+    box-shadow: 0 0 0 0.25rem transparent !important;
+}
+
+.card .btn-close:hover {
+    transition: 0.5s;
+    color: white !important;
+    filter: invert(100%);
+}
+
+.card:hover .btn-close {
+    transition: 0.5s;
+    color: white !important;
+    filter: invert(100%);
+}

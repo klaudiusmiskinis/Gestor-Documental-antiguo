@@ -16,6 +16,7 @@
     <% } %>
 </head>
 <body>
+    <!-- NAVBAR SUPERIOR -->
     <nav class="navbar navbar-light bg-light shadow-sm">
         <div class="row container-fluid p-2">
             <div class="col-auto justify-content-left">
@@ -27,11 +28,15 @@
             </div>
         </div>
     </nav>
+
+    <!-- CONTENEDOR DE TU POSICION -->
     <div class="container-fluid">
         <div class="col text-center text-light">
             <p class="peq">Te encuentras en: <%= ' ' + data.nom %></p>
         </div>
     </div>
+
+    <!-- CONTENEDOR DE DIRECTORIOS -->
     <div class="container-fluid mt-1">
         <% if (data.hijos.length != 0) { %>
             <div class="d-flex text-light">Directorios <%= data.hijos.length  %></div>
@@ -53,6 +58,7 @@
             <hr>
         <% } %>
         <% if (data.archivos.length > -1) { %>
+        <!-- CONTENEDOR DE ARCHIVOS -->
         <div class="d-flex text-light">Archivos <%= data.archivos.length %></div>
         <div class="mt-2">
             <% data.archivos.forEach(function(ar, i) { %>
@@ -60,9 +66,16 @@
                     <div class="row">
                 <% } %>
                 <div class="col card shadow-sm m-2">
-                    <a class="btn card-body archivo">
-                    <%=ar%>
-                    </a>
+                    <div class="d-flex flex-grow-1">
+                        <div class="text-center">
+                            <a class="btn card-body archivo">
+                                <%=ar%>
+                            </a>
+                        </div>
+                        <div class="justify-content-right ms-auto">
+                            <button type="button" class="btn-close mt-3"></button>
+                        </div>
+                    </div>
                 </div>
                 <% if ((i % 3) == 2) { %>
                     </div>
@@ -86,16 +99,16 @@
                 </div>
             </div>
         <% } %>
-    </div>
     <div class="d-flex text-light">Subir archivo</div>
-    <div class="row subir-archivo mt-3">
         <form action="/subir" method="post" enctype="multipart/form-data">
-        <div class="col">
-            <input type="file" class="form-control efecto" name="archivoSubir" required>
-        </div>
-        <div class="col d-grid mt-2 justify-content-center">
-            <input type="submit" class="btn card" value="Subir archivo">
-        </div>
+            <div class="row subir-archivo mt-3">
+                <div class="col">
+                    <input type="file" class="form-control card" name="archivoSubir" required>
+                </div>
+                <div class="col d-grid mt-2 justify-content-center">
+                    <input type="submit" class="btn card" value="Subir archivo">
+                </div>
+            </div>
         </form> 
     </div>
 <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
