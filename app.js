@@ -231,12 +231,11 @@ app.delete('/eliminar', async(req, res) => {
     }
 
     try {
-        console.log('Eliminando', rutaArchivo)
-        fs.unlinkSync(rutaArchivo)
+        fs.unlinkSync(rutaArchivo);
     } catch(err) {
-       console.error(err)
+       console.error(err);
     }
-    res.redirect(cookie)
+    res.redirect(cookie);
 })
 
 app.listen(3000)
