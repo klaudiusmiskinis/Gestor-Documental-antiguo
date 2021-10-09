@@ -1,3 +1,4 @@
+require('dotenv').config(); 
 const { throws } = require('assert');
 const { dir } = require('console');
 const { get } = require('http');
@@ -12,7 +13,7 @@ const app = express()
 const fs = require('fs');
 
 // Variables
-const rutaRaiz = process.env.RUTALOCAL
+const rutaRaiz = process.env.RUTA_LOCAL
 let allDirectories = []
 let allFiles = []
 let dirFilter = []
