@@ -190,7 +190,6 @@ app.post('/subir', async (req, res) => {
         let transformado = '';
         let rutaArchivo = '';
         var cookie = req.headers.cookie
-        console.log('A', cookie)
         cookie = cookie.split('=')[1]
         if(cookie == '%2F') {
             transformado = '/';
@@ -198,7 +197,6 @@ app.post('/subir', async (req, res) => {
         } else {
             transformado = cookie.split('%20').join('/')
         }
-        console.log('A', transformado, cookie)
         rutaArchivo = rutaRaiz + transformado + req.files.archivoSubir.name
 
         try {
@@ -229,9 +227,9 @@ app.delete('/eliminar', async(req, res) => {
         transformado = cookie.split('%2F').join('/')
         rutaArchivo = rutaRaiz + transformado + req.body.archivo
     }
-
+    console.log(rutaArchivo)
     try {
-        fs.unlinkSync(rutaArchivo);
+        await fs.unlinkSync(rutaArchivo);
     } catch(err) {
        console.error(err);
     }
