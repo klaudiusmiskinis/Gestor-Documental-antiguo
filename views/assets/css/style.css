@@ -22,3 +22,9 @@ hr {
     margin: 1em 0; 
     padding: 0; 
 }
+
+@media only screen and (max-width: 900px) {
+    .btn {
+      font-size: 14px;
+    }
+  }
