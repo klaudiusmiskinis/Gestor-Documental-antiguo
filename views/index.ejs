@@ -60,7 +60,7 @@
     <% } %>
 
     <!-- CONTENEDOR DE ARCHIVOS -->
-    <% if (data.archivos.length > -1) { %>
+    <% if (data.archivos.length > 0) { %>
     <div class="d-flex text-light">Archivos <%= data.archivos.length %></div>
     <div class="container-fluid mt-2">
         <% data.archivos.forEach(function(ar, i) { %>
@@ -108,17 +108,19 @@
     <% } %>
 
     <!-- APARTADO PARA SUBIR ARCHIVOS -->
-    <div class="d-flex text-light">Subir archivo</div>
-        <form action="/subir" method="post" enctype="multipart/form-data">
-            <div class="row subir-archivo mt-3">
-                <div class="col">
-                    <input type="file" class="form-control card" id="formFileMultiple" name="archivoSubir" required>
-                    <div class="col d-grid mt-2 justify-content-center">
-                        <input type="submit" class="btn card" value="Subir archivo">
+        <div class="container-fluid">
+            <div class="d-flex text-light">Subir archivo</div>
+                <form action="/subir" method="post" enctype="multipart/form-data">
+                    <div class="row subir-archivo mt-3">
+                        <div class="col">
+                            <input type="file" class="form-control card" id="formFileMultiple" name="archivoSubir" required>
+                            <div class="col d-grid mt-2 justify-content-center">
+                                <input type="submit" class="btn card" value="Subir archivo">
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </form> 
+                </form>
+            </div> 
     </div>
 
 <!-- SCRIPTS -->
