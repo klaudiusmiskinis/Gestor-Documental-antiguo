@@ -31,16 +31,16 @@
 
     <!-- CONTENEDOR DE TU POSICION -->
     <div class="container-fluid">
-        <div class="col text-center text-light">
+        <div class="col text-center rounded text-light">
             <p class="peq">Te encuentras en: <%= ' ' + data.nom %></p>
         </div>
     </div>
 
-    <!-- CONTENEDOR DE DIRECTORIOS -->
-    <div class="container-fluid mt-1">
         <% if (data.hijos.length != 0) { %>
+        <!-- CONTENEDOR DE DIRECTORIOS -->
+        <div class="container-fluid mt-1">
         <div class="d-flex text-light">Directorios <%= data.hijos.length  %></div>
-            <div class="dir mt-2">
+            <div class="dir  mt-2">
                 <% data.hijos.forEach(function(hijo, i) { %> 
                 <% if ((i % 3) == 0) { %>
                 <div class="row">
@@ -52,59 +52,62 @@
                     </div>
                 <% if ((i % 3) == 2) { %>
                 </div>
+            <% } %>
+        <% }) %>
+        </div>
+    </div>
+    <hr>
+    <% } %>
+
+    <!-- CONTENEDOR DE ARCHIVOS -->
+    <% if (data.archivos.length > -1) { %>
+    <div class="d-flex text-light">Archivos <%= data.archivos.length %></div>
+    <div class="container-fluid mt-2">
+        <% data.archivos.forEach(function(ar, i) { %>
+        <% if ((i % 3) == 0) { %>
+            <div class="row">
+            <% } %>
+            <div class="col card shadow-sm m-2">
+                <div class="d-flex">
+                    <div>
+                        <a class="btn text-break card-body archivo">
+                        <%=ar%>
+                        </a>
+                    </div>
+                    <div class="justify-content-right align-self-center ms-auto px-1">
+                        <form action="/eliminar?_method=DELETE" method="POST">
+                            <input type="text" name="archivo" class="hide" value="<%=ar%>">
+                            <button type="submit" class="btn-close mt-3 cerrar"></button>
+                        </form>
+                    </div>
+                </div>
             </div>
-        <% } %>
+            <% if ((i % 3) == 2) { %>
+            </div>
+            <% } %>
         <% }) %>
     </div>
     <hr>
-        <% } %>
-        <% if (data.archivos.length > -1) { %>
-        <!-- CONTENEDOR DE ARCHIVOS -->
-        <div class="d-flex text-light">Archivos <%= data.archivos.length %></div>
-        <div class="mt-2">
-            <% data.archivos.forEach(function(ar, i) { %>
-                <% if ((i % 3) == 0) { %>
-                <div class="row">
-                <% } %>
-                <div class="col card shadow-sm m-2">
-                    <div class="d-flex">
-                        <div>
-                            <a class="btn text-break card-body archivo">
-                                <%=ar%>
-                            </a>
-                        </div>
-                        <div class="justify-content-right align-self-center ms-auto px-1">
-                            <form action="/eliminar?_method=DELETE" method="POST">
-                                <input type="text" name="archivo" class="hide" value="<%=ar%>">
-                                <button type="submit" class="btn-close mt-3 cerrar"></button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <% if ((i % 3) == 2) { %>
-                    </div>
-                </div>
-                <% } %>
-            <% }) %>
-        </div>
-        <hr>
-        <% } %>
-        <!-- CONTENIDO EN CASO DE NO HABER NI DIRECTORIOS NI ARCHIVOS -->
-        <% if (data.archivos.length == 0 && data.hijos.length == 0) { %>
-            <div class="container-fluid mt-5">
-                <div class="row">
-                    <div class="col text-center"><img src="/assets/img/vacio.png" class="img-fluid invertido" width="150"></div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col text-center justify-content-center invertido">
-                        <h3>UPS, aqui no hay ni directorios ni archivos.</h3>
-                    </div>
-                </div>
-                <div class="row text-center">
-                    <a id="regresar"><img src="/assets/img/volver.png" class="img-fluid invertido" width="45"></a>
+    <% } %>
+
+    <% if (data.archivos.length == 0 && data.hijos.length == 0) { %>
+    <!-- CONTENIDO EN CASO DE NO HABER NI DIRECTORIOS NI ARCHIVOS -->
+        <div class="container-fluid mt-5">
+            <div class="row">
+                <div class="col text-center"><img src="/assets/img/vacio.png" class="img-fluid invertido" width="150"></div>
+            </div>
+            <div class="row mt-2">
+                <div class="col text-center justify-content-center invertido">
+                    <h3>UPS, aqui no hay ni directorios ni archivos.</h3>
                 </div>
             </div>
-        <% } %>
+            <div class="row text-center">
+                <a id="regresar"><img src="/assets/img/volver.png" class="img-fluid invertido" width="45"></a>
+            </div>
+        </div>
+    <% } %>
+
+    <!-- APARTADO PARA SUBIR ARCHIVOS -->
     <div class="d-flex text-light">Subir archivo</div>
         <form action="/subir" method="post" enctype="multipart/form-data">
             <div class="row subir-archivo mt-3">
@@ -125,5 +128,6 @@
     <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script type="text/javascript" src="/script/seleccionado.js"></script>
+    <script type="text/javascript" src="sweetalert2.all.min.js"></script>
 </body>
 </html>
