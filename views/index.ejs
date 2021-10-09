@@ -38,7 +38,7 @@
 
         <% if (data.hijos.length != 0) { %>
         <!-- CONTENEDOR DE DIRECTORIOS -->
-        <div class="container-fluid mt-1">
+        <div class="container-fluid mt-2">
         <div class="d-flex text-light">Directorios <%= data.hijos.length  %></div>
             <div class="dir mt-2">
                 <% data.hijos.forEach(function(hijo, i) { %> 
@@ -113,16 +113,16 @@
     <!-- APARTADO PARA SUBIR ARCHIVOS -->
         <div class="container-fluid">
             <div class="d-flex text-light">Subir archivo</div>
-            <form action="/subir" method="post" enctype="multipart/form-data">
-                <div class="row subir-archivo mt-3">
-                    <div class="col">
+            <div class="row subir-archivo mt-3">
+                <div class="col">
+                    <form action="/subir" method="post" enctype="multipart/form-data">
                         <input type="file" class="form-control card" id="formFileMultiple" name="archivoSubir" required>
                         <div class="col d-grid mt-2 justify-content-center">
                             <input type="submit" class="btn card" value="Subir archivo">
                         </div>
-                    </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div> 
 
 <!-- SCRIPTS -->
