@@ -52,6 +52,7 @@
                         </div>
                         <% if ((i % 3) == 2) { %>
                             </div>
+                        </div>
                         <% } %>
                     <% }) %>
             </div>
@@ -63,27 +64,32 @@
         <div class="mt-2">
             <% data.archivos.forEach(function(ar, i) { %>
                 <% if ((i % 3) == 0) { %>
-                    <div class="row">
+                <div class="row">
                 <% } %>
                 <div class="col card shadow-sm m-2">
-                    <div class="d-flex flex-grow-1">
-                        <div class="text-center">
-                            <a class="btn card-body archivo">
+                    <div class="d-flex">
+                        <div>
+                            <a class="btn text-break card-body archivo">
                                 <%=ar%>
                             </a>
                         </div>
-                        <div class="justify-content-right ms-auto">
-                            <button type="button" class="btn-close mt-3"></button>
+                        <div class="justify-content-right align-self-center ms-auto px-1">
+                            <form action="/eliminar?_method=DELETE" method="POST">
+                                <input type="text" name="archivo" class="hide" value="<%=ar%>">
+                                <button type="submit" class="btn-close mt-3 cerrar"></button>
+                            </form>
                         </div>
                     </div>
                 </div>
                 <% if ((i % 3) == 2) { %>
                     </div>
+                </div>
                 <% } %>
             <% }) %>
         </div>
-            <hr>
+        <hr>
         <% } %>
+        <!-- CONTENIDO EN CASO DE NO HABER NI DIRECTORIOS NI ARCHIVOS -->
         <% if (data.archivos.length == 0 && data.hijos.length == 0) { %>
             <div class="container-fluid mt-5">
                 <div class="row">
@@ -103,10 +109,10 @@
         <form action="/subir" method="post" enctype="multipart/form-data">
             <div class="row subir-archivo mt-3">
                 <div class="col">
-                    <input type="file" class="form-control card" name="archivoSubir" required>
-                </div>
-                <div class="col d-grid mt-2 justify-content-center">
-                    <input type="submit" class="btn card" value="Subir archivo">
+                    <input type="file" class="form-control card" id="formFileMultiple" name="archivoSubir" required>
+                    <div class="col d-grid mt-2 justify-content-center">
+                        <input type="submit" class="btn card" value="Subir archivo">
+                    </div>
                 </div>
             </div>
         </form> 
