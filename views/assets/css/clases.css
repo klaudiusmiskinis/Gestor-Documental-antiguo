@@ -16,9 +16,9 @@ div a:hover {
 
 .peq {
     font-size: 12px;
-    border-bottom: 1px solid #ccc;
-    border-right: 1px solid #ccc;
-    border-left: 1px solid #ccc;
+    border-bottom: 1px solid var(--b);
+    border-right: 1px solid var(--b);
+    border-left: 1px solid var(--b);
 }
 
 #regresar {
@@ -31,13 +31,13 @@ div a:hover {
 
 .card .btn-close:hover {
     transition: 0.5s;
-    color: white !important;
+    color: var(--b) !important;
     filter: invert(100%);
 }
 
 .card:hover .btn-close {
     transition: 0.5s;
-    color: white !important;
+    color: var(--b) !important;
     filter: invert(100%);
 }
 

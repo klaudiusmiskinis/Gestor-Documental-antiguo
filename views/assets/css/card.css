@@ -4,11 +4,11 @@
 
 .card:hover {
     transition: 0.5s;
-    background-color: #3f3f3f;
-    border: 1px solid white;
-    color: white !important;
+    background-color: var(--col);
+    border: 1px solid var(--b);
+    color: var(--b) !important;
 }
 
 .card:hover .btn {
-    color: white !important;
+    color: var(--b) !important;
 }

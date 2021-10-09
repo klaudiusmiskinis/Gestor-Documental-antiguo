@@ -1,24 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
 
+:root {
+    --col: #00928b;
+    --b: #fff;
+}
+
 *, html, body {
     font-family: 'Open Sans', sans-serif;
 }
 
 body {
-    background-color: #3f3f3f;
+    background-color: var(--col);
 }
 
 ::selection {
     filter: invert(100%);
-    background-color: #3f3f3f;
-    color: white;
+    background-color: var(--col);
+    color: var(--b);
 }
 
 hr { 
     display: block; 
     height: 1px;
     border: 0; 
-    border-top: 1px solid #ccc;
+    border-top: 1px solid var(--b);
     margin: 1em 0; 
     padding: 0; 
 }
@@ -27,4 +32,4 @@ hr {
     .btn {
       font-size: 14px;
     }
-  }
+}

@@ -7,7 +7,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #3f3f3f;
+    background: var(--col);
     border-radius: .25rem;
 }
 

@@ -39,24 +39,24 @@
     <!-- CONTENEDOR DE DIRECTORIOS -->
     <div class="container-fluid mt-1">
         <% if (data.hijos.length != 0) { %>
-            <div class="d-flex text-light">Directorios <%= data.hijos.length  %></div>
+        <div class="d-flex text-light">Directorios <%= data.hijos.length  %></div>
             <div class="dir mt-2">
-                    <% data.hijos.forEach(function(hijo, i) { %> 
-                        <% if ((i % 3) == 0) { %>
-                            <div class="row">
-                        <% }  %>
-                        <div class="col card shadow-sm m-2">
-                            <a class="btn card-body" href="<%= '/'+ hijo.rutaRelativa %>">
-                                <%= hijo.nombre %>
-                            </a>
-                        </div>
-                        <% if ((i % 3) == 2) { %>
-                            </div>
-                        </div>
-                        <% } %>
-                    <% }) %>
+                <% data.hijos.forEach(function(hijo, i) { %> 
+                <% if ((i % 3) == 0) { %>
+                <div class="row">
+                <% }  %>
+                    <div class="col card shadow-sm m-2">
+                        <a class="btn card-body" href="<%= '/'+ hijo.rutaRelativa %>">
+                            <%= hijo.nombre %>
+                        </a>
+                    </div>
+                <% if ((i % 3) == 2) { %>
+                </div>
             </div>
-            <hr>
+        <% } %>
+        <% }) %>
+    </div>
+    <hr>
         <% } %>
         <% if (data.archivos.length > -1) { %>
         <!-- CONTENEDOR DE ARCHIVOS -->
@@ -117,11 +117,13 @@
             </div>
         </form> 
     </div>
-<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<script type="text/javascript" src="/script/seleccionado.js"></script>
+
+<!-- SCRIPTS -->
+    <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script type="text/javascript" src="/script/seleccionado.js"></script>
 </body>
 </html>
