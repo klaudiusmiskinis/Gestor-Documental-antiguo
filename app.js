@@ -7,6 +7,7 @@ const { sep } = require('path');
 const { render } = require('ejs');
 const fileupload = require("express-fileupload");
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override');
 const express = require('express')
 var wrench = require("wrench");
 const app = express()
@@ -166,6 +167,7 @@ function actualizar() {
 // CONFIG
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
+app.use(methodOverride('_method'));
 app.use(fileupload());
 app.use('/assets', express.static('views/assets'));
 app.use('/script', express.static('views/script'));
@@ -185,16 +187,20 @@ app.get('/home', (req, res) => {
 // POST
 app.post('/subir', async (req, res) => {
     if (req.files.archivoSubir) {
-        var cookie = req.headers.cookie
-        cookie = cookie.split('=')[1]
         let transformado = '';
+        let rutaArchivo = '';
+        var cookie = req.headers.cookie
+        console.log('A', cookie)
+        cookie = cookie.split('=')[1]
         if(cookie == '%2F') {
             transformado = '/';
             cookie = '/'
         } else {
             transformado = cookie.split('%20').join('/')
         }
-        let rutaArchivo = rutaRaiz + transformado + req.files.archivoSubir.name
+        console.log('A', transformado, cookie)
+        rutaArchivo = rutaRaiz + transformado + req.files.archivoSubir.name
+
         try {
             if(!fs.existsSync(rutaArchivo)){
                 await req.files.archivoSubir.mv(rutaArchivo) 
@@ -207,5 +213,30 @@ app.post('/subir', async (req, res) => {
     }
     res.redirect(cookie)
 });
+
+// DELETE
+app.delete('/eliminar', async(req, res) => {
+    let rutaArchivo = '';
+    let transformado = '';
+    const archivo = req.body.archivo
+    var cookie = req.headers.cookie
+    cookie = cookie.split('=')[1]
+    if(cookie == '%2F') {
+        transformado = '/';
+        cookie = '/'
+        rutaArchivo = rutaRaiz + req.body.archivo
+    } else if(cookie.includes('%2F')){
+        transformado = cookie.split('%2F').join('/')
+        rutaArchivo = rutaRaiz + transformado + req.body.archivo
+    }
+
+    try {
+        console.log('Eliminando', rutaArchivo)
+        fs.unlinkSync(rutaArchivo)
+    } catch(err) {
+       console.error(err)
+    }
+    res.redirect(cookie)
+})
 
 app.listen(3000)
