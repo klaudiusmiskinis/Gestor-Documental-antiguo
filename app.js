@@ -12,7 +12,7 @@ const app = express()
 const fs = require('fs');
 
 // Variables
-const rutaRaiz = '//serverdoc/e/X_Dpt_RRHH i Qualitat/SGC y seguridad alimentaria/Sistema documental/'
+const rutaRaiz = process.env.RUTALOCAL
 let allDirectories = []
 let allFiles = []
 let dirFilter = []
