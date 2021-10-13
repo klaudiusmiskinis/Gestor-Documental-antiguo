@@ -9,7 +9,7 @@ const fileupload = require("express-fileupload");
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override');
 const express = require('express')
-var wrench = require("wrench");
+const wrench = require("wrench");
 const app = express()
 const fs = require('fs');
 
@@ -23,53 +23,50 @@ let nomRutas = []
 actualizar()
 
 // Funciones
-function getFolder(nom) {
+function getFolder(nom){
     let data = {
         nom: nom,
         hijos: [],
         archivos: [],
-        css: __dirname
     }
 
     dirFilter.find(dir => {
-        if(dir.rutaRelativa == nom) {  //PARA LOS SUBDIR DE LA RUTA PADRE. PADRE = '/'
-            data.archivos = dir.archivos;
-        } else if (dir.nombre == nom + '/'){
-            data.archivos = dir.archivos;
-        } else if(dir.nombre == nom){
-            data.archivos = dir.archivos;
-        }
-
-        //Buscamos a los subdirectorios (hijos)
         if (dir.padre == nom){
             data.hijos.push(dir);
-        } else if ((nom + '/' + dir.nombre) == dir.rutaRelativa) {
+        } else if ((nom + '/' + dir.nombre) == dir.rutaRelativa){
             data.hijos.push(dir);
         }
+
+        if (dir.nombre == '/'){
+            data.archivos = dir.archivos;
+        } else if(dir.rutaRelativa == nom){ 
+            data.archivos = dir.archivos;
+        } 
     })
+
     return data;
 }
 
 function rutas(dir){
-    if(dir.padre == rutaRaiz) {
+    if(dir.padre == rutaRaiz){
         return dir.nombre
     } else {
         return dir.rutaRelativa
     }
 }
 
-function actualizar() {
+function actualizar(){
     allDirectories = []
     allFiles = []
     dirFilter = []
     nomRutas = []
 
     var files = wrench.readdirSyncRecursive(rutaRaiz);
-    wrench.readdirRecursive(rutaRaiz, function (error, files) {});
+    wrench.readdirRecursive(rutaRaiz, function (error, files){});
 
     files.forEach(file => {
         file = file.replace(/\\/g, '/');
-        if(fs.lstatSync(rutaRaiz + file).isDirectory()) {
+        if(fs.lstatSync(rutaRaiz + file).isDirectory()){
             allDirectories.push(file)
         } else if(fs.lstatSync(rutaRaiz + file).isFile()){
             allFiles.push(file)
@@ -89,8 +86,8 @@ function actualizar() {
     allDirectories.forEach(dir => {
         let separador = dir.split('/')
         let directorio = getPadre(separador)
-        function getPadre(sep) {
-            if (sep.length > 1) {
+        function getPadre(sep){
+            if (sep.length > 1){
                 let dirObj = {
                     nombre: sep[sep.length -1],
                     padre: sep[sep.length -2] + '/',
@@ -125,7 +122,7 @@ function actualizar() {
 
             if(separador.length == 1 && dir.nombre == '/'){
                 dir.archivos.push(separador[0])
-            } else if(separador.length == 2 && dir.nombre == separador[0] && dir.padre == '/') {
+            } else if(separador.length == 2 && dir.nombre == separador[0] && dir.padre == '/'){
                 dir.archivos.push(separador[1])
             }
 
@@ -140,12 +137,7 @@ function actualizar() {
 
     let transformado = '';
     nomRutas.forEach(nom => {
-        if(nom.includes(' ')){
-            transformado = nom.split(' ').join('%20')
-        } else {
-            transformado = nom
-        }
-        
+        transformado = encodeURI(nom)
         if(nom.charAt(0) == '/'){
             app.get(transformado, (req, res) => {
                 actualizar();
@@ -186,54 +178,53 @@ app.get('/home', (req, res) => {
 
 // POST
 app.post('/subir', async (req, res) => {
-    if (req.files.archivoSubir) {
-        let transformado = '';
+    if (req.files.archivoSubir){
         let rutaArchivo = '';
-        var cookie = req.headers.cookie
-        cookie = cookie.split('=')[1]
-        if(cookie == '%2F') {
-            transformado = '/';
-            cookie = '/'
-        } else {
-            transformado = cookie.split('%20').join('/')
-        }
-        rutaArchivo = rutaRaiz + transformado + req.files.archivoSubir.name
+        let redirect = '';
+        let decode = req.headers.cookie.split('=')[1];
+        decode = decode.split('%2F')[1];
 
+        if((req.headers.cookie).split('=')[1] == '%2F'){
+            rutaArchivo = rutaRaiz + req.files.archivoSubir.name;
+            redirect = '/';
+        } else {
+            rutaArchivo = rutaRaiz + decode + '/' + req.files.archivoSubir.name;
+            redirect = redirect.split('%2F').join('/');
+        }
+        console.log('AAAAAAAAAAAAAAAAAAAAAAA', redirect)
         try {
             if(!fs.existsSync(rutaArchivo)){
                 await req.files.archivoSubir.mv(rutaArchivo) 
             } else {
-                console.log('Existe')
+                console.log('Existe');
             }
         } catch(e){
-            console.log(e)
+            console.log(e);
         }
     }
-    res.redirect(cookie)
+    res.redirect(redirect);
 });
 
 // DELETE
 app.delete('/eliminar', async(req, res) => {
     let rutaArchivo = '';
-    let transformado = '';
-    const archivo = req.body.archivo
-    var cookie = req.headers.cookie
-    cookie = cookie.split('=')[1]
-    if(cookie == '%2F') {
-        transformado = '/';
-        cookie = '/'
-        rutaArchivo = rutaRaiz + req.body.archivo
-    } else if(cookie.includes('%2F')){
-        transformado = cookie.split('%2F').join('/')
-        rutaArchivo = rutaRaiz + transformado + req.body.archivo
+    let redirect = '';
+    let decode = decodeURI(req.headers.cookie)
+    decode = decode.split('=')[1];
+
+    if(decode == '%2F'){
+        rutaArchivo = rutaRaiz + req.body.archivo;
+        redirect = '/';
+    } else {
+        rutaArchivo = rutaRaiz + decode + '/' + req.body.archivo;
+        redirect = (req.headers.cookie).split('=')[1];
     }
-    console.log(rutaArchivo)
     try {
         await fs.unlinkSync(rutaArchivo);
-    } catch(err) {
+    } catch(err){
        console.error(err);
     }
-    res.redirect(cookie);
+    res.redirect(redirect);
 })
 
-app.listen(3000)
+app.listen(3000);
