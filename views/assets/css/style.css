@@ -28,7 +28,7 @@ hr {
     padding: 0; 
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 900px){
     .btn {
       font-size: 14px;
     }

@@ -1,30 +1,30 @@
-if(document.getElementById('volver')) {
-    document.getElementById('volver').onclick = function() {
+if(document.getElementById('volver')){
+    document.getElementById('volver').onclick = function(){
         volver()
     }
 }
 
-if(document.getElementById('regresar')) {
-    document.getElementById('regresar').onclick = function() {
+if(document.getElementById('regresar')){
+    document.getElementById('regresar').onclick = function(){
         volver()
     }
 }
 
 //FUNCTION
-function volver() {
+function volver(){
     window.history.back()
     console.log(history)
 }
 
-window.onload = function() {
+window.onload = function(){
     let elementos = document.getElementsByClassName('cerrar')
-    for(let i = 0; i < elementos.length; i++) {
+    for(let i = 0; i < elementos.length; i++){
         elementos[i].addEventListener('click', eliminar())
     }
 }
 
 
-function eliminar() {
+function eliminar(){
     Swal.fire({
         title: '¿Estás seguro de que quieres eliminar este archivo?',
         text: "Una vez eliminado, no se podrá recuperar.",
@@ -35,7 +35,7 @@ function eliminar() {
         confirmButtonText: 'Si, eliminar.'
     })
     .then((result) => {
-        if (result.isConfirmed) {
+        if (result.isConfirmed){
             Swal.fire(
                 '¡Eliminado!',
                 'El archivo ha sido eliminado.',
