@@ -22,6 +22,7 @@ window.onload = function(){
         elementos[i].addEventListener('click', eliminar, false);
         elementos[i].id = 'cerrar' + i;
         elementos[i].name = 'formEliminar' + i;
+        console.log(elementos[i])
     };
 };
 
@@ -34,7 +35,6 @@ function eliminar(id, tiempo){
 
 function eliminar(){
     event.preventDefault();
-    console.log(this.id, this.name);
 
     Swal.fire({
         title: '¿Estás seguro de que quieres eliminar este archivo?',
