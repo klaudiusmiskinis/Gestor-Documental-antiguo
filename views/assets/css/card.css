@@ -12,3 +12,7 @@
 .card:hover .btn {
     color: var(--b) !important;
 }
+
+.card:hover .imagen-negra {
+    filter: invert(100%);
+}
