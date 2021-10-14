@@ -1,3 +1,4 @@
+document.getElementById('container-water').style.display = 'none';
 if(document.getElementById('volver')){
     document.getElementById('volver').onclick = function(){
         volver();
@@ -17,58 +18,47 @@ function volver(){
 };
 
 window.onload = function(){
+    if (document.title == 'Home') {
+        // $(document.getElementById('container-water')).slideDown();
+    } else {
+        
+    }
     let elementos = document.getElementsByClassName('cerrar');
     for (var i = 0; i < elementos.length; i++) {
         elementos[i].addEventListener('click', eliminar, false);
         elementos[i].id = 'cerrar' + i;
         elementos[i].name = 'formEliminar' + i;
-        console.log(elementos[i])
     };
-};
-
-function eliminar(id, tiempo){
-    setTimeout(function(){ 
-        document.getElementById(id).submit()
-     }, tiempo);
+    setTimeout(function() {
+        if (document.title == 'Home') {
+            // $(document.getElementById('container-water')).slideUp();
+        }
+    }, 1000)
 };
 
 
 function eliminar(){
     event.preventDefault();
-
+    var queryString = $('#' + this.id).serialize();
+    let archivoNom = queryString.split('=')[1]
+    archivoNom = decodeURI(archivoNom)
+    console.log(archivoNom)
     Swal.fire({
-        title: '¿Estás seguro de que quieres eliminar este archivo?',
-        text: "Una vez eliminado, no se podrá recuperar.",
+        title: '¿Estás seguro de querer eliminar el archivo ' + archivoNom + '?',
+        text: "You won't be able to revert this!",
         icon: 'warning',
+        class: 'text-break',
         showCancelButton: true,
-        confirmButtonColor: 'var(--col)',
-        cancelButtonColor: 'var(--col)',
-        confirmButtonText: 'Si, eliminar.',
-        cancelButtonText: 'Cancelar.',
-        showClass: {
-            popup: 'animate__animated animate__fadeInDown'
-          },
-        hideClass: {
-            popup: 'animate__animated animate__fadeOutUp'
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            eliminarArchivo(this.id)
         }
-    })
-    .then((result) => {
-        if (result.isConfirmed){
-            Swal.fire({
-                title: '¡Eliminado!',
-                text: 'El archivo ha sido eliminado.',
-                icon: 'success',
-                confirmButtonColor: 'var(--col)',
-                cancelButtonColor: 'var(--col)',
-                confirmButtonText: '¡Genial!',
-                showClass: {
-                    popup: 'animate__animated animate__fadeInDown'
-                  },
-                hideClass: {
-                    popup: 'animate__animated animate__fadeOutUp'
-                }
-            })
-            eliminar(this.id, 1500);
-        }
-    });
+      })
+};
+
+function eliminarArchivo(id){
+    $('#' + id).submit();
 };
