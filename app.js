@@ -192,7 +192,6 @@ app.post('/subir', async (req, res) => {
             rutaArchivo = rutaRaiz + decode + '/' + req.files.archivoSubir.name;
             redirect = decode
         }
-        console.log('AAAAAAAAAAAAAAAAAAAAAAA', redirect, rutaArchivo)
         try {
             if(!fs.existsSync(rutaArchivo)){
                 await req.files.archivoSubir.mv(rutaArchivo) 
@@ -203,7 +202,7 @@ app.post('/subir', async (req, res) => {
             console.log(e);
         }
     }
-    console.log('Redirijiendo a:', redirect)
+    console.log('Subiendo:', req.files.archivoSubir.name)
     res.redirect(redirect);
 });
 
@@ -226,6 +225,7 @@ app.delete('/eliminar', async(req, res) => {
     } catch(err){
        console.error(err);
     }
+    console.log('Eliminando:', req.body.archivo)
     res.redirect(redirect);
 })
 
