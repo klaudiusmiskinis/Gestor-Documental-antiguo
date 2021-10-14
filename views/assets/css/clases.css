@@ -25,6 +25,10 @@ div a:hover {
     cursor: pointer;
 }
 
+.btn {
+    text-align: left;
+}
+
 .btn-close:focus, .btn:focus {
     box-shadow: 0 0 0 0.25rem transparent !important;
 }
@@ -46,6 +50,14 @@ div a:hover {
 }
 
 .row {
-    --bs-gutter-x: 1.5rem;
+    --bs-gutter-x: 0;
     --bs-gutter-y: 0;
+}
+
+.file, .dir, .subir-archivo {
+    padding: 1rem;
+}
+
+.left{
+    text-align: left !important;
 }
