@@ -178,20 +178,21 @@ app.get('/home', (req, res) => {
 
 // POST
 app.post('/subir', async (req, res) => {
+    let decode = decodeURI(req.headers.cookie);
+    decode = decode.split('=')[1];
+    let redirect = '';
+
     if (req.files.archivoSubir){
         let rutaArchivo = '';
-        let redirect = '';
-        let decode = req.headers.cookie.split('=')[1];
-        decode = decode.split('%2F')[1];
 
-        if((req.headers.cookie).split('=')[1] == '%2F'){
+        if(decode == '%2F'){
             rutaArchivo = rutaRaiz + req.files.archivoSubir.name;
             redirect = '/';
         } else {
             rutaArchivo = rutaRaiz + decode + '/' + req.files.archivoSubir.name;
-            redirect = redirect.split('%2F').join('/');
+            redirect = decode
         }
-        console.log('AAAAAAAAAAAAAAAAAAAAAAA', redirect)
+        console.log('AAAAAAAAAAAAAAAAAAAAAAA', redirect, rutaArchivo)
         try {
             if(!fs.existsSync(rutaArchivo)){
                 await req.files.archivoSubir.mv(rutaArchivo) 
@@ -202,6 +203,7 @@ app.post('/subir', async (req, res) => {
             console.log(e);
         }
     }
+    console.log('Redirijiendo a:', redirect)
     res.redirect(redirect);
 });
 
