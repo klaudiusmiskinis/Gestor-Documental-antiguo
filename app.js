@@ -51,8 +51,6 @@ function getFolder(nom){
         let extension = archivo.split('.')[1]
         data.extensiones.push(extension)
     })
-
-    console.log(data.archivos, data.extensiones);
     return data;
 }
 
@@ -172,6 +170,7 @@ app.use(methodOverride('_method'));
 app.use(fileupload());
 app.use('/assets', express.static('views/assets'));
 app.use('/script', express.static('views/script'));
+app.use('/bootstrap-plugin', express.static('node_modules/bootstrap-fileinput'));
 
 // HTTPs
 // GET
@@ -203,7 +202,6 @@ app.post('/subir', async (req, res) => {
             redirect = decode
         }
 
-        console.log(rutaArchivo, redirect)
         try {
             if(!fs.existsSync(rutaArchivo)){
                 await req.files.archivoSubir.mv(rutaArchivo) 
@@ -211,7 +209,6 @@ app.post('/subir', async (req, res) => {
                 console.log('Existe');
             }
         } catch(e){
-            console.log(e);
         }
     }
     console.log('Subiendo:', req.files.archivoSubir.name)
@@ -246,7 +243,6 @@ app.delete('/eliminar', async(req, res) => {
     } else {
         decode = decode.split('%2F').join('/');
         rutaArchivo = rutaRaiz + decode + '/' + req.body.archivo;
-        console.log(rutaRaiz, decode, '/', req.body.archivo)
         redirect = (req.headers.cookie).split('=')[1];
         redirect = decodeURI(redirect)
         redirect = redirect.split('%2F').join('/');
