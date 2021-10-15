@@ -16,6 +16,11 @@ function volver(){
 };
 
 window.onload = function(){
+    $("#input-es").fileinput({
+        language: "es",
+        uploadUrl: "/subir",
+    })
+
     if (document.title == 'Home') {
         // $(document.getElementById('container-water')).slideDown();
     } else {
@@ -32,9 +37,6 @@ window.onload = function(){
             // $(document.getElementById('container-water')).slideUp();
         }
     }, 1000)
-    $("#input-es").fileinput({
-        language: "es"
-    })
 };
 
 
