@@ -54,7 +54,7 @@ function eliminar(){
             popup: 'animate__animated animate__fadeInDown'
         },
         hideClass: {
-            popup: 'animate__animated animate__fadeOutUp'
+            popup: 'animate__animated animate__fadeOutDown'
         }
       }).then((result) => {
         if (result.isConfirmed) {
