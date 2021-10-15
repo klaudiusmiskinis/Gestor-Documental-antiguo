@@ -8,6 +8,7 @@ const { render } = require('ejs');
 const fileupload = require("express-fileupload");
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override');
+const _ = require('underscore')
 const express = require('express')
 const wrench = require("wrench");
 const app = express()
@@ -42,6 +43,9 @@ function getFolder(nom){
             data.archivos = dir.archivos;
         } else if(dir.rutaRelativa == nom){ 
             data.archivos = dir.archivos;
+            console.log(data.archivos)
+            data.archivos = _.without(data.archivos, 'Thumbs.db')
+            console.log(data.archivos)
         } 
     })
 
