@@ -32,6 +32,9 @@ window.onload = function(){
             // $(document.getElementById('container-water')).slideUp();
         }
     }, 1000)
+    $("#input-es").fileinput({
+        language: "es"
+    })
 };
 
 
