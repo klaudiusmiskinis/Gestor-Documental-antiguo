@@ -57,7 +57,7 @@
                     <div class="col card m-1 shadow-sm">
                         <div class="d-flex">
                             <div class="justify-content-left align-self-center me-auto px-1">
-                                <img src="assets/img/icon600x600.png" class="img-fluid m-2 imagen-negra" width="30" alt="folder">
+                                <img src="/assets/img/icon600x600.png" class="img-fluid m-2 imagen-negra" width="30" alt="folder">
                             </div>
                             <div class="col">
                                 <a class="btn card-body" href="<%= '/'+ hijo.rutaRelativa %>">
@@ -91,7 +91,7 @@
                         <button type="submit" class="btn text-break card-body archivo"><%=ar%></button>
                     </div>
                 </form>
-                    <div class="justify-content-right align-self-center ms-auto px-1">
+                    <div class="justify-content-right align-self-center ms-auto px-2">
                         <form action="/eliminar?_method=DELETE" class="cerrar" name="formEliminar" method="POST">
                             <input type="text" name="archivo" class="hide" value="<%=ar%>">
                             <button type="submit" class="btn-close mt-3"></button>
