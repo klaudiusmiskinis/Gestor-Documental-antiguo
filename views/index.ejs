@@ -85,16 +85,16 @@
             <% } %>
             <div class="col card m-1 shadow-sm">
                 <div class="d-flex">
-                <form action="/descargar" method="post">
-                    <div class="justify-content-right align-self-center ms-auto px-1">
-                        <input type="text" name="descargar" class="hide" value="<%=ar%>">
-                        <button type="submit" class="btn text-break card-body archivo"><%=ar%></button>
+                    <div>
+                        <form action="/descargar" method="post">
+                            <input type="text" name="descargar" class="hide" value="<%=ar%>">
+                            <button type="submit" class="btn text-break card-body archivo"><%=ar%></button>
+                        </form>
                     </div>
-                </form>
-                    <div class="justify-content-right align-self-center ms-auto px-2">
+                    <div class="justify-content-right align-self-center ms-auto px-1">
                         <form action="/eliminar?_method=DELETE" class="cerrar" name="formEliminar" method="POST">
                             <input type="text" name="archivo" class="hide" value="<%=ar%>">
-                            <button type="submit" class="btn-close mt-3"></button>
+                            <button type="submit" class="btn-close mt-1"></button>
                         </form>
                     </div>
                 </div>
