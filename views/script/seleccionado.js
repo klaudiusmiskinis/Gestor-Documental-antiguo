@@ -19,7 +19,7 @@ function volver(){
 
 window.onload = function(){
     if (document.title == 'Home') {
-        // $(document.getElementById('container-water')).slideDown();
+        $(document.getElementById('container-water')).hide();
     } else {
         
     }
