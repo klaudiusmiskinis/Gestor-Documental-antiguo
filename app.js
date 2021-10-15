@@ -43,9 +43,7 @@ function getFolder(nom){
             data.archivos = dir.archivos;
         } else if(dir.rutaRelativa == nom){ 
             data.archivos = dir.archivos;
-            console.log(data.archivos)
             data.archivos = _.without(data.archivos, 'Thumbs.db')
-            console.log(data.archivos)
         } 
     })
 
