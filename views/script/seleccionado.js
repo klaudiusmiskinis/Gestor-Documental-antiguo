@@ -49,7 +49,13 @@ function eliminar(){
         confirmButtonColor: 'var(--col)',
         cancelButtonColor: 'var(--col)',
         confirmButtonText: 'Si, eliminar.',
-        cancelButtonText: 'Cancelar.'
+        cancelButtonText: 'Cancelar.',
+        showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+        }
       }).then((result) => {
         if (result.isConfirmed) {
             eliminarArchivo(this.id)
