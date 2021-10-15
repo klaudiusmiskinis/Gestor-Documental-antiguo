@@ -206,6 +206,19 @@ app.post('/subir', async (req, res) => {
     res.redirect(redirect);
 });
 
+app.post('/descargar', async (req, res) => {
+    let decode = decodeURI(req.headers.cookie)
+    decode = decode.split('=')[1];
+    if(decode == '%2F'){
+        rutaArchivo = rutaRaiz + req.body.descargar;
+    } else {
+        rutaArchivo = rutaRaiz + decode + '/' + req.body.descargar;
+    }
+    console.log('Descargando:', req.body.descargar)
+    res.download(rutaArchivo);
+});
+
+
 // DELETE
 app.delete('/eliminar', async(req, res) => {
     let rutaArchivo = '';
