@@ -45,13 +45,13 @@ function eliminar(){
     console.log(archivoNom)
     Swal.fire({
         title: '¿Estás seguro de querer eliminar el archivo ' + archivoNom + '?',
-        text: "You won't be able to revert this!",
+        text: "No se podrá recuperar.",
         icon: 'warning',
-        class: 'text-break',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonColor: 'var(--col)',
+        cancelButtonColor: 'var(--col)',
+        confirmButtonText: 'Si, eliminar.',
+        cancelButtonText: 'Cancelar.'
       }).then((result) => {
         if (result.isConfirmed) {
             eliminarArchivo(this.id)
