@@ -1,4 +1,3 @@
-document.getElementById('container-water').style.display = 'none';
 if(document.getElementById('volver')){
     document.getElementById('volver').onclick = function(){
         volver();
@@ -14,12 +13,11 @@ if(document.getElementById('regresar')){
 //FUNCTION
 function volver(){
     window.history.back()
-    console.log(history)
 };
 
 window.onload = function(){
     if (document.title == 'Home') {
-        $(document.getElementById('container-water')).hide();
+        // $(document.getElementById('container-water')).slideDown();
     } else {
         
     }
