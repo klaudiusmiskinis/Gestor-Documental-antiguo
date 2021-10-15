@@ -212,7 +212,9 @@ app.post('/descargar', async (req, res) => {
     if(decode == '%2F'){
         rutaArchivo = rutaRaiz + req.body.descargar;
     } else {
-        rutaArchivo = rutaRaiz + decode + '/' + req.body.descargar;
+        let archivo = (req.body.descargar).split('%2F').join('/');
+        decode = decode.split('%2F').join('/');
+        rutaArchivo = rutaRaiz + decode + '/' + archivo;
     }
     console.log('Descargando:', req.body.descargar)
     res.download(rutaArchivo);
