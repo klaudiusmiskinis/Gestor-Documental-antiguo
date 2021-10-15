@@ -1,5 +1,5 @@
 require('dotenv').config(); 
-const { throws } = require('assert');
+const { throws, doesNotReject } = require('assert');
 const { dir } = require('console');
 const { get } = require('http');
 const { arch, type } = require('os');
@@ -28,6 +28,7 @@ function getFolder(nom){
         nom: nom,
         hijos: [],
         archivos: [],
+        extensiones: []
     }
 
     dirFilter.find(dir => {
@@ -44,6 +45,12 @@ function getFolder(nom){
         } 
     })
 
+    data.archivos.forEach(archivo => {
+        let extension = archivo.split('.')[1]
+        data.extensiones.push(extension)
+    })
+
+    console.log(data.archivos, data.extensiones);
     return data;
 }
 
@@ -189,9 +196,12 @@ app.post('/subir', async (req, res) => {
             rutaArchivo = rutaRaiz + req.files.archivoSubir.name;
             redirect = '/';
         } else {
+            decode = decode.split('%2F').join('/');
             rutaArchivo = rutaRaiz + decode + '/' + req.files.archivoSubir.name;
             redirect = decode
         }
+
+        console.log(rutaArchivo, redirect)
         try {
             if(!fs.existsSync(rutaArchivo)){
                 await req.files.archivoSubir.mv(rutaArchivo) 
@@ -232,15 +242,20 @@ app.delete('/eliminar', async(req, res) => {
         rutaArchivo = rutaRaiz + req.body.archivo;
         redirect = '/';
     } else {
+        decode = decode.split('%2F').join('/');
         rutaArchivo = rutaRaiz + decode + '/' + req.body.archivo;
+        console.log(rutaRaiz, decode, '/', req.body.archivo)
         redirect = (req.headers.cookie).split('=')[1];
+        redirect = decodeURI(redirect)
+        redirect = redirect.split('%2F').join('/');
     }
+
     try {
         await fs.unlinkSync(rutaArchivo);
     } catch(err){
        console.error(err);
     }
-    console.log('Eliminando:', req.body.archivo)
+    console.log('Eliminando:', req.body.archivo);
     res.redirect(redirect);
 })
 
