@@ -80,12 +80,14 @@
     <div class="file">
         <div class="d-flex text-light mb-2">Archivos <%= data.archivos.length %></div>
         <% data.archivos.forEach(function(ar, i){ %>
-        <% if (ar != 'Thumbs.db') { %> 
         <% if ((i % 3) == 0){ %>
             <div class="row">
             <% } %>
             <div class="col card m-1 shadow-sm">
                 <div class="d-flex">
+                    <div class="justify-content-left align-self-center me-auto px-1">
+                        <img src="" class="img-fluid m-2 imagen-negra" width="30" alt="folder">
+                    </div>
                     <div>
                         <form action="/descargar" method="post">
                             <input type="text" name="descargar" class="hide" value="<%=ar%>">
@@ -103,7 +105,6 @@
             <% if ((i % 3) == 2){ %>
             </div>
             <% } %>
-        <% } %>
         <% }) %>
         </div>
         </div>
