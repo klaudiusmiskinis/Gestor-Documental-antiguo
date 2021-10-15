@@ -1,5 +1,5 @@
 require('dotenv').config(); 
-const { throws, doesNotReject } = require('assert');
+const { throws } = require('assert');
 const { dir } = require('console');
 const { get } = require('http');
 const { arch, type } = require('os');
