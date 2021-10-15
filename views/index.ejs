@@ -78,8 +78,9 @@
     <!-- CONTENEDOR DE ARCHIVOS -->
     <% if (data.archivos.length > 0){ %>
     <div class="file">
-        <div class="d-flex text-light">Archivos <%= data.archivos.length %></div>
+        <div class="d-flex text-light mb-2">Archivos <%= data.archivos.length %></div>
         <% data.archivos.forEach(function(ar, i){ %>
+        <% if (ar != 'Thumbs.db') { %> 
         <% if ((i % 3) == 0){ %>
             <div class="row">
             <% } %>
@@ -94,7 +95,7 @@
                     <div class="justify-content-right align-self-center ms-auto px-1">
                         <form action="/eliminar?_method=DELETE" class="cerrar" name="formEliminar" method="POST">
                             <input type="text" name="archivo" class="hide" value="<%=ar%>">
-                            <button type="submit" class="btn-close mt-1"></button>
+                            <button type="submit" class="btn-close mx-2"></button>
                         </form>
                     </div>
                 </div>
@@ -102,6 +103,7 @@
             <% if ((i % 3) == 2){ %>
             </div>
             <% } %>
+        <% } %>
         <% }) %>
         </div>
         </div>
