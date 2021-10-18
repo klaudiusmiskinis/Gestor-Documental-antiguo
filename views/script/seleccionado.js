@@ -1,3 +1,12 @@
+$('#file-es').fileinput({
+    language: 'es',
+    uploadUrl: '/subir',
+    uploadAsync: false,
+    maxFileCount: 10,
+    maxFileSize: 10240,
+    removeFromPreviewOnError: true,
+});
+
 if(document.getElementById('volver')){
     document.getElementById('volver').onclick = function(){
         volver();
