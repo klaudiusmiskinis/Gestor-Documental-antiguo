@@ -186,37 +186,37 @@ app.get('/home', (req, res) => {
 
 // POST
 app.post('/subir', async (req, res) => {
+    let rutaArchivo = '.';
     let decode = decodeURI(req.headers.cookie);
     decode = decode.split('=')[1];
     let redirect = '';
 
-    if (req.files.archivoSubir){
-        let rutaArchivo = '';
+    if (req.files){
 
         if(decode == '%2F'){
-            rutaArchivo = rutaRaiz + req.files.archivoSubir.name;
+            rutaArchivo = rutaRaiz + req.files.file_data.name;
             redirect = '/';
         } else {
             decode = decode.split('%2F').join('/');
-            rutaArchivo = rutaRaiz + decode + '/' + req.files.archivoSubir.name;
-            redirect = decode
+            rutaArchivo = rutaRaiz + decode + '/' + req.files.file_data.name;
+            redirect = decode;
         }
 
         try {
             if(!fs.existsSync(rutaArchivo)){
-                await req.files.archivoSubir.mv(rutaArchivo) 
+                await req.files.file_data.mv(rutaArchivo);
+                res.redirect(redirect);
             } else {
                 console.log('Existe');
             }
         } catch(e){
         }
     }
-    console.log('Subiendo:', req.files.archivoSubir.name)
-    res.redirect(redirect);
+    
 });
 
 app.post('/descargar', async (req, res) => {
-    let decode = decodeURI(req.headers.cookie)
+    let decode = decodeURI(req.headers.cookie);
     decode = decode.split('=')[1];
     if(decode == '%2F'){
         rutaArchivo = rutaRaiz + req.body.descargar;
@@ -225,7 +225,7 @@ app.post('/descargar', async (req, res) => {
         decode = decode.split('%2F').join('/');
         rutaArchivo = rutaRaiz + decode + '/' + archivo;
     }
-    console.log('Descargando:', req.body.descargar)
+    console.log('Descargando:', req.body.descargar);
     res.download(rutaArchivo);
 });
 
