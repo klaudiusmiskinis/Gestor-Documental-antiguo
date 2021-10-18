@@ -1,33 +1,4 @@
-$('#file-es').fileinput({
-    language: 'es',
-    uploadUrl: '/subir',
-    maxFileCount: 10,
-    maxFileSize: 10240
-});
-
-if(document.getElementById('volver')){
-    document.getElementById('volver').onclick = function(){
-        volver();
-    }
-}
-
-if(document.getElementById('regresar')){
-    document.getElementById('regresar').onclick = function(){
-        volver();
-    }
-}
-
-//FUNCTION
-function volver(){
-    window.history.back()
-};
-
-window.onload = function(){
-    $("#input-es").fileinput({
-        language: "es",
-        uploadUrl: "/subir",
-    })
-
+window.onDOMContentLoaded = function(){
     if (document.title == 'Home') {
         // $(document.getElementById('container-water')).slideDown();
     } else {
@@ -44,7 +15,44 @@ window.onload = function(){
             // $(document.getElementById('container-water')).slideUp();
         }
     }, 1000)
+
+    var nombre = $('input[type=file]').val().split('\\').pop();
+    let elementos = document.getElementsByClassName('archivo');
+    for (elemento of elementos) {
+        console.log(elemento.innerHTML)
+    }
 };
+
+$("#subir").submit(function(e) {
+    e.preventDefault();
+    var self = $(this);
+    var nombre = $('input[type=file]').val().split('\\').pop();
+    if (nombre) {
+        let elementos = document.getElementsByClassName('archivo');
+        for (elemento of elementos) {
+            if(elemento.innerHTML == nombre) {
+                console.log(nombre, elemento.innerHTML);
+                Swal.fire({
+                    title: '¿Estás seguro de querer eliminar el archivo?',
+                    text: "No se podrá recuperar.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: 'var(--col)',
+                    cancelButtonColor: 'var(--col)',
+                    confirmButtonText: 'Si, eliminar.',
+                    cancelButtonText: 'Cancelar.',
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutDown'
+                    }
+                })
+            }
+        }
+    }
+    return false;
+})
 
 
 function eliminar(){
@@ -72,6 +80,23 @@ function eliminar(){
             eliminarArchivo(this.id)
         }
       })
+};
+
+if(document.getElementById('volver')){
+    document.getElementById('volver').onclick = function(){
+        volver();
+    }
+}
+
+if(document.getElementById('regresar')){
+    document.getElementById('regresar').onclick = function(){
+        volver();
+    }
+}
+
+//FUNCTION
+function volver(){
+    window.history.back();
 };
 
 function eliminarArchivo(id){
