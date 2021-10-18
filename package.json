@@ -17,18 +17,16 @@
   },
   "homepage": "https://github.com/klaudiusmiskinis/NodeJS-FileSystem#readme",
   "dependencies": {
+    "express-fileupload": "^1.2.1",    
+    "bootstrap-fileinput": "^5.2.6", 
+    "method-override": "^3.0.0",   
     "body-parser": "^1.19.0",
-    "bootstrap-fileinput": "^5.2.6",
-    "dotenv": "^10.0.0",
-    "ejs": "^3.1.6",
-    "express": "^4.17.1",
-    "express-fileupload": "^1.2.1",
-    "filehound": "^1.17.5",
-    "fs": "^0.0.1-security",
-    "method-override": "^3.0.0",
-    "promisify": "^0.0.3",
-    "supervisor": "^0.12.0",
     "underscore": "^1.13.1",
-    "wrench": "^1.5.9"
+    "supervisor": "^0.12.0",
+    "fs": "^0.0.1-security",
+    "express": "^4.17.1",
+    "dotenv": "^10.0.0",
+    "wrench": "^1.5.9",
+    "ejs": "^3.1.6"
   }
 }
