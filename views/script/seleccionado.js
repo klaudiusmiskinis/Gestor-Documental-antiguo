@@ -1,10 +1,8 @@
 $('#file-es').fileinput({
     language: 'es',
     uploadUrl: '/subir',
-    uploadAsync: false,
     maxFileCount: 10,
-    maxFileSize: 10240,
-    removeFromPreviewOnError: true,
+    maxFileSize: 10240
 });
 
 if(document.getElementById('volver')){
@@ -54,7 +52,6 @@ function eliminar(){
     var queryString = $('#' + this.id).serialize();
     let archivoNom = queryString.split('=')[1]
     archivoNom = decodeURI(archivoNom)
-    console.log(archivoNom)
     Swal.fire({
         title: '¿Estás seguro de querer eliminar el archivo ' + archivoNom + '?',
         text: "No se podrá recuperar.",
