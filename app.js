@@ -180,7 +180,7 @@ app.get('/', (req, res) => {
 
 app.get('/home', (req, res) => {
     actualizar();
-    res.cookie('position','/');
+    res.cookie('position', '/');
     res.render('index.ejs', {data: getFolder('/')})
 })
 
@@ -192,7 +192,6 @@ app.post('/subir', async (req, res) => {
     let redirect = '';
 
     if (req.files){
-
         if(decode == '%2F'){
             rutaArchivo = rutaRaiz + req.files.file_data.name;
             redirect = '/';
@@ -205,14 +204,13 @@ app.post('/subir', async (req, res) => {
         try {
             if(!fs.existsSync(rutaArchivo)){
                 await req.files.file_data.mv(rutaArchivo);
-                res.redirect(redirect);
             } else {
                 console.log('Existe');
             }
         } catch(e){
         }
     }
-    
+    res.redirect(req.get('referer'));
 });
 
 app.post('/descargar', async (req, res) => {
@@ -254,7 +252,7 @@ app.delete('/eliminar', async(req, res) => {
        console.error(err);
     }
     console.log('Eliminando:', req.body.archivo);
-    res.redirect(redirect);
+    res.redirect(req.get('referer'));
 })
 
 app.listen(3000);
