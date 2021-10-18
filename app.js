@@ -8,20 +8,19 @@ const { render } = require('ejs');
 const fileupload = require("express-fileupload");
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override');
-const _ = require('underscore')
 const express = require('express')
 const wrench = require("wrench");
-const app = express()
 const fs = require('fs');
+const app = express();
 
 // Variables
 const rutaRaiz = process.env.RUTA_LOCAL
-let allDirectories = []
-let allFiles = []
-let dirFilter = []
-let nomRutas = []
+let allDirectories = [];
+let allFiles = [];
+let dirFilter = [];
+let nomRutas = [];
 
-actualizar()
+actualizar();
 
 // Funciones
 function getFolder(nom){
@@ -30,7 +29,7 @@ function getFolder(nom){
         hijos: [],
         archivos: [],
         extensiones: []
-    }
+    };
 
     dirFilter.find(dir => {
         if (dir.padre == nom){
@@ -45,14 +44,14 @@ function getFolder(nom){
             data.archivos = dir.archivos;
             data.archivos = _.without(data.archivos, 'Thumbs.db')
         } 
-    })
+    });
 
     data.archivos.forEach(archivo => {
         let extension = archivo.split('.')[1]
         data.extensiones.push(extension)
     })
     return data;
-}
+};
 
 function rutas(dir){
     if(dir.padre == rutaRaiz){
@@ -60,7 +59,7 @@ function rutas(dir){
     } else {
         return dir.rutaRelativa
     }
-}
+};
 
 function actualizar(){
     allDirectories = []
@@ -78,7 +77,7 @@ function actualizar(){
         } else if(fs.lstatSync(rutaRaiz + file).isFile()){
             allFiles.push(file)
         }
-    })
+    });
 
     dirFilter.push(
         dirObj = {
@@ -170,7 +169,6 @@ app.use(methodOverride('_method'));
 app.use(fileupload());
 app.use('/assets', express.static('views/assets'));
 app.use('/script', express.static('views/script'));
-app.use('/bootstrap-plugin', express.static('node_modules/bootstrap-fileinput'));
 
 // HTTPs
 // GET
@@ -186,19 +184,16 @@ app.get('/home', (req, res) => {
 
 // POST
 app.post('/subir', async (req, res) => {
-    let rutaArchivo = '.';
+    let rutaArchivo = '';
     let decode = decodeURI(req.headers.cookie);
     decode = decode.split('=')[1];
-    let redirect = '';
 
     if (req.files){
         if(decode == '%2F'){
             rutaArchivo = rutaRaiz + req.files.file_data.name;
-            redirect = '/';
         } else {
             decode = decode.split('%2F').join('/');
             rutaArchivo = rutaRaiz + decode + '/' + req.files.file_data.name;
-            redirect = decode;
         }
 
         try {
@@ -231,19 +226,14 @@ app.post('/descargar', async (req, res) => {
 // DELETE
 app.delete('/eliminar', async(req, res) => {
     let rutaArchivo = '';
-    let redirect = '';
     let decode = decodeURI(req.headers.cookie)
     decode = decode.split('=')[1];
 
     if(decode == '%2F'){
         rutaArchivo = rutaRaiz + req.body.archivo;
-        redirect = '/';
     } else {
         decode = decode.split('%2F').join('/');
         rutaArchivo = rutaRaiz + decode + '/' + req.body.archivo;
-        redirect = (req.headers.cookie).split('=')[1];
-        redirect = decodeURI(redirect)
-        redirect = redirect.split('%2F').join('/');
     }
 
     try {
@@ -255,4 +245,4 @@ app.delete('/eliminar', async(req, res) => {
     res.redirect(req.get('referer'));
 })
 
-app.listen(3000);
+app.listen(process.env.PORT);
