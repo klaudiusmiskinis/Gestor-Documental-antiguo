@@ -7,6 +7,10 @@ node_modules/bootstrap-fileinput/*
 node_modules/bootstrap-fileinput/js/*
 !node_modules/bootstrap-fileinput/js/locales
 
+
+node_modules/bootstrap-fileinput/js/*
+!node_modules/bootstrap-fileinput/js/fileinput.js
+
 node_modules/bootstrap-fileinput/js/locales/*
 !node_modules/bootstrap-fileinput/js/locales/es.js
 
