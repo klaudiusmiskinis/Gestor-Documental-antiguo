@@ -8,7 +8,8 @@ const { render } = require('ejs');
 const fileupload = require("express-fileupload");
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override');
-const express = require('express')
+const express = require('express');
+const _ = require('underscore');
 const wrench = require("wrench");
 const fs = require('fs');
 const app = express();
@@ -199,23 +200,25 @@ app.post('/subir', async (req, res) => {
         try {
             if(!fs.existsSync(rutaArchivo)){
                 await req.files.file_data.mv(rutaArchivo);
-            } else {
-                let renombrar = req.files.file_data.name.split('.')[0] + '_1.' + req.files.file_data.name.split('.')[1]
-                if (req.query.nuevaversion = 'true') {
-                    if(decode == '%2F'){
-                        rutaArchivo = rutaRaiz + renombrar;
-                    } else {
-                        decode = decode.split('%2F').join('/');
-                        rutaArchivo = rutaRaiz + decode + '/' + renombrar;
-                    }
-                    await req.files.file_data.mv(rutaArchivo);
-                    console.log('Guradar', rutaArchivo)
                 } else {
-                    await req.files.file_data.mv(rutaArchivo);
+                    let renombrar = req.files.file_data.name.split('.')[0] + '_1.' + req.files.file_data.name.split('.')[1]
+                    if(req.query){
+                    if (req.query.nuevaversion == 'true') {
+                        console.log('True');
+                        if(decode == '%2F'){
+                            rutaArchivo = rutaRaiz + renombrar;
+                        } else {
+                            decode = decode.split('%2F').join('/');
+                            rutaArchivo = rutaRaiz + decode + '/' + renombrar;
+                        }
+                        await req.files.file_data.mv(rutaArchivo);
+                        console.log('Guradar', rutaArchivo)
+                    } else {
+                        await req.files.file_data.mv(rutaArchivo);
+                    }
                 }
             }
-        } catch(e){
-        }
+        } catch(e){}
     }
     res.redirect(req.get('referer'));
 });
