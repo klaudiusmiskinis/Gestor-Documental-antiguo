@@ -17,51 +17,56 @@ window.onDOMContentLoaded = function(){
     }, 1000)
 };
 
-$("#subir").submit(function(e) {
+$("#subir-input").on("click", function(e) {
     e.preventDefault();
-    var self = $(this);
-    var nombre = $('input[type=file]').val().split('\\').pop();
-    console.log(nombre, self)
-    if (nombre) {
-        let elementos = document.getElementsByClassName('archivo');
-        for (elemento of elementos) {
-            if(elemento.innerHTML == nombre) {
-                console.log(nombre, elemento.innerHTML);
-                Swal.fire({
-                    title: 'Ya hay una archivo con ese nombre<br>' +
-                            '¿Quieres crear una nueva versión?',
-                    text: "Se creará una nueva versión del archivo",
-                    icon: 'warning',
-                    showDenyButton: true,
-                    showCancelButton: true,
-                    confirmButtonColor: 'var(--col)',
-                    cancelButtonColor: 'var(--col)',
-                    confirmButtonText: 'Si, eliminar.',
-                    denyButtonText: 'No, sobreescribir el archivo',
-                    cancelButtonText: 'Cancelar.',
-                    showClass: {
-                        popup: 'animate__animated animate__fadeInDown'
-                    },
-                    hideClass: {
-                        popup: 'animate__animated animate__fadeOutDown'
-                    }
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        
-                    } else if (result.isDeny) {
-                        
-                    }
-                })
+    if (document.getElementById('subir-campo').files[0]) {
+        var file = document.getElementById('subir-campo');
+        var nombre = file.files[0].name;
+        if (nombre) {
+            let elementos = document.getElementsByClassName('archivo');
+            for (elemento of elementos) {
+                if(elemento.innerHTML == nombre) {
+                    console.log('Alerta')
+                    Swal.fire({
+                        title: 'Ya hay una archivo con ese nombre<br>' +
+                                '¿Quieres crear una nueva versión?',
+                        text: "Se creará una nueva versión del archivo",
+                        icon: 'warning',
+                        showDenyButton: true,
+                        showCancelButton: true,
+                        confirmButtonColor: 'var(--col)',
+                        cancelButtonColor: 'var(--col)',
+                        confirmButtonText: 'Crear una nueva versión.',
+                        denyButtonText: 'No, sobreescribir el archivo',
+                        cancelButtonText: 'Cancelar.',
+                        showClass: {
+                            popup: 'animate__animated animate__fadeInDown'
+                        },
+                        hideClass: {
+                            popup: 'animate__animated animate__fadeOutDown'
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            document.getElementById('subir').action = document.getElementById('subir').action + '?nuevaversion=true';
+                            document.getElementById('subir').submit();
+                        } else if (result.isDenied) {
+                            document.getElementById('subir').action = document.getElementById('subir').action + '?nuevaversion=false';
+                            document.getElementById('subir').submit();
+                        } else {
+                            console.log('Cancelado');
+                        }
+                    })
+                } else {
+                    document.getElementById('subir').submit();
+                }
             }
         }
-    } else {
-        return true;
     }
 })
 
 
-function eliminar(){
-    event.preventDefault();
+function eliminar(e){
+    e.preventDefault();
     var queryString = $('#' + this.id).serialize();
     let archivoNom = queryString.split('=')[1]
     archivoNom = decodeURI(archivoNom)
@@ -83,8 +88,6 @@ function eliminar(){
       }).then((result) => {
         if (result.isConfirmed) {
             eliminarArchivo(this.id);
-        } else if (result.isDeny) {
-            
         }
       })
 };
