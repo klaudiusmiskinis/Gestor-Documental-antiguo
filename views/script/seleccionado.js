@@ -21,6 +21,7 @@ $("#subir").submit(function(e) {
     e.preventDefault();
     var self = $(this);
     var nombre = $('input[type=file]').val().split('\\').pop();
+    console.log(nombre, self)
     if (nombre) {
         let elementos = document.getElementsByClassName('archivo');
         for (elemento of elementos) {
@@ -44,11 +45,18 @@ $("#subir").submit(function(e) {
                     hideClass: {
                         popup: 'animate__animated animate__fadeOutDown'
                     }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        
+                    } else if (result.isDeny) {
+                        
+                    }
                 })
             }
         }
+    } else {
+        return true;
     }
-    return false;
 })
 
 
@@ -74,7 +82,9 @@ function eliminar(){
         }
       }).then((result) => {
         if (result.isConfirmed) {
-            eliminarArchivo(this.id)
+            eliminarArchivo(this.id);
+        } else if (result.isDeny) {
+            
         }
       })
 };
