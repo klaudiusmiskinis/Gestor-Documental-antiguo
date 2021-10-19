@@ -184,6 +184,7 @@ app.get('/home', (req, res) => {
 
 // POST
 app.post('/subir', async (req, res) => {
+    console.log(req.query)
     let rutaArchivo = '';
     let decode = decodeURI(req.headers.cookie);
     decode = decode.split('=')[1];
@@ -195,12 +196,23 @@ app.post('/subir', async (req, res) => {
             decode = decode.split('%2F').join('/');
             rutaArchivo = rutaRaiz + decode + '/' + req.files.file_data.name;
         }
-
         try {
             if(!fs.existsSync(rutaArchivo)){
                 await req.files.file_data.mv(rutaArchivo);
             } else {
-                console.log('Existe');
+                let renombrar = req.files.file_data.name.split('.')[0] + '_1.' + req.files.file_data.name.split('.')[1]
+                if (req.query.nuevaversion = 'true') {
+                    if(decode == '%2F'){
+                        rutaArchivo = rutaRaiz + renombrar;
+                    } else {
+                        decode = decode.split('%2F').join('/');
+                        rutaArchivo = rutaRaiz + decode + '/' + renombrar;
+                    }
+                    await req.files.file_data.mv(rutaArchivo);
+                    console.log('Guradar', rutaArchivo)
+                } else {
+                    await req.files.file_data.mv(rutaArchivo);
+                }
             }
         } catch(e){
         }
