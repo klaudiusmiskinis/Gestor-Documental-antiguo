@@ -19,48 +19,47 @@ window.onDOMContentLoaded = function(){
 
 $("#subir-input").on("click", function(e) {
     e.preventDefault();
-    if (document.getElementById('subir-campo').files[0]) {
+        console.log(document.getElementById('subir-campo').files[0])
+        if (document.getElementById('subir-campo').files[0]) {
         var file = document.getElementById('subir-campo');
         var nombre = file.files[0].name;
-        if (nombre) {
-            let elementos = document.getElementsByClassName('archivo');
-            for (elemento of elementos) {
-                if(elemento.innerHTML == nombre) {
-                    console.log('Alerta')
-                    Swal.fire({
-                        title: 'Ya hay una archivo con ese nombre<br>' +
-                                '¿Quieres crear una nueva versión?',
-                        text: "Se creará una nueva versión del archivo",
-                        icon: 'warning',
-                        showDenyButton: true,
-                        showCancelButton: true,
-                        confirmButtonColor: 'var(--col)',
-                        cancelButtonColor: 'var(--col)',
-                        confirmButtonText: 'Crear una nueva versión.',
-                        denyButtonText: 'No, sobreescribir el archivo',
-                        cancelButtonText: 'Cancelar.',
-                        showClass: {
-                            popup: 'animate__animated animate__fadeInDown'
-                        },
-                        hideClass: {
-                            popup: 'animate__animated animate__fadeOutDown'
-                        }
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            document.getElementById('subir').action = document.getElementById('subir').action + '?nuevaversion=true';
-                            document.getElementById('subir').submit();
-                        } else if (result.isDenied) {
-                            document.getElementById('subir').action = document.getElementById('subir').action + '?nuevaversion=false';
-                            document.getElementById('subir').submit();
-                        } else {
-                            console.log('Cancelado');
-                        }
-                    })
-                } else {
-                    document.getElementById('subir').submit();
-                }
+        let elementos = document.getElementsByClassName('archivo');
+        for (elemento of elementos) {
+            if(elemento.innerHTML == nombre) {
+                Swal.fire({
+                    title: 'Ya hay una archivo con ese nombre<br>' +
+                            '¿Quieres crear una nueva versión?',
+                    text: "Se creará una nueva versión del archivo",
+                    icon: 'warning',
+                    showDenyButton: true,
+                    showCancelButton: true,
+                    confirmButtonColor: 'var(--col)',
+                    cancelButtonColor: 'var(--col)',
+                    confirmButtonText: 'Crear una nueva versión.',
+                    denyButtonText: 'No, sobreescribir el archivo',
+                    cancelButtonText: 'Cancelar.',
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutDown'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById('subir').action = document.getElementById('subir').action + '?nuevaversion=true';
+                        document.getElementById('subir').submit();
+                    } else if (result.isDenied) {
+                        document.getElementById('subir').action = document.getElementById('subir').action + '?nuevaversion=false';
+                        document.getElementById('subir').submit();
+                    } else {
+                        console.log('Cancelado');
+                    }
+                })
             }
-        }
+        } 
+    } else {
+        console.log('asd')
+        document.getElementById('subir').submit();
     }
 })
 
