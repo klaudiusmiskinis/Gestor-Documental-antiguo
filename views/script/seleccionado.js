@@ -19,7 +19,7 @@ window.onDOMContentLoaded = function(){
 
 $("#subir-input").on("click", function(e) {
     e.preventDefault();
-        console.log(document.getElementById('subir-campo').files[0])
+    let clonado = 'asd';
         if (document.getElementById('subir-campo').files[0]) {
         var file = document.getElementById('subir-campo');
         var nombre = file.files[0].name;
@@ -46,20 +46,23 @@ $("#subir-input").on("click", function(e) {
                     }
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        console.log(clonado, 'asdadasdas')
+                        clonado = 'ok';
                         document.getElementById('subir').action = document.getElementById('subir').action + '?nuevaversion=true';
                         document.getElementById('subir').submit();
                     } else if (result.isDenied) {
+                        console.log(clonado, '12314214')
+                        clonado = 'no'
+                        onsole.log(clonado)
                         document.getElementById('subir').action = document.getElementById('subir').action + '?nuevaversion=false';
                         document.getElementById('subir').submit();
-                    } else {
-                        console.log('Cancelado');
                     }
                 })
+            } else if (clonado == 'no') {
+                console.log(clonado, 'asd')
+                document.getElementById('subir').submit();
             }
-        } 
-    } else {
-        console.log('asd')
-        document.getElementById('subir').submit();
+        }
     }
 })
 
