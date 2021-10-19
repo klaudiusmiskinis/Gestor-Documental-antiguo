@@ -15,12 +15,6 @@ window.onDOMContentLoaded = function(){
             // $(document.getElementById('container-water')).slideUp();
         }
     }, 1000)
-
-    var nombre = $('input[type=file]').val().split('\\').pop();
-    let elementos = document.getElementsByClassName('archivo');
-    for (elemento of elementos) {
-        console.log(elemento.innerHTML)
-    }
 };
 
 $("#subir").submit(function(e) {
@@ -33,13 +27,16 @@ $("#subir").submit(function(e) {
             if(elemento.innerHTML == nombre) {
                 console.log(nombre, elemento.innerHTML);
                 Swal.fire({
-                    title: '¿Estás seguro de querer eliminar el archivo?',
-                    text: "No se podrá recuperar.",
+                    title: 'Ya hay una archivo con ese nombre<br>' +
+                            '¿Quieres crear una nueva versión?',
+                    text: "Se creará una nueva versión del archivo",
                     icon: 'warning',
+                    showDenyButton: true,
                     showCancelButton: true,
                     confirmButtonColor: 'var(--col)',
                     cancelButtonColor: 'var(--col)',
                     confirmButtonText: 'Si, eliminar.',
+                    denyButtonText: 'No, sobreescribir el archivo',
                     cancelButtonText: 'Cancelar.',
                     showClass: {
                         popup: 'animate__animated animate__fadeInDown'
