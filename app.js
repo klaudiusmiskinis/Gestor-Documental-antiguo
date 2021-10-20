@@ -12,6 +12,7 @@ const express = require('express');
 const _ = require('underscore');
 const wrench = require("wrench");
 const fs = require('fs');
+const { version } = require('punycode');
 const app = express();
 
 // Variables
@@ -185,7 +186,6 @@ app.get('/home', (req, res) => {
 
 // POST
 app.post('/subir', async (req, res) => {
-    console.log(req.query)
     let rutaArchivo = '';
     let decode = decodeURI(req.headers.cookie);
     decode = decode.split('=')[1];
@@ -201,10 +201,18 @@ app.post('/subir', async (req, res) => {
             if(!fs.existsSync(rutaArchivo)){
                 await req.files.file_data.mv(rutaArchivo);
                 } else {
-                    let renombrar = req.files.file_data.name.split('.')[0] + '_1.' + req.files.file_data.name.split('.')[1]
                     if(req.query){
+                    let renombrar;
                     if (req.query.nuevaversion == 'true') {
-                        console.log('True');
+                        let version = req.query.version;
+                        let nombre = req.files.file_data.name;
+                        let cambiar;
+                        nombre = nombre.split('.')
+                        cambiar = nombre[0].slice(nombre[0].length-2);
+                        renombrar = req.files.file_data.name.split('.')[0] + '_' + version  + '.' + req.files.file_data.name.split('.')[1];
+                        if (cambiar.includes('_')){
+                            renombrar = renombrar.split(cambiar).join('')
+                        }
                         if(decode == '%2F'){
                             rutaArchivo = rutaRaiz + renombrar;
                         } else {
@@ -212,7 +220,7 @@ app.post('/subir', async (req, res) => {
                             rutaArchivo = rutaRaiz + decode + '/' + renombrar;
                         }
                         await req.files.file_data.mv(rutaArchivo);
-                        console.log('Guradar', rutaArchivo)
+                        console.log('Guardar', rutaArchivo)
                     } else {
                         await req.files.file_data.mv(rutaArchivo);
                     }
