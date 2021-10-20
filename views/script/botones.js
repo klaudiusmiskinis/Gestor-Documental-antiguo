@@ -80,9 +80,9 @@ $('.cerrar').on('click', function(event) {
         hideClass: {
             popup: 'animate__animated animate__fadeOutDown'
         }
-      }).then((result) => {
+    }).then((result) => {
         if (result.isConfirmed) {
             document.getElementById(this.id).submit()
         }
-      })
+    })
 });
