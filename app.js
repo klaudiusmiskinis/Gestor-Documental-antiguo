@@ -1,9 +1,9 @@
 require('dotenv').config(); 
-const fileupload = require("express-fileupload");
+const fileupload = require('express-fileupload');
 const methodOverride = require('method-override');
 const express = require('express');
 const _ = require('underscore');
-const wrench = require("wrench");
+const wrench = require('wrench');
 const fs = require('fs');
 const app = express();
 
@@ -196,7 +196,7 @@ app.post('/subir', async (req, res) => {
                 } else {
                     if(req.query){
                     let renombrar;
-                    if (req.query.nuevaversion == 'true') {
+                    if (req.query.nuevaversion == 'true'){
                         let version = req.query.version;
                         let nombre = req.files.file_data.name;
                         let cambiar;
