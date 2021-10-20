@@ -17,7 +17,7 @@
         <title><%= data.nom %></title>
     <% } %>
 </head>
-<body>
+<body class="hide">
 
     <div id="container-water">
         <div class="water"></div>
@@ -128,16 +128,19 @@
             </div>
         </div>
     <% } %>
-
     <!-- APARTADO PARA SUBIR ARCHIVOS -->
         <div class="subir-archivo">
         <div class="d-flex text-light mb-2">Subir un archivo</div>
             <div class="row">
                 <div class="col m-1 shadow-sm">
                     <form action="/subir" method="post" id="subir" enctype="multipart/form-data">
-                        <input type="file" class="form-control card" id="subir-campo" name="file_data" required>
-                        <div class="d-grid mt-2 justify-content-center">
-                            <input type="submit" id="subir-boton" class="btn card" value="Subir archivo">
+                        <div class="row justify-content-center">
+                            <div class="col-10">
+                                <input type="file" class="form-control card" id="subir-campo" name="file_data" required>
+                            </div>
+                            <div class="col-1">
+                                <input type="submit" class="btn card text-center mx-2" id="subir-boton"  value="Subir archivo">
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -153,7 +156,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="/script/seleccionado.js"></script>
     <script src="/script/ventana.js"></script>
     <script src="/script/botones.js"></script>
 </body>
