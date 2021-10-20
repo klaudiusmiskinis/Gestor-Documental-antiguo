@@ -65,9 +65,8 @@ $('#subir-boton').on('click', function(e){
 
 $('.cerrar').on('click', function(event){
     event.preventDefault();
-    console.log(this.id)
     Swal.fire({
-        title: '¿Estás seguro de querer eliminar el archivo ?',
+        title: '¿Estás seguro de querer eliminar el archivo ' + this.id + ' ?',
         text: 'No se podrá recuperar.',
         icon: 'warning',
         showCancelButton: true,
@@ -83,7 +82,7 @@ $('.cerrar').on('click', function(event){
         }
       }).then((result) => {
         if (result.isConfirmed){
-            $('#' + this.id).submit();
+            document.getElementById(this.id).submit()
         }
       })
 });
