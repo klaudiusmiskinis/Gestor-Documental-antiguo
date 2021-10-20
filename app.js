@@ -18,7 +18,7 @@ let nomRutas = [];
 actualizar();
 
 // Funciones
-function getFolder(nom){
+function getFolder(nom) {
     let data = {
         nom: nom,
         hijos: [],
@@ -27,15 +27,15 @@ function getFolder(nom){
     };
 
     dirFilter.find(dir => {
-        if (dir.padre == nom){
+        if (dir.padre == nom) {
             data.hijos.push(dir);
-        } else if ((nom + '/' + dir.nombre) == dir.rutaRelativa){
+        } else if ((nom + '/' + dir.nombre) == dir.rutaRelativa) {
             data.hijos.push(dir);
         }
 
-        if (dir.nombre == '/'){
+        if (dir.nombre == '/') {
             data.archivos = dir.archivos;
-        } else if(dir.rutaRelativa == nom){ 
+        } else if(dir.rutaRelativa == nom) { 
             data.archivos = dir.archivos;
             data.archivos = _.without(data.archivos, 'Thumbs.db')
         } 
@@ -48,28 +48,28 @@ function getFolder(nom){
     return data;
 };
 
-function rutas(dir){
-    if(dir.padre == rutaRaiz){
+function rutas(dir) {
+    if(dir.padre == rutaRaiz) {
         return dir.nombre
     } else {
         return dir.rutaRelativa
     }
 };
 
-function actualizar(){
+function actualizar() {
     allDirectories = []
     allFiles = []
     dirFilter = []
     nomRutas = []
 
     var files = wrench.readdirSyncRecursive(rutaRaiz);
-    wrench.readdirRecursive(rutaRaiz, function (error, files){});
+    wrench.readdirRecursive(rutaRaiz, function (error, files) {});
 
     files.forEach(file => {
         file = file.replace(/\\/g, '/');
-        if(fs.lstatSync(rutaRaiz + file).isDirectory()){
+        if(fs.lstatSync(rutaRaiz + file).isDirectory()) {
             allDirectories.push(file)
-        } else if(fs.lstatSync(rutaRaiz + file).isFile()){
+        } else if(fs.lstatSync(rutaRaiz + file).isFile()) {
             allFiles.push(file)
         }
     });
@@ -87,8 +87,8 @@ function actualizar(){
     allDirectories.forEach(dir => {
         let separador = dir.split('/')
         let directorio = getPadre(separador)
-        function getPadre(sep){
-            if (sep.length > 1){
+        function getPadre(sep) {
+            if (sep.length > 1) {
                 let dirObj = {
                     nombre: sep[sep.length -1],
                     padre: sep[sep.length -2] + '/',
@@ -121,15 +121,15 @@ function actualizar(){
         let separador = file.split('/')
         dirFilter.find(dir => {
 
-            if(separador.length == 1 && dir.nombre == '/'){
+            if(separador.length == 1 && dir.nombre == '/') {
                 dir.archivos.push(separador[0])
-            } else if(separador.length == 2 && dir.nombre == separador[0] && dir.padre == '/'){
+            } else if(separador.length == 2 && dir.nombre == separador[0] && dir.padre == '/') {
                 dir.archivos.push(separador[1])
             }
 
             if (dir.nombre == separador[separador.length-2] && dir.padre == ((separador[separador.length-3]) + '/'))  {
                 dir.archivos.push(separador[separador.length-1])
-            } else if (dir.nombre == separador){
+            } else if (dir.nombre == separador) {
                 dir.archivos.push(separador)
             }
 
@@ -139,7 +139,7 @@ function actualizar(){
     let transformado = '';
     nomRutas.forEach(nom => {
         transformado = encodeURI(nom)
-        if(nom.charAt(0) == '/'){
+        if(nom.charAt(0) == '/') {
             app.get(transformado, (req, res) => {
                 actualizar();
                 let data = getFolder(nom)
@@ -183,30 +183,30 @@ app.post('/subir', async (req, res) => {
     let decode = decodeURI(req.headers.cookie);
     decode = decode.split('=')[1];
 
-    if (req.files){
-        if(decode == '%2F'){
+    if (req.files) {
+        if(decode == '%2F') {
             rutaArchivo = rutaRaiz + req.files.file_data.name;
         } else {
             decode = decode.split('%2F').join('/');
             rutaArchivo = rutaRaiz + decode + '/' + req.files.file_data.name;
         }
         try {
-            if(!fs.existsSync(rutaArchivo)){
+            if(!fs.existsSync(rutaArchivo)) {
                 await req.files.file_data.mv(rutaArchivo);
                 } else {
-                    if(req.query){
+                    if(req.query) {
                     let renombrar;
-                    if (req.query.nuevaversion == 'true'){
+                    if (req.query.nuevaversion == 'true') {
                         let version = req.query.version;
                         let nombre = req.files.file_data.name;
                         let cambiar;
                         nombre = nombre.split('.')
                         cambiar = nombre[0].slice(nombre[0].length-2);
                         renombrar = req.files.file_data.name.split('.')[0] + '_' + version  + '.' + req.files.file_data.name.split('.')[1];
-                        if (cambiar.includes('_')){
+                        if (cambiar.includes('_')) {
                             renombrar = renombrar.split(cambiar).join('')
                         }
-                        if(decode == '%2F'){
+                        if(decode == '%2F') {
                             rutaArchivo = rutaRaiz + renombrar;
                         } else {
                             decode = decode.split('%2F').join('/');
@@ -219,7 +219,7 @@ app.post('/subir', async (req, res) => {
                     }
                 }
             }
-        } catch(e){}
+        } catch(e) {}
     }
     res.redirect(req.get('referer'));
 });
@@ -227,7 +227,7 @@ app.post('/subir', async (req, res) => {
 app.post('/descargar', async (req, res) => {
     let decode = decodeURI(req.headers.cookie);
     decode = decode.split('=')[1];
-    if(decode == '%2F'){
+    if(decode == '%2F') {
         rutaArchivo = rutaRaiz + req.body.descargar;
     } else {
         let archivo = (req.body.descargar).split('%2F').join('/');
@@ -245,7 +245,7 @@ app.delete('/eliminar', async(req, res) => {
     let decode = decodeURI(req.headers.cookie)
     decode = decode.split('=')[1];
 
-    if(decode == '%2F'){
+    if(decode == '%2F') {
         rutaArchivo = rutaRaiz + req.body.archivo;
     } else {
         decode = decode.split('%2F').join('/');
@@ -254,7 +254,7 @@ app.delete('/eliminar', async(req, res) => {
 
     try {
         await fs.unlinkSync(rutaArchivo);
-    } catch(err){
+    } catch(err) {
        console.error(err);
     }
     console.log('Eliminando:', req.body.archivo);

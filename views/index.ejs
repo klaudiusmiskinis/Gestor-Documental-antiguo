@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css"/>
     <link rel="stylesheet" type="text/css" href="/assets/css/card.css"/>
     <link rel="icon" href="/assets/img/icon600x600.png"/>
-    <% if(data.nom == '/'){ %> 
+    <% if(data.nom == '/') { %> 
         <title>Home</title>
     <% } else { %>
         <title><%= data.nom %></title>
@@ -46,12 +46,12 @@
         </div>
     </div>
 
-        <% if (data.hijos.length != 0){ %>
+        <% if (data.hijos.length != 0) { %>
         <!-- CONTENEDOR DE DIRECTORIOS -->
             <div class="dir">
                 <div class="d-flex text-light mb-2">Directorios <%= data.hijos.length  %></div>
-                <% data.hijos.forEach(function(hijo, i){ %> 
-                <% if ((i % 3) == 0){ %>
+                <% data.hijos.forEach(function(hijo, i) { %> 
+                <% if ((i % 3) == 0) { %>
                 <div class="row">
                 <% }  %>
                     <div class="col card m-1 shadow-sm">
@@ -66,7 +66,7 @@
                             </div>
                         </div> 
                     </div>
-                <% if ((i % 3) == 2){ %>
+                <% if ((i % 3) == 2) { %>
                 </div>
             <% } %>
         <% }) %>
@@ -76,11 +76,11 @@
     <% } %>
 
     <!-- CONTENEDOR DE ARCHIVOS -->
-    <% if (data.archivos.length > 0){ %>
+    <% if (data.archivos.length > 0) { %>
     <div class="file">
         <div class="d-flex text-light mb-2">Archivos <%= data.archivos.length %></div>
-        <% data.archivos.forEach(function(ar, i){ %>
-        <% if ((i % 3) == 0){ %>
+        <% data.archivos.forEach(function(ar, i) { %>
+        <% if ((i % 3) == 0) { %>
             <div class="row">
             <% } %>
             <div class="col card m-1 shadow-sm">
@@ -102,7 +102,7 @@
                     </div>
                 </div>
             </div>
-            <% if ((i % 3) == 2){ %>
+            <% if ((i % 3) == 2) { %>
             </div>
             <% } %>
         <% }) %>
@@ -112,7 +112,7 @@
     <hr>
     <% } %>
 
-    <% if (data.archivos.length == 0 && data.hijos.length == 0){ %>
+    <% if (data.archivos.length == 0 && data.hijos.length == 0) { %>
     <!-- CONTENIDO EN CASO DE NO HABER NI DIRECTORIOS NI ARCHIVOS -->
         <div class="container-fluid mt-5">
             <div class="row">
