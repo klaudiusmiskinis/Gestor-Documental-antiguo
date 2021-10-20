@@ -1,19 +1,12 @@
 require('dotenv').config(); 
-const { throws } = require('assert');
-const { dir } = require('console');
-const { get } = require('http');
-const { arch, type } = require('os');
-const { sep } = require('path');
-const { render } = require('ejs');
 const fileupload = require("express-fileupload");
-const bodyParser = require('body-parser')
 const methodOverride = require('method-override');
 const express = require('express');
 const _ = require('underscore');
 const wrench = require("wrench");
 const fs = require('fs');
-const { version } = require('punycode');
 const app = express();
+
 
 // Variables
 const rutaRaiz = process.env.RUTA_LOCAL
