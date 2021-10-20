@@ -19,51 +19,31 @@ window.onDOMContentLoaded = function(){
 
 $("#subir-input").on("click", function(e) {
     e.preventDefault();
-    let clonado = 'asd';
-        if (document.getElementById('subir-campo').files[0]) {
-        var file = document.getElementById('subir-campo');
-        var nombre = file.files[0].name;
-        let elementos = document.getElementsByClassName('archivo');
-        for (elemento of elementos) {
-            if(elemento.innerHTML == nombre) {
-                Swal.fire({
-                    title: 'Ya hay una archivo con ese nombre<br>' +
-                            '¿Quieres crear una nueva versión?',
-                    text: "Se creará una nueva versión del archivo",
-                    icon: 'warning',
-                    showDenyButton: true,
-                    showCancelButton: true,
-                    confirmButtonColor: 'var(--col)',
-                    cancelButtonColor: 'var(--col)',
-                    confirmButtonText: 'Crear una nueva versión.',
-                    denyButtonText: 'No, sobreescribir el archivo',
-                    cancelButtonText: 'Cancelar.',
-                    showClass: {
-                        popup: 'animate__animated animate__fadeInDown'
-                    },
-                    hideClass: {
-                        popup: 'animate__animated animate__fadeOutDown'
-                    }
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        console.log(clonado, 'asdadasdas')
-                        clonado = 'ok';
-                        document.getElementById('subir').action = document.getElementById('subir').action + '?nuevaversion=true';
-                        document.getElementById('subir').submit();
-                    } else if (result.isDenied) {
-                        console.log(clonado, '12314214')
-                        clonado = 'no'
-                        onsole.log(clonado)
-                        document.getElementById('subir').action = document.getElementById('subir').action + '?nuevaversion=false';
-                        document.getElementById('subir').submit();
-                    }
-                })
-            } else if (clonado == 'no') {
-                console.log(clonado, 'asd')
-                document.getElementById('subir').submit();
-            }
+    Swal.fire({
+        title: 'Ya hay una archivo con ese nombre<br>' +
+                '¿Quieres crear una nueva versión?',
+        text: "Se creará una nueva versión del archivo",
+        icon: 'warning',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonColor: 'var(--col)',
+        cancelButtonColor: 'var(--col)',
+        confirmButtonText: 'Crear una nueva versión.',
+        denyButtonText: 'No, sobreescribir el archivo',
+        cancelButtonText: 'Cancelar.',
+        showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+            popup: 'animate__animated animate__fadeOutDown'
         }
-    }
+    }).then((result) => {
+        if (result.isConfirmed) {
+           //SE CONFIRMA -> CREAR UNA NUEVA VERSIÓN DEL ARCHIVO
+        } else if (result.isDenied) {
+           //SE DENIEGA -> SE SOBREESCRIBE EL VIEJO ARCHIVO CON EL NUEVO
+        }
+    })
 })
 
 
