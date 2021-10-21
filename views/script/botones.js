@@ -20,6 +20,7 @@ $('#subir-boton').on('click', function(e) {
                         icon: 'warning',
                         showDenyButton: true,
                         showCancelButton: true,
+                        focusConfirm: false,
                         confirmButtonColor: 'var(--col)',
                         cancelButtonColor: 'var(--col)',
                         confirmButtonText: 'Si, crear una nueva versión.',
@@ -41,6 +42,43 @@ $('#subir-boton').on('click', function(e) {
                                     let a = nombre[1].split('.')[0]
                                     version = parseInt(a)
                                     version++;
+                                    Swal.fire({
+                                        title: 'Registro de cambios',
+                                        html: `
+                                                <div class="form-group mb-3">
+                                                    <label>Datos</label>
+                                                    <input type="text" class="form-control" id="nombre" placeholder="Introduce tu nombre" autocomplete="off">
+                                                    <input type="text" class="mt-1 form-control" id="apellidos" placeholder="Introduce tus apellidos" autocomplete="off">
+                                                    <input type="text" class="mt-1 form-control" id="email" placeholder="Introduce tu email" autocomplete="off">
+                                                    <input type="date" class="mt-1 form-control" id="fecha" autocomplete="off">
+                                                </div>
+                                                <div class="form-group mb-3">
+                                                    <label>Archivo</label>
+                                                    <input type="text" class="mt-1 form-control" id="arcNombre" placeholder="` + nombre + `" readonly>
+                                                    <input type="text" class="mt-1 form-control" id="arcVersion" placeholder="` + 'Versión: ' + version + `" readonly>
+                                                </div>`,
+                                        confirmButtonText: 'Crear registro',
+                                        showCancelButton: true,
+                                        cancelButtonText: 'Cancelar',
+                                        focusConfirm: false,
+                                        preConfirm: () => {
+                                          const nombre = Swal.getPopup().querySelector('#nombre').value
+                                          const apellidos = Swal.getPopup().querySelector('#apellidos').value
+                                          const email = Swal.getPopup().querySelector('#email').value
+                                          const fecha = Swal.getPopup().querySelector('#fecha').value
+                                          if (!nombre || !apellidos || !email || !fecha) {
+                                            Swal.showValidationMessage(`Porfavor introduce todos los datos`)
+                                          }
+                                          return {nombre: nombre, apellidos: apellidos, email: email, fecha: fecha}
+                                        }
+                                      }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            Swal.fire(`
+                                                nombre: ${result.value.nombre}
+                                                fecha: ${result.value.fecha}
+                                            `.trim())
+                                        }
+                                    })
                                 } else {
                                     version = 1;
                                 }
@@ -70,6 +108,7 @@ $('.cerrar').on('click', function(event) {
         text: 'No se podrá recuperar.',
         icon: 'warning',
         showCancelButton: true,
+        focusConfirm: false,
         confirmButtonColor: 'var(--col)',
         cancelButtonColor: 'var(--col)',
         confirmButtonText: 'Si, eliminar.',
