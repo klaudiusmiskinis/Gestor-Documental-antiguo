@@ -61,3 +61,8 @@ div a:hover {
 .left{
     text-align: left !important;
 }
+
+.peq{
+    border-bottom-left-radius: 0.25rem !important;
+    border-bottom-right-radius: 0.25rem !important;
+}
