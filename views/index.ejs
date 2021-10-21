@@ -30,7 +30,7 @@
     <nav id="navbar" class="navbar navbar-light bg-light shadow-sm">
         <div class="row container-fluid">
             <div class="col-auto justify-content-left">
-                <a class="navbar-brand" href="/home"><h5 class="m-2">Gestor Documental</h5></a>
+                <a class="navbar-brand" href="/home"><h6 class="m-2">Gestor Documental</h6></a>
             </div>
             <div class="col-auto justify-content-right text-center">
                 <a class="btn" id="volver"><img src="/assets/img/back.svg" class="img-fluid" width="25"></a>
@@ -41,7 +41,7 @@
 
     <!-- CONTENEDOR DE TU POSICION -->
     <div class="container-fluid">
-        <div class="col text-center rounded text-light">
+        <div class="col text-center text-light ruta">
             <p class="peq">Te encuentras en: <%= ' ' + data.nom %></p>
         </div>
     </div>
@@ -57,7 +57,7 @@
                     <div class="col card m-1 shadow-sm">
                         <div class="d-flex">
                             <div class="justify-content-left align-self-center me-auto px-1">
-                                <img src="/assets/img/folder.svg" class="img-fluid m-2 imagen-negra" width="30" alt="folder">
+                                <img src="/assets/img/folder.svg" class="img-fluid m-2 svg" width="30" alt="folder">
                             </div>
                             <div class="col">
                                 <a class="btn card-body" href="<%= '/'+ hijo.rutaRelativa %>">
@@ -85,8 +85,8 @@
             <% } %>
             <div class="col card m-1 shadow-sm">
                 <div class="d-flex">
-                    <div class="justify-content-left align-self-center me-auto px-1">
-                        <img src="/assets/img/<%=data.extensiones[i]%>.svg" class="img-fluid m-2" width="35" alt="file <%=data.extensiones[i]%>">
+                    <div class="justify-content-left align-self-center px-1">
+                        <img src="/assets/img/<%=data.extensiones[i]%>.svg" class="text-center m-2 svg" width="35" alt="file <%=data.extensiones[i]%>">
                     </div>
                     <div>
                         <form action="/descargar" method="post">
@@ -138,8 +138,8 @@
                             <div class="col-8">
                                 <input type="file" class="form-control card" id="subir-campo" name="file_data" required>
                             </div>
-                            <div class="col-4 d-grid text-center">
-                                <input type="submit" class="btn card text-center mx-1" id="subir-boton" value="Subir archivo">
+                            <div class="col-4 d-grid">
+                                <button type="submit" class="btn card mx-1" id="subir-boton">Subir archivo</button>
                             </div>
                         </div>
                     </form>
