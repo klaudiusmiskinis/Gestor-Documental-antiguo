@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="16" height="16" fill="currentColor" class="bi bi-file-earmark-text" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+  <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+  <ellipse style="fill: rgb(51, 51, 51);" cx="8.052" cy="10.461" rx="4.043" ry="1.218"/>
+  <ellipse style="fill: rgb(51, 51, 51);" cx="8.046" cy="11.305" rx="4.052" ry="1.208"/>
+  <rect x="4.021" y="10.435" width="8.084" height="1.002" style="fill: rgb(51, 51, 51);"/>
+  <ellipse style="fill: rgb(255, 255, 255);" cx="7.974" cy="9.814" rx="4.043" ry="1.41"/>
+  <ellipse style="fill: rgb(51, 51, 51);" cx="7.97" cy="8.679" rx="4.043" ry="1.218"/>
+  <ellipse style="fill: rgb(51, 51, 51);" cx="7.98" cy="9.475" rx="4.052" ry="1.218"/>
+  <rect x="3.937" y="8.596" width="8.068" height="1.002" style="fill: rgb(51, 51, 51);"/>
+  <ellipse style="fill: rgb(255, 255, 255);" cx="7.921" cy="7.596" rx="4.079" ry="1.39"/>
+  <ellipse style="fill: rgb(51, 51, 51);" cx="7.942" cy="7.33" rx="4.088" ry="1.237"/>
+  <ellipse style="fill: rgb(51, 51, 51);" cx="7.933" cy="6.585" rx="4.088" ry="1.227"/>
+  <rect x="3.871" y="6.489" width="8.139" height="0.998" style="fill: rgb(51, 51, 51);"/>
+</svg>
