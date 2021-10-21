@@ -13,6 +13,15 @@
     color: var(--b) !important;
 }
 
-.card:hover .imagen-negra {
-    filter: invert(100%);
+.card img{
+    transition: 0.5s;
+}
+
+.card:hover img{
+    transition: 0.5s;
+    filter: invert(100);
+}
+
+#subir-boton {
+    text-align: center;
 }
