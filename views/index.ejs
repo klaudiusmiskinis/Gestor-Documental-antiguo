@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/clases.css"/>
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css"/>
     <link rel="stylesheet" type="text/css" href="/assets/css/card.css"/>
-    <link rel="icon" href="/assets/img/icon600x600.png"/>
+    <link rel="icon" href="/assets/img/folder.svg"/>
     <% if(data.nom == '/') { %> 
         <title>Home</title>
     <% } else { %>
@@ -33,8 +33,8 @@
                 <a class="navbar-brand" href="/home"><h5 class="m-2">Gestor Documental</h5></a>
             </div>
             <div class="col-auto justify-content-right text-center">
-                <a class="btn" id="volver"><img src="/assets/img/volver.png" class="img-fluid" width="25"></a>
-                <a class="btn" href="/home"><img src="/assets/img/home.png" class="img-fluid" width="35"></a>
+                <a class="btn" id="volver"><img src="/assets/img/back.svg" class="img-fluid" width="25"></a>
+                <a class="btn" href="/home"><img src="/assets/img/home.svg" class="img-fluid" width="35"></a>
             </div>
         </div>
     </nav>
@@ -57,7 +57,7 @@
                     <div class="col card m-1 shadow-sm">
                         <div class="d-flex">
                             <div class="justify-content-left align-self-center me-auto px-1">
-                                <img src="/assets/img/icon600x600.png" class="img-fluid m-2 imagen-negra" width="30" alt="folder">
+                                <img src="/assets/img/folder.svg" class="img-fluid m-2 imagen-negra" width="30" alt="folder">
                             </div>
                             <div class="col">
                                 <a class="btn card-body" href="<%= '/'+ hijo.rutaRelativa %>">
@@ -86,7 +86,7 @@
             <div class="col card m-1 shadow-sm">
                 <div class="d-flex">
                     <div class="justify-content-left align-self-center me-auto px-1">
-                        <img src="/assets/img/<%=data.extensiones[i]%>.png" class="img-fluid m-2" width="35" alt="file <%=data.extensiones[i]%>">
+                        <img src="/assets/img/<%=data.extensiones[i]%>.svg" class="img-fluid m-2" width="35" alt="file <%=data.extensiones[i]%>">
                     </div>
                     <div>
                         <form action="/descargar" method="post">
@@ -124,7 +124,7 @@
                 </div>
             </div>
             <div class="row text-center">
-                <a id="regresar"><img src="/assets/img/volver.png" class="img-fluid invertido" width="45"></a>
+                <a id="regresar"><img src="/assets/img/back.svg" class="img-fluid invertido" width="45"></a>
             </div>
         </div>
     <% } %>
