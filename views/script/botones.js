@@ -4,19 +4,18 @@ $('#subir-boton').on('click', function(e) {
             let encontrado = null;
             let nombres = [];
             var archivo = document.getElementById('subir-campo');
-            let nombre = archivo.files[0].name;
+            let nombreArc = archivo.files[0].name;
             let archivos = document.getElementsByClassName('archivo');
-            if (archivos.length == 0 && nombre.length > 0) {
+            if (archivos.length == 0 && nombreArc.length > 0) {
                 $('#subir').submit();
             }
             for(let i = 0; i < archivos.length; i++) {
                 nombres.push(archivos[i].innerHTML)
-                if(archivos[i].innerHTML === nombre) {
+                if(archivos[i].innerHTML === nombreArc) {
                     encontrado = true;
                     Swal.fire({
                         title: 'Ya hay una archivo con ese nombre.<br>' +
                                 '¿Quieres crear una nueva versión?',
-                        text: 'Se creará una nueva versión del archivo.',
                         icon: 'warning',
                         showDenyButton: true,
                         showCancelButton: true,
@@ -35,13 +34,17 @@ $('#subir-boton').on('click', function(e) {
                     }).then((result) => {
                         if (result.isConfirmed) {
                             let version = 0;
+                            let sumada = false;
                             for(nombre of nombres) {
+                                let res2;
                                 version = 0;
                                 nombre = nombre.split('_');
+                                console.log(nombre, nombre.length, nombreArc)
                                 if (nombre.length > 1) {
                                     let a = nombre[1].split('.')[0]
                                     version = parseInt(a)
                                     version++;
+                                    sumada = true;
                                     Swal.fire({
                                         title: 'Registro de cambios',
                                         html: `
@@ -71,20 +74,20 @@ $('#subir-boton').on('click', function(e) {
                                           }
                                           return {nombre: nombre, apellidos: apellidos, email: email, fecha: fecha}
                                         }
-                                      }).then((result) => {
-                                        if (result.isConfirmed) {
-                                            Swal.fire(`
-                                                nombre: ${result.value.nombre}
-                                                fecha: ${result.value.fecha}
-                                            `.trim())
+                                      }).then((result2) => {
+                                        if (result2.isConfirmed) {
+                                            res2 = true;
                                         }
                                     })
-                                } else {
+                                } else if (!sumada){
                                     version = 1;
+                                } 
+                                if (!(document.getElementById('subir').action).includes('?')) {
+                                    document.getElementById('subir').action += '?nuevaversion=true&version=' + version;
                                 }
+                                console.log(version, sumada, result)
+                                $('#subir').submit();
                             }
-                            document.getElementById('subir').action += '?nuevaversion=true&version=' + version;
-                            $('#subir').submit();
                         } else if (result.isDenied) {
                             document.getElementById('subir').action += '?nuevaversion=false';
                             $('#subir').submit();
