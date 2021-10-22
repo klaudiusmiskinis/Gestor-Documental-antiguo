@@ -35,14 +35,12 @@ $('#subir-boton').on('click', function(e) {
                         if (result.isConfirmed) {
                             let version = 0;
                             let sumada = false;
-                            for(nombre of nombres) {
-                                let res2;
+                            for(let i = 0; i < nombres.length; i++) {
                                 version = 0;
-                                nombre = nombre.split('_');
-                                console.log(nombre, nombre.length, nombreArc)
+                                let nombre = nombres[i].split('_');
                                 if (nombre.length > 1) {
-                                    let a = nombre[1].split('.')[0]
-                                    version = parseInt(a)
+                                    let a = nombre[1].split('.')
+                                    version = parseInt(a[0])
                                     version++;
                                     sumada = true;
                                     Swal.fire({
@@ -57,7 +55,7 @@ $('#subir-boton').on('click', function(e) {
                                                 </div>
                                                 <div class="form-group mb-3">
                                                     <label>Archivo</label>
-                                                    <input type="text" class="mt-1 form-control" id="arcNombre" placeholder="` + nombre + `" readonly>
+                                                    <input type="text" class="mt-1 form-control" id="arcNombre" placeholder='` + nombre[0] + '.' + a[1] + `' readonly>
                                                     <input type="text" class="mt-1 form-control" id="arcVersion" placeholder="` + 'Versión: ' + version + `" readonly>
                                                 </div>`,
                                         confirmButtonText: 'Crear registro',
@@ -76,17 +74,18 @@ $('#subir-boton').on('click', function(e) {
                                         }
                                       }).then((result2) => {
                                         if (result2.isConfirmed) {
-                                            res2 = true;
+                                            document.getElementById('subir').action = '/subir?nuevaversion=true&version=' + version;
+                                            $('#subir').submit();
                                         }
                                     })
-                                } else if (!sumada){
+                                } else if (!sumada && i == (nombres.length - 1)){
                                     version = 1;
+                                    document.getElementById('subir').action += '?nuevaversion=true&version=' + version;
+                                    $('#subir').submit();
                                 } 
                                 if (!(document.getElementById('subir').action).includes('?')) {
                                     document.getElementById('subir').action += '?nuevaversion=true&version=' + version;
                                 }
-                                console.log(version, sumada, result)
-                                $('#subir').submit();
                             }
                         } else if (result.isDenied) {
                             document.getElementById('subir').action += '?nuevaversion=false';
