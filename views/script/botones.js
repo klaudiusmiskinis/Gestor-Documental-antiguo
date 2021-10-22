@@ -92,7 +92,7 @@ $('#subir-boton').on('click', function(e) {
                                                     </div>
                                                     <div class="form-group mb-3">
                                                         <label>Archivo</label>
-                                                        <input type="text" class="mt-1 form-control" id="arcNombre" placeholder='` + nombre[0] + '.' + a[1] + `' readonly>
+                                                        <input type="text" class="mt-1 form-control" id="arcNombre" placeholder='` + nombre[0] + `' readonly>
                                                         <input type="text" class="mt-1 form-control" id="arcVersion" placeholder="` + 'Versión: ' + version + `" readonly>
                                                     </div>`,
                                             confirmButtonText: 'Crear registro',
