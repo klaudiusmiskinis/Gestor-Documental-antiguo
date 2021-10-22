@@ -79,8 +79,43 @@ $('#subir-boton').on('click', function(e) {
                                     })
                                 } else if (!sumada && i == (nombres.length - 1)){
                                     version = 1;
-                                    document.getElementById('subir').action += '?nuevaversion=true&version=' + version;
-                                    $('#subir').submit();
+                                    let a = nombre[0].split('.')
+                                    if (version == 1) {
+                                        Swal.fire({
+                                            title: 'Registro de cambios',
+                                            html: `<div class="form-group mb-3">
+                                                        <label>Datos</label>
+                                                        <input type="text" class="form-control" id="nombre" placeholder="Introduce tu nombre" autocomplete="off">
+                                                        <input type="text" class="mt-1 form-control" id="apellidos" placeholder="Introduce tus apellidos" autocomplete="off">
+                                                        <input type="text" class="mt-1 form-control" id="email" placeholder="Introduce tu email" autocomplete="off">
+                                                        <input type="date" class="mt-1 form-control" id="fecha" autocomplete="off">
+                                                    </div>
+                                                    <div class="form-group mb-3">
+                                                        <label>Archivo</label>
+                                                        <input type="text" class="mt-1 form-control" id="arcNombre" placeholder='` + nombre[0] + '.' + a[1] + `' readonly>
+                                                        <input type="text" class="mt-1 form-control" id="arcVersion" placeholder="` + 'Versión: ' + version + `" readonly>
+                                                    </div>`,
+                                            confirmButtonText: 'Crear registro',
+                                            showCancelButton: true,
+                                            cancelButtonText: 'Cancelar',
+                                            focusConfirm: false,
+                                            preConfirm: () => {
+                                              const nombre = Swal.getPopup().querySelector('#nombre').value
+                                              const apellidos = Swal.getPopup().querySelector('#apellidos').value
+                                              const email = Swal.getPopup().querySelector('#email').value
+                                              const fecha = Swal.getPopup().querySelector('#fecha').value
+                                              if (!nombre || !apellidos || !email || !fecha) {
+                                                Swal.showValidationMessage(`Porfavor introduce todos los datos`)
+                                              }
+                                              return {nombre: nombre, apellidos: apellidos, email: email, fecha: fecha}
+                                            }
+                                          }).then((result2) => {
+                                            if (result2.isConfirmed) {
+                                                document.getElementById('subir').action = '/subir?nuevaversion=true&version=' + version;
+                                                $('#subir').submit();
+                                            }
+                                        })
+                                    }
                                 } 
                                 if (!(document.getElementById('subir').action).includes('?')) {
                                     document.getElementById('subir').action += '?nuevaversion=true&version=' + version;
