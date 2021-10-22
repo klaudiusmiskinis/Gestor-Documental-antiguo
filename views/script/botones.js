@@ -45,8 +45,7 @@ $('#subir-boton').on('click', function(e) {
                                     sumada = true;
                                     Swal.fire({
                                         title: 'Registro de cambios',
-                                        html: `
-                                                <div class="form-group mb-3">
+                                        html: `<div class="form-group mb-3">
                                                     <label>Datos</label>
                                                     <input type="text" class="form-control" id="nombre" placeholder="Introduce tu nombre" autocomplete="off">
                                                     <input type="text" class="mt-1 form-control" id="apellidos" placeholder="Introduce tus apellidos" autocomplete="off">
@@ -96,7 +95,7 @@ $('#subir-boton').on('click', function(e) {
                 if (i == (archivos.length -1) && encontrado == null) {
                     encontrado = false;
                 }
-            }
+            } 
         if (encontrado == false) {
             $('#subir').submit();
         }
