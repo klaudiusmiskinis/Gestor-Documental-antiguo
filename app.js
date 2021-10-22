@@ -199,8 +199,7 @@ app.post('/subir', async (req, res) => {
                     let renombrar;
                     if (req.query.nuevaversion == 'true') {
                         let version = req.query.version;
-                        let nombre = req.files.file_data.name;
-                        nombre = nombre.split('.')
+                        let nombre = (req.files.file_data.name).split('.');
                         let cambiar = nombre[0].slice(nombre[0].length-2);
                         renombrar = nombre[0] + '_' + version  + '.' + nombre[1];
                         if (cambiar.includes('_')) {
