@@ -3,7 +3,6 @@ const fileupload = require('express-fileupload');
 const methodOverride = require('method-override');
 const express = require('express');
 const _ = require('underscore');
-var xlsx = require('node-xlsx');
 const wrench = require('wrench');
 const fs = require('fs');
 const app = express();
