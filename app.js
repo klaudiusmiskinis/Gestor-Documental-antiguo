@@ -9,7 +9,7 @@ const app = express();
 
 
 // Variables
-const rutaRaiz = process.env.RUTA_LOCAL
+const rutaRaiz = process.env.RUTA_LOCAL; 
 let allDirectories = [];
 let allFiles = [];
 let dirFilter = [];
@@ -42,7 +42,8 @@ function getFolder(nom) {
     });
 
     data.archivos.forEach(archivo => {
-        let extension = archivo.split('.')[1]
+        let extension = archivo.split('.')
+        extension = extension[extension.length - 1]
         data.extensiones.push(extension)
     })
     return data;
