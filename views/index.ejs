@@ -135,11 +135,9 @@
                 <div class="col m-1 shadow-sm">
                     <form action="/subir" method="post" id="subir" enctype="multipart/form-data">
                         <div class="row justify-content-center">
-                            <div class="col-8">
-                                <input type="file" class="form-control card" id="subir-campo" name="file_data" required>
-                            </div>
-                            <div class="col-4 d-grid">
-                                <button type="submit" class="btn card mx-1" id="subir-boton">Subir archivo</button>
+                            <div class="input-group mb-3">
+                                <input type="file" class="form-control" id="subir-campo" name="file_data" required>
+                                <label class="input-group-text card"  type="submit" id="subir-boton">Subir archivo</label>
                             </div>
                         </div>
                     </form>
