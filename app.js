@@ -239,6 +239,11 @@ app.post('/descargar', async (req, res) => {
     res.download(rutaArchivo);
 });
 
+app.post('/accion', async (req, res) => {
+    console.log(req.body);
+    res.end();
+});
+
 
 // DELETE
 app.delete('/eliminar', async(req, res) => {
