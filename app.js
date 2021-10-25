@@ -244,7 +244,6 @@ app.post('/accion', async (req, res) => {
     res.end();
 });
 
-
 // DELETE
 app.delete('/eliminar', async(req, res) => {
     let rutaArchivo = '';

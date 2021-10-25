@@ -15,7 +15,7 @@ $('#subir-boton').on('click', function(e) {
                     encontrado = true;
                     Swal.fire({
                         title: '¿Quieres crear una nueva versión?',
-                        text:  'Ya hay archivo con ese nombre.',  
+                        text: 'Ya hay archivo con ese nombre.',  
                         icon: 'warning',
                         showDenyButton: true,
                         showCancelButton: true,
