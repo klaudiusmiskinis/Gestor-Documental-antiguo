@@ -23,7 +23,9 @@ function getFolder(nom) {
         nom: nom,
         hijos: [],
         archivos: [],
-        extensiones: []
+        extensiones: [],
+        cantidadArchivos: allFiles.length,
+        cantidadCarpetas: dirFilter.length
     };
 
     dirFilter.find(dir => {
