@@ -71,6 +71,49 @@ $('#subir-boton').on('click', function(e) {
     }
 })
 
+$('#info').on('click', function(event) {
+    Swal.fire({
+        title: 'Información sobre los archivos.',
+        html: `
+        Es importante que los archivo que queramos subir no contengan mas que un solo guión bajo.
+        
+        <div class="container mt-2">
+            <div class="row">
+                <div class="col border border-success">
+                    <p class="text-success  mt-2">BIEN ✓</p>
+                </div>
+                <div class="col border border-success">
+                    <p class="fst-italic  mt-2">archivo.txt</p>
+                </div>
+                <div class="col border border-success">
+                    <p class="fst-italic mt-2">archivo_1.txt</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container mt-1">
+            <div class="row">
+                <div class="col border border-danger">
+                    <p class="text-danger mt-2">MAL ✗</p>
+                </div>
+                <div class="col border border-danger">
+                <p class="fst-italic mt-2">archivo_a_1.txt</p>
+                </div>
+                <div class="col border border-danger">
+                <p class="fst-italic mt-2">a_archivo_1.txt</p>
+                </div>
+            </div>
+        </div>`,
+        focusConfirm: false,
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        }
+      })
+});
+
 $('.cerrar').on('click', function(event) {
     event.preventDefault();
     Swal.fire({
