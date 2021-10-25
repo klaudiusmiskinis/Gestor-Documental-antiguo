@@ -1,11 +1,11 @@
 $('#subir-boton').on('click', function(e) {
     e.preventDefault();
         if (document.getElementById('subir-campo').files[0] != undefined) {
-            let encontrado = null;
-            let nombres = [];
             var archivo = document.getElementById('subir-campo');
             let nombreArc = archivo.files[0].name;
             let archivos = document.getElementsByClassName('archivo');
+            let encontrado = null;
+            let nombres = [];
             if (archivos.length == 0 && nombreArc.length > 0) {
                 $('#subir').submit();
             }
@@ -14,8 +14,8 @@ $('#subir-boton').on('click', function(e) {
                 if(archivos[i].innerHTML === nombreArc) {
                     encontrado = true;
                     Swal.fire({
-                        title: 'Ya hay una archivo con ese nombre.<br>' +
-                                '¿Quieres crear una nueva versión?',
+                        title: '¿Quieres crear una nueva versión?',
+                        text:  'Ya hay archivo con ese nombre.',  
                         icon: 'warning',
                         showDenyButton: true,
                         showCancelButton: true,
@@ -26,10 +26,10 @@ $('#subir-boton').on('click', function(e) {
                         denyButtonText: 'No, sobreescribir el archivo.',
                         cancelButtonText: 'Cancelar.',
                         showClass: {
-                            popup: 'animate__animated animate__fadeInDown'
+                            popup: 'animate__animated animate__fadeIn'
                         },
                         hideClass: {
-                            popup: 'animate__animated animate__fadeOutDown'
+                            popup: 'animate__animated animate__fadeOut'
                         }
                     }).then((result) => {
                         if (result.isConfirmed) {
@@ -43,78 +43,11 @@ $('#subir-boton').on('click', function(e) {
                                     version = parseInt(a[0])
                                     version++;
                                     sumada = true;
-                                    Swal.fire({
-                                        title: 'Registro de cambios',
-                                        html: `<div class="form-group mb-3">
-                                                    <label>Datos</label>
-                                                    <input type="text" class="form-control" id="nombre" placeholder="Introduce tu nombre" autocomplete="off">
-                                                    <input type="text" class="mt-1 form-control" id="apellidos" placeholder="Introduce tus apellidos" autocomplete="off">
-                                                    <input type="text" class="mt-1 form-control" id="email" placeholder="Introduce tu email" autocomplete="off">
-                                                    <input type="date" class="mt-1 form-control" id="fecha" autocomplete="off">
-                                                </div>
-                                                <div class="form-group mb-3">
-                                                    <label>Archivo</label>
-                                                    <input type="text" class="mt-1 form-control" id="arcNombre" placeholder='` + nombre[0] + '.' + a[1] + `' readonly>
-                                                    <input type="text" class="mt-1 form-control" id="arcVersion" placeholder="` + 'Versión: ' + version + `" readonly>
-                                                </div>`,
-                                        confirmButtonText: 'Crear registro',
-                                        showCancelButton: true,
-                                        cancelButtonText: 'Cancelar',
-                                        focusConfirm: false,
-                                        preConfirm: () => {
-                                          const nombre = Swal.getPopup().querySelector('#nombre').value
-                                          const apellidos = Swal.getPopup().querySelector('#apellidos').value
-                                          const email = Swal.getPopup().querySelector('#email').value
-                                          const fecha = Swal.getPopup().querySelector('#fecha').value
-                                          if (!nombre || !apellidos || !email || !fecha) {
-                                            Swal.showValidationMessage(`Porfavor introduce todos los datos`)
-                                          }
-                                          return {nombre: nombre, apellidos: apellidos, email: email, fecha: fecha}
-                                        }
-                                      }).then((result2) => {
-                                        if (result2.isConfirmed) {
-                                            document.getElementById('subir').action = '/subir?nuevaversion=true&version=' + version;
-                                            $('#subir').submit();
-                                        }
-                                    })
+                                    alertaSubir(nombreArc, version, 'nueva')
                                 } else if (!sumada && i == (nombres.length - 1)){
                                     version = 1;
-                                    let a = nombre[0].split('.')
                                     if (version == 1) {
-                                        Swal.fire({
-                                            title: 'Registro de cambios',
-                                            html: `<div class="form-group mb-3">
-                                                        <label>Datos</label>
-                                                        <input type="text" class="form-control" id="nombre" placeholder="Introduce tu nombre" autocomplete="off">
-                                                        <input type="text" class="mt-1 form-control" id="apellidos" placeholder="Introduce tus apellidos" autocomplete="off">
-                                                        <input type="text" class="mt-1 form-control" id="email" placeholder="Introduce tu email" autocomplete="off">
-                                                        <input type="date" class="mt-1 form-control" id="fecha" autocomplete="off">
-                                                    </div>
-                                                    <div class="form-group mb-3">
-                                                        <label>Archivo</label>
-                                                        <input type="text" class="mt-1 form-control" id="arcNombre" placeholder='` + nombre[0] + `' readonly>
-                                                        <input type="text" class="mt-1 form-control" id="arcVersion" placeholder="` + 'Versión: ' + version + `" readonly>
-                                                    </div>`,
-                                            confirmButtonText: 'Crear registro',
-                                            showCancelButton: true,
-                                            cancelButtonText: 'Cancelar',
-                                            focusConfirm: false,
-                                            preConfirm: () => {
-                                              const nombre = Swal.getPopup().querySelector('#nombre').value
-                                              const apellidos = Swal.getPopup().querySelector('#apellidos').value
-                                              const email = Swal.getPopup().querySelector('#email').value
-                                              const fecha = Swal.getPopup().querySelector('#fecha').value
-                                              if (!nombre || !apellidos || !email || !fecha) {
-                                                Swal.showValidationMessage(`Porfavor introduce todos los datos`)
-                                              }
-                                              return {nombre: nombre, apellidos: apellidos, email: email, fecha: fecha}
-                                            }
-                                          }).then((result2) => {
-                                            if (result2.isConfirmed) {
-                                                document.getElementById('subir').action = '/subir?nuevaversion=true&version=' + version;
-                                                $('#subir').submit();
-                                            }
-                                        })
+                                        alertaSubir(nombreArc, version, 'nueva')
                                     }
                                 } 
                                 if (!(document.getElementById('subir').action).includes('?')) {
@@ -122,8 +55,8 @@ $('#subir-boton').on('click', function(e) {
                                 }
                             }
                         } else if (result.isDenied) {
-                            document.getElementById('subir').action += '?nuevaversion=false';
-                            $('#subir').submit();
+                            version = null
+                            alertaSubir(nombreArc, version, 'sobreescribir')
                         } 
                     })    
                 }
@@ -132,7 +65,8 @@ $('#subir-boton').on('click', function(e) {
                 }
             } 
         if (encontrado == false) {
-            $('#subir').submit();
+            version = 0;
+            alertaSubir(nombreArc, version, 'nueva')
         }
     }
 })
@@ -150,10 +84,10 @@ $('.cerrar').on('click', function(event) {
         confirmButtonText: 'Si, eliminar.',
         cancelButtonText: 'Cancelar.',
         showClass: {
-            popup: 'animate__animated animate__fadeInDown'
+            popup: 'animate__animated animate__fadeIn'
         },
         hideClass: {
-            popup: 'animate__animated animate__fadeOutDown'
+            popup: 'animate__animated animate__fadeOut'
         }
     }).then((result) => {
         if (result.isConfirmed) {
@@ -161,3 +95,94 @@ $('.cerrar').on('click', function(event) {
         }
     })
 });
+
+function alertaSubir(nombre, version, tipo) {
+    let inputVersion;
+    if (version != null) {
+        inputVersion = `<input type="text" class="mt-1 form-control" id="arcVersion" placeholder="` + 'Versión: ' + version + `" readonly></input>`;
+    } else {
+        inputVersion = '';
+    }
+    let html = `<div class="form-group">
+                    <label>Datos</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="nombre" placeholder="Nombre*" autocomplete="off">
+                        <input type="text" class="form-control" id="apellidos" placeholder="Apellidos*" autocomplete="off">
+                    </div>
+                    <div class="input-group mt-1">
+                        <input type="text" class="form-control" id="email" placeholder="Nombre del email*" autocomplete="off">
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="arroba">@fruitsponent.com</span>
+                        </div>
+                    </div>
+                    <textarea type="text"  class="mt-1 form-control"  id="motivos" rows="3" placeholder="Motivos*" autocomplete="off"></textarea>
+                    <input type="date" class="mt-1 form-control" id="fecha" autocomplete="off">
+                </div>
+                <div class="form-group mb-3">
+                    <label>Archivo</label>
+                    <input type="text" class="mt-1 form-control" id="arcNombre" placeholder='` + nombre + `' readonly>
+                    ` + inputVersion + `
+                </div>`
+    Swal.fire({
+        title: 'Registro de cambios',
+        html: html,
+        confirmButtonText: 'Crear registro',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        focusConfirm: false,
+        showClass: {
+            popup: 'animate__animated animate__fadeIn'
+        },
+        hideClass: {
+            popup: 'animate__animated animate__fadeOut'
+        },
+        preConfirm: () => {
+            const nombre = Swal.getPopup().querySelector('#nombre').value
+            const apellidos = Swal.getPopup().querySelector('#apellidos').value
+            const email = Swal.getPopup().querySelector('#email').value
+            const arroba = Swal.getPopup().querySelector('#arroba').innerHTML
+            const fecha = Swal.getPopup().querySelector('#fecha').value
+            const motivos = Swal.getPopup().querySelector('#motivos').value
+            if (!nombre || !apellidos || !email || !fecha || !motivos) {
+                Swal.showValidationMessage('Porfavor introduce todos los datos')
+            }
+                return {nombre: nombre, apellidos: apellidos, email: email, arroba: arroba, fecha: fecha, motivos: motivos}
+            }
+        }).then((result2) => {
+        if (result2.isConfirmed) {
+            let motivo;
+            if (tipo == 'sobreescribir') {
+                motivo = 'Se ha sobreescrito el archivo ' + nombre
+            } else if (tipo == 'nueva'){
+                motivo = 'Se ha creado una nueva version (' + version + ') del archivo ' + nombre
+            }
+            datos = {
+                nombre: result2.value.nombre, 
+                apellidos: result2.value.apellidos, 
+                email: result2.value.email + result2.value.arroba, 
+                fecha: result2.value.fecha, 
+                motivos: result2.value.motivos,
+                archivo: nombre,
+                version: version,
+                motivo: motivo
+            }
+            if (datos.version == null){
+                delete datos.version;
+            }
+            let data = {
+                url: '/accion',
+                accion: datos
+            };
+            $.post(data.url, data.accion);
+            if (tipo == 'sobreescribir') {
+                motivo = 'Se ha sobreescrito el archivo ' + nombre
+                document.getElementById('subir').action = '/subir?nuevaversion=false';
+            } else if (tipo == 'nueva'){
+                motivo = 'Se ha creado una nueva version (' + version + ') del archivo ' + nombre
+                document.getElementById('subir').action = '/subir?nuevaversion=true&version=' + version;
+            }
+            console.log(tipo)
+            $('#subir').submit();
+        }
+    })
+}
