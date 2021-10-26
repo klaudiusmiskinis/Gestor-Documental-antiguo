@@ -8,11 +8,11 @@ window.onload = function(e) {
     $(document.body).fadeIn('slow');
 
     if(document.getElementById('dir-titulo')) {
-        animacionNum('dir-titulo', 0, document.getElementById('dir-numero').value, 1200);
+        animacionNum('dir-titulo', 0, document.getElementById('dir-numero').value, 900);
     }
 
     if(document.getElementById('archivos-titulo')) {
-        animacionNum('archivos-titulo', 0, document.getElementById('archivos-numero').value, 1200);
+        animacionNum('archivos-titulo', 0, document.getElementById('archivos-numero').value, 900);
     }
     
 };
