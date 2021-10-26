@@ -214,11 +214,11 @@ app.post('/subir', async (req, res) => {
                             rutaArchivo = rutaRaiz + decode + '/' + renombrar;
                         }
                         await req.files.file_data.mv(rutaArchivo);
-                        console.log('Guardar', rutaArchivo)
                     } else {
                         await req.files.file_data.mv(rutaArchivo);
                     }
                 }
+                console.log('Guardar', renombrar)
             }
         } catch(e) {}
     }
