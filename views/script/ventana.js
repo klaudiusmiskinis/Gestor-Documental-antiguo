@@ -57,7 +57,6 @@ function volver() {
 
 function animacionNum(id, primero, ultimo, duracion) {
     if (primero === ultimo) return;
-    console.log(document.getElementById(id))
     var rango = ultimo - primero;
     var current = primero;
     var increment = ultimo > primero? 1 : -1;
