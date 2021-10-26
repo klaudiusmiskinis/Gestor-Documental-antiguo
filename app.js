@@ -218,7 +218,7 @@ app.post('/subir', async (req, res) => {
                         await req.files.file_data.mv(rutaArchivo);
                     }
                 }
-                console.log('Guardar', rutaArchivo)
+                console.log('Guardar', renombrar)
             }
         } catch(e) {}
     }
