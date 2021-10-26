@@ -51,7 +51,7 @@
         <!-- CONTENEDOR DE DIRECTORIOS -->
             <div class="dir">
                 <input type="text" id="dir-numero" class="hide" value="<%=data.hijos.length%>">
-                <div class="d-flex text-light mb-2">Directorios <div class="mx-1" id="dir-titulo"><%=data.hijos.length%></div></div>
+                <div class="d-flex text-light mb-2">Directorios <div class="mx-1" id="dir-titulo">0</div></div>
                 <% data.hijos.forEach(function(hijo, i) { %> 
                 <% if ((i % 3) == 0) { %>
                 <div class="row">
@@ -81,7 +81,7 @@
     <% if (data.archivos.length > 0) { %>
     <div class="file">
         <input type="text" id="archivos-numero" class="hide" value="<%=data.archivos.length%>">
-        <div class="d-flex text-light mb-2">Archivos<div class="mx-1" id="archivos-titulo"><%=data.archivos.length%></div></div>
+        <div class="d-flex text-light mb-2">Archivos<div class="mx-1" id="archivos-titulo">0</div></div>
         <% data.archivos.forEach(function(ar, i) { %>
         <% if ((i % 3) == 0) { %>
             <div class="row">
