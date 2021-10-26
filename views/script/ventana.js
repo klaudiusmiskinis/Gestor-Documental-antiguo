@@ -6,6 +6,15 @@ document.onreadystatechange = function(e) {
 
 window.onload = function(e) {
     $(document.body).fadeIn('slow');
+
+    if(document.getElementById('dir-titulo')) {
+        animacionNum('dir-titulo', 0, document.getElementById('dir-numero').value, 1200);
+    }
+
+    if(document.getElementById('archivos-titulo')) {
+        animacionNum('archivos-titulo', 0, document.getElementById('archivos-numero').value, 1200);
+    }
+    
 };
 
 if(document.getElementById('volver')) {
@@ -44,4 +53,23 @@ function volver() {
         window.location.replace('/')
     }
 };
+
+
+function animacionNum(id, primero, ultimo, duracion) {
+    if (primero === ultimo) return;
+    console.log(document.getElementById(id))
+    var rango = ultimo - primero;
+    var current = primero;
+    var increment = ultimo > primero? 1 : -1;
+    var stepTime = Math.abs(Math.floor(duracion / rango));
+    var obj = document.getElementById(id);
+    var timer = setInterval(function() {
+        current += increment;
+        obj.innerHTML = current;
+        if (current == ultimo) {
+            clearInterval(timer);
+        }
+    }, stepTime);
+}
+
 
