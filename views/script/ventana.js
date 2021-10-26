@@ -19,7 +19,6 @@ if(document.getElementById('volver')) {
             volver();
         };
     };
-    
 };
 
 if(document.getElementById('regresar')) {
