@@ -71,7 +71,7 @@ $('#subir-boton').on('click', function(e) {
     }
 })
 
-$('#info').on('click', function(event) {
+$('#info').on('click', function() {
     Swal.fire({
         title: 'Información sobre los archivos.',
         html: `
@@ -114,8 +114,8 @@ $('#info').on('click', function(event) {
       })
 });
 
-$('.cerrar').on('click', function(event) {
-    event.preventDefault();
+$('.cerrar').on('click', function(e) {
+    e.preventDefault();
     Swal.fire({
         title: '¿Estás seguro de querer eliminar el archivo ' + this.id + ' ?',
         text: 'No se podrá recuperar.',
