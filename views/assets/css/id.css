@@ -1,0 +1,7 @@
+#subir-boton {
+    text-align: center;
+}
+
+#regresar, #info {
+    cursor: pointer;
+}
