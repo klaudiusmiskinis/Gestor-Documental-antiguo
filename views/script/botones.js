@@ -1,3 +1,5 @@
+
+
 $('#subir-boton').on('click', function(e) {
     e.preventDefault();
         if (document.getElementById('subir-campo').files[0] != undefined) {
@@ -7,7 +9,7 @@ $('#subir-boton').on('click', function(e) {
             let encontrado = null;
             let nombres = [];
             if (archivos.length == 0 && nombreArc.length > 0) {
-                $('#subir').submit();
+                document.getElementById('subir').submit();
             }
             for(let i = 0; i < archivos.length; i++) {
                 nombres.push(archivos[i].innerHTML)
@@ -225,7 +227,7 @@ function alertaSubir(nombre, version, tipo) {
                 document.getElementById('subir').action = '/subir?nuevaversion=true&version=' + version;
             }
             console.log(tipo)
-            $('#subir').submit();
+            document.getElementById('subir').submit();
         }
     })
 }
