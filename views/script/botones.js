@@ -1,5 +1,3 @@
-
-
 $('#subir-boton').on('click', function(e) {
     e.preventDefault();
         if (document.getElementById('subir-campo').files[0] != undefined) {
