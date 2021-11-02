@@ -54,6 +54,7 @@ app.use(methodOverride('_method'));
 app.use(fileupload());
 app.use('/assets', express.static('views/assets'));
 app.use('/script', express.static('views/script'));
+app.use('/node_modules', express.static('node_modules/'));
 
 // METODOS HTTPs //
 // GETs //
