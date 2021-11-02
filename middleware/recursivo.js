@@ -101,7 +101,7 @@ function recursivo(rutaRaiz) {
     return [allDirectories, allFiles, dirFilter, nomRutas];
 }
 
-function getFolder(nom, allFiles, dirFilter) {
+function directorio(nom, allFiles, dirFilter) {
     let data = {
         nom: nom,
         hijos: [],
@@ -136,5 +136,5 @@ function getFolder(nom, allFiles, dirFilter) {
 
 module.exports = {
    recursivo,
-   getFolder
+   directorio
 };
