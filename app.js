@@ -1,13 +1,16 @@
+// SETUP
 require('dotenv').config(); 
+const fileupload = require('express-fileupload');
+const methodOverride = require('method-override');
+const express = require('express');
+const app = express();
+// MIDDLEWARES
 const recursivo = require('./middleware/recursivo');
 const eliminar = require('./middleware/eliminar');
 const descargar = require('./middleware/descargar');
 const accion = require('./middleware/accion');
 const subir = require('./middleware/subir');
-const fileupload = require('express-fileupload');
-const methodOverride = require('method-override');
-const express = require('express');
-const app = express();
+
 
 // Variables
 const rutaRaiz = process.env.RUTA_LOCAL;
