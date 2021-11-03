@@ -21,31 +21,6 @@ let nomRutas = [];
 
 // DESPLIEGUE //
 actualizar();
-function actualizar() {
-    let data = recursivo.recursivo(rutaRaiz);
-    allDirectories = data[0];
-    allFiles = data[1];
-    dirFilter = data[2];
-    nomRutas = data[3];
-    nomRutas.forEach(nom => {
-        transformado = encodeURI(nom);
-        if(nom.charAt(0) == '/') {
-            app.get(transformado, (req, res) => {
-                actualizar();
-                let data = recursivo.directorio(nom, allFiles, dirFilter)
-                res.cookie('position', nom);
-                res.render('index.ejs', {data: data});
-            })
-        } else {
-            app.get('/' + transformado, (req, res) =>{
-                actualizar();
-                let data = recursivo.directorio(nom, allFiles, dirFilter)
-                res.cookie('position', nom);
-                res.render('index.ejs', {data: data});
-            })
-        }
-    })
-}
 
 // CONFIGURACIÓN DE FUNCIONAMIENTO //
 app.set('view engine', 'ejs')
@@ -54,7 +29,7 @@ app.use(methodOverride('_method'));
 app.use(fileupload());
 app.use('/assets', express.static('views/assets'));
 app.use('/script', express.static('views/script'));
-app.use('/node_modules', express.static('node_modules/'));
+app.use('/node', express.static('node_modules'));
 
 // METODOS HTTPs //
 // GETs //
@@ -90,5 +65,32 @@ app.delete('/eliminar', async (req, res) => {
     res.redirect(req.get('referer'));
 })
 
-// PUERTO DE DESPLIGUE //+
+// PUERTO DE DESPLIGUE //
 app.listen(process.env.PORT_APP);
+
+// FUNCIONES //
+function actualizar() {
+    let data = recursivo.recursivo(rutaRaiz);
+    allDirectories = data[0];
+    allFiles = data[1];
+    dirFilter = data[2];
+    nomRutas = data[3];
+    nomRutas.forEach(nom => {
+        transformado = encodeURI(nom);
+        if(nom.charAt(0) == '/') {
+            app.get(transformado, (req, res) => {
+                actualizar();
+                let data = recursivo.directorio(nom, allFiles, dirFilter)
+                res.cookie('position', nom);
+                res.render('index.ejs', {data: data});
+            })
+        } else {
+            app.get('/' + transformado, (req, res) =>{
+                actualizar();
+                let data = recursivo.directorio(nom, allFiles, dirFilter)
+                res.cookie('position', nom);
+                res.render('index.ejs', {data: data});
+            })
+        }
+    })
+}
