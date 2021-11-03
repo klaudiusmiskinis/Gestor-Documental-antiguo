@@ -36,7 +36,6 @@ if(document.getElementById('regresar')) {
     };
 };
 
-//FUNCTION
 function volver() {
     console.log(window.location.href)
     let cookie = (document.cookie).split('=')[1]
@@ -53,7 +52,6 @@ function volver() {
         window.location.replace('/')
     }
 };
-
 
 function animacionNum(id, primero, ultimo, duracion) {
     if (primero === ultimo) return;
