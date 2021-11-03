@@ -27,16 +27,19 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 app.use(fileupload());
+/* RUTAS ESTATICAS PARA ARCHIVOS DE ESTILO, SCRIPTS Y NODE_MODULES */
 app.use('/assets', express.static('views/assets'));
 app.use('/script', express.static('views/script'));
 app.use('/node', express.static('node_modules'));
 
 // METODOS HTTPs //
 // GETs //
+/* PADRE */
 app.get('/', (req, res) => {
     res.redirect('/home');
 });
 
+/* HOME */
 app.get('/home', (req, res) => {
     actualizar();
     res.cookie('position', '/');
@@ -63,6 +66,7 @@ app.post('/accion', async (req, res) => {
 });
 
 // DELETEs //
+/* ELIMINAR */
 app.delete('/eliminar', async (req, res) => {
     eliminar.run(rutaRaiz, req, res);
     res.redirect(req.get('referer'));
@@ -72,6 +76,12 @@ app.delete('/eliminar', async (req, res) => {
 app.listen(process.env.PORT_APP);
 
 // FUNCIONES //
+
+/* ACTUALIZAR */
+/* PARAMETROS: NO */
+/* DEVUELVE: NADA */
+/* SE ENCARGA DE HACER LA RECURSIVIDAD DE LOS DIRECTORIOS Y GENERAR LOS CONTENIDOS DE LAS VARIABLES */
+/* UNA VEZ CONTIENE LOS DATOS, CREA METODOS HTTP GET CON LAS RUTAS DE DIRECTORIOS PARA CONECTARNOS */
 function actualizar() {
     let data = recursivo.recursivo(rutaRaiz);
     allDirectories = data[0];
