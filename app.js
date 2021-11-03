@@ -23,8 +23,8 @@ let nomRutas = [];
 actualizar();
 
 // CONFIGURACIÓN DE FUNCIONAMIENTO //
-app.set('view engine', 'ejs')
-app.use(express.urlencoded({ extended: false }))
+app.set('view engine', 'ejs');
+app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 app.use(fileupload());
 app.use('/assets', express.static('views/assets'));
@@ -40,20 +40,23 @@ app.get('/', (req, res) => {
 app.get('/home', (req, res) => {
     actualizar();
     res.cookie('position', '/');
-    res.render('index.ejs', {data: recursivo.directorio('/', allFiles, dirFilter)})
-})
+    res.render('index.ejs', {data: recursivo.directorio('/', allFiles, dirFilter)});
+});
 
 // POSTs //
+/* SUBIR */
 app.post('/subir', async (req, res) => {
     subir.run(rutaRaiz, req, res);
     res.redirect(req.get('referer'));
 });
 
+/* DESCARGAR */
 app.post('/descargar', async (req, res) => {
     descargar.run(rutaRaiz, req, res);
     res.download(rutaArchivo);
 });
 
+/* ACCION */
 app.post('/accion', async (req, res) => {
     console.log(req.body);
     res.end();
@@ -63,7 +66,7 @@ app.post('/accion', async (req, res) => {
 app.delete('/eliminar', async (req, res) => {
     eliminar.run(rutaRaiz, req, res);
     res.redirect(req.get('referer'));
-})
+});
 
 // PUERTO DE DESPLIGUE //
 app.listen(process.env.PORT_APP);
@@ -80,17 +83,17 @@ function actualizar() {
         if(nom.charAt(0) == '/') {
             app.get(transformado, (req, res) => {
                 actualizar();
-                let data = recursivo.directorio(nom, allFiles, dirFilter)
+                let data = recursivo.directorio(nom, allFiles, dirFilter);
                 res.cookie('position', nom);
                 res.render('index.ejs', {data: data});
-            })
+            });
         } else {
             app.get('/' + transformado, (req, res) =>{
                 actualizar();
-                let data = recursivo.directorio(nom, allFiles, dirFilter)
+                let data = recursivo.directorio(nom, allFiles, dirFilter);
                 res.cookie('position', nom);
                 res.render('index.ejs', {data: data});
-            })
-        }
-    })
-}
+            });
+        };
+    });
+};
