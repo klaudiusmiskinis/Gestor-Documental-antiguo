@@ -2,14 +2,14 @@ const fs = require('fs');
 
 async function run(rutaRaiz, req, res){
     let rutaArchivo = '';
-    let decode = decodeURI(req.headers.cookie)
-    decode = decode.split('=')[1];
+    let position = decodeURI(req.headers.cookie)
+    position = position.split('=')[1];
 
-    if(decode == '%2F') {
+    if(position == '%2F') {
         rutaArchivo = rutaRaiz + req.body.archivo;
     } else {
-        decode = decode.split('%2F').join('/');
-        rutaArchivo = rutaRaiz + decode + '/' + req.body.archivo;
+        position = position.split('%2F').join('/');
+        rutaArchivo = rutaRaiz + position + '/' + req.body.archivo;
     }
 
     try {

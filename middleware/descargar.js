@@ -1,12 +1,12 @@
 function run(rutaRaiz, req, res) {
-    let decode = decodeURI(req.headers.cookie);
-    decode = decode.split('=')[1];
-    if(decode == '%2F') {
+    let position = decodeURI(req.headers.cookie);
+    position = position.split('=')[1];
+    if(position == '%2F') {
         rutaArchivo = rutaRaiz + req.body.descargar;
     } else {
         let archivo = (req.body.descargar).split('%2F').join('/');
-        decode = decode.split('%2F').join('/');
-        rutaArchivo = rutaRaiz + decode + '/' + archivo;
+        position = position.split('%2F').join('/');
+        rutaArchivo = rutaRaiz + position + '/' + archivo;
     }
     console.log('Descargando:', req.body.descargar);
 }

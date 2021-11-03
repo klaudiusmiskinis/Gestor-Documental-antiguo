@@ -2,14 +2,14 @@ const fs = require('fs');
 
 async function run(rutaRaiz, req, res) {
     let rutaArchivo = '';
-    let decode = decodeURI(req.headers.cookie);
-    decode = decode.split('=')[1];
+    let position = decodeURI(req.headers.cookie);
+    position = position.split('=')[1];
     if (req.files) {
-        if(decode == '%2F') {
+        if(position == '%2F') {
             rutaArchivo = rutaRaiz + req.files.file_data.name;
         } else {
-            decode = decode.split('%2F').join('/');
-            rutaArchivo = rutaRaiz + decode + '/' + req.files.file_data.name;
+            position = position.split('%2F').join('/');
+            rutaArchivo = rutaRaiz + position + '/' + req.files.file_data.name;
         }
         try {
             if(!fs.existsSync(rutaArchivo)) {
@@ -25,11 +25,11 @@ async function run(rutaRaiz, req, res) {
                         if (cambiar.includes('_')) {
                             renombrar = renombrar.split(cambiar).join('')
                         }
-                        if(decode == '%2F') {
+                        if(position == '%2F') {
                             rutaArchivo = rutaRaiz + renombrar;
                         } else {
-                            decode = decode.split('%2F').join('/');
-                            rutaArchivo = rutaRaiz + decode + '/' + renombrar;
+                            position = position.split('%2F').join('/');
+                            rutaArchivo = rutaRaiz + position + '/' + renombrar;
                         }
                         await req.files.file_data.mv(rutaArchivo);
                     } else {
