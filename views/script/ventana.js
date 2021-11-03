@@ -37,19 +37,17 @@ if(document.getElementById('regresar')) {
 };
 
 function volver() {
-    console.log(window.location.href)
-    let cookie = (document.cookie).split('=')[1]
     cookie = decodeURI(cookie);
-    cookie = cookie.split('%2F').join('/')
+    cookie = cookie.split('%2F').join('/');
     if (cookie.includes('/')) {
         cookie = cookie.split('/');
         cookie.splice(-1);
         cookie = cookie.join('/');
-        cookie = encodeURI(cookie)
-        cookie = '/' + cookie
-        window.location.replace(cookie)
+        cookie = encodeURI(cookie);
+        cookie = '/' + cookie;
+        window.location.replace(cookie);
     } else {
-        window.location.replace('/')
+        window.location.replace('/');
     }
 };
 
