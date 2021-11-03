@@ -1,7 +1,7 @@
 document.onreadystatechange = function(e) {
     if (document.readyState === 'complete') {
         $(document.body).hide('fast');
-    }
+    };
 };
 
 window.onload = function(e) {
@@ -9,12 +9,10 @@ window.onload = function(e) {
 
     if(document.getElementById('dir-titulo')) {
         animacionNum('dir-titulo', 0, document.getElementById('dir-numero').value, 900);
-    }
-
+    };
     if(document.getElementById('archivos-titulo')) {
         animacionNum('archivos-titulo', 0, document.getElementById('archivos-numero').value, 900);
-    }
-    
+    };
 };
 
 if(document.getElementById('volver')) {
@@ -48,7 +46,7 @@ function volver() {
         window.location.replace(cookie);
     } else {
         window.location.replace('/');
-    }
+    };
 };
 
 function animacionNum(id, primero, ultimo, duracion) {
@@ -65,6 +63,6 @@ function animacionNum(id, primero, ultimo, duracion) {
             clearInterval(timer);
         }
     }, stepTime);
-}
+};
 
 
