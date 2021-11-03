@@ -8,7 +8,7 @@ function recursivo(rutaRaiz) {
     let dirFilter = [];
     let nomRutas = [];
 
-    actualizar();
+    reload();
 
     function rutas(dir) {
         if(dir.padre == rutaRaiz) {
@@ -18,7 +18,7 @@ function recursivo(rutaRaiz) {
         }
     };
 
-    function actualizar() {
+    function reload() {
         allDirectories = []
         allFiles = []
         dirFilter = []
