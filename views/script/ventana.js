@@ -1,7 +1,7 @@
 document.onreadystatechange = function(e) {
     if (document.readyState === 'complete') {
         $(document.body).hide('fast');
-    };
+    }
 };
 
 window.onload = function(e) {
@@ -9,10 +9,12 @@ window.onload = function(e) {
 
     if(document.getElementById('dir-titulo')) {
         animacionNum('dir-titulo', 0, document.getElementById('dir-numero').value, 900);
-    };
+    }
+
     if(document.getElementById('archivos-titulo')) {
         animacionNum('archivos-titulo', 0, document.getElementById('archivos-numero').value, 900);
-    };
+    }
+    
 };
 
 if(document.getElementById('volver')) {
@@ -34,20 +36,24 @@ if(document.getElementById('regresar')) {
     };
 };
 
+//FUNCTION
 function volver() {
+    console.log(window.location.href)
+    let cookie = (document.cookie).split('=')[1]
     cookie = decodeURI(cookie);
-    cookie = cookie.split('%2F').join('/');
+    cookie = cookie.split('%2F').join('/')
     if (cookie.includes('/')) {
         cookie = cookie.split('/');
         cookie.splice(-1);
         cookie = cookie.join('/');
-        cookie = encodeURI(cookie);
-        cookie = '/' + cookie;
-        window.location.replace(cookie);
+        cookie = encodeURI(cookie)
+        cookie = '/' + cookie
+        window.location.replace(cookie)
     } else {
-        window.location.replace('/');
-    };
+        window.location.replace('/')
+    }
 };
+
 
 function animacionNum(id, primero, ultimo, duracion) {
     if (primero === ultimo) return;
@@ -63,6 +69,4 @@ function animacionNum(id, primero, ultimo, duracion) {
             clearInterval(timer);
         }
     }, stepTime);
-};
-
-
+}
