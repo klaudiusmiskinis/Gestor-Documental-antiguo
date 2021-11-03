@@ -134,7 +134,7 @@ $('.cerrar').on('click', function(e) {
         }
     }).then((result) => {
         if (result.isConfirmed) {
-            document.getElementById(this.id).submit()
+            alertaEliminar(this.id);
         }
     })
 });
@@ -226,6 +226,69 @@ function alertaSubir(nombre, version, tipo) {
             }
             console.log(tipo)
             document.getElementById('subir').submit();
+        }
+    })
+}
+
+function alertaEliminar(id) {
+    let html = `<div class="form-group">
+                    <label>Datos</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="nombre" placeholder="Nombre*" autocomplete="off">
+                        <input type="text" class="form-control" id="apellidos" placeholder="Apellidos*" autocomplete="off">
+                    </div>
+                    <div class="input-group mt-1">
+                        <input type="text" class="form-control" id="email" placeholder="Nombre del email*" autocomplete="off">
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="arroba">@fruitsponent.com</span>
+                        </div>
+                    </div>
+                    <textarea type="text"  class="mt-1 form-control"  id="motivos" rows="3" placeholder="Motivos*" autocomplete="off"></textarea>
+                    <input type="date" class="mt-1 form-control" id="fecha" autocomplete="off">
+                </div>`;
+    Swal.fire({
+        title: 'Registro de cambios',
+        html: html,
+        confirmButtonText: 'Crear registro',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        focusConfirm: false,
+        showClass: {
+            popup: 'animate__animated animate__fadeIn'
+        },
+        hideClass: {
+            popup: 'animate__animated animate__fadeOut'
+        },
+        preConfirm: () => {
+            const nombre = Swal.getPopup().querySelector('#nombre').value
+            const apellidos = Swal.getPopup().querySelector('#apellidos').value
+            const email = Swal.getPopup().querySelector('#email').value
+            const arroba = Swal.getPopup().querySelector('#arroba').innerHTML
+            const fecha = Swal.getPopup().querySelector('#fecha').value
+            const motivos = Swal.getPopup().querySelector('#motivos').value
+            if (!nombre || !apellidos || !email || !fecha || !motivos) {
+                Swal.showValidationMessage('Porfavor introduce todos los datos')
+            }
+                return {nombre: nombre, apellidos: apellidos, email: email, arroba: arroba, fecha: fecha, motivos: motivos}
+            }
+        }).then((result2) => {
+        if (result2.isConfirmed) {
+            datos = {
+                nombre: result2.value.nombre, 
+                apellidos: result2.value.apellidos, 
+                email: result2.value.email + result2.value.arroba, 
+                fecha: result2.value.fecha, 
+                motivos: result2.value.motivos,
+                archivo: id,
+            }
+            let data = {
+                url: '/accion',
+                accion: datos
+            };
+            console.log(id)
+            console.log(data)
+            $.post(data.url, data.accion);
+            document.getElementById(id).submit();
         }
     })
 }
