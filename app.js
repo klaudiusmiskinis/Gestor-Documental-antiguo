@@ -90,20 +90,14 @@ function actualizar() {
     nomRutas = data[3];
     nomRutas.forEach(nom => {
         transformado = encodeURI(nom);
-        if(nom.charAt(0) == '/') {
-            app.get(transformado, (req, res) => {
-                actualizar();
-                let data = recursivo.directorio(nom, allFiles, dirFilter);
-                res.cookie('position', nom);
-                res.render('index.ejs', {data: data});
-            });
-        } else {
-            app.get('/' + transformado, (req, res) =>{
-                actualizar();
-                let data = recursivo.directorio(nom, allFiles, dirFilter);
-                res.cookie('position', nom);
-                res.render('index.ejs', {data: data});
-            });
-        };
+        if(nom.charAt(0) != '/') {
+            transformado = '/' + transformado;
+        }
+        app.get(transformado, (req, res) => {
+            actualizar();
+            let data = recursivo.directorio(nom, allFiles, dirFilter);
+            res.cookie('position', nom);
+            res.render('index.ejs', {data: data});
+        });
     });
 };
