@@ -118,7 +118,7 @@
                         aria-labelledby="flush-archivos" 
                         data-bs-parent="#acordeon">
                             <div class="file">
-                                <input type="text" id="archivos-numero" class="hide" value="<%=data.archivos.length%>">
+                                <input type="hidden" id="archivos-numero" value="<%=data.archivos.length%>">
                                 <div class="d-flex mb-2"></div>
                                 <% data.archivos.forEach(function(ar, i) { %>
                                 <% if ((i % 3) == 0) { %>
@@ -131,13 +131,13 @@
                                             </div>
                                             <div>
                                                 <form action="/descargar" method="post">
-                                                    <input type="text" name="descargar" class="hide" value="<%=ar%>">
-                                                    <button type="submit" class="btn text-break card-body archivo"><%=ar%></button>
+                                                    <input type="hidden" name="descargar" value="<%=ar%>">
+                                                    <button type="submit" class="btn text-break card-body archivo line-clamp"><%=ar%></button>
                                                 </form>
                                             </div>
                                             <div class="justify-content-right align-self-center ms-auto px-1">
                                                 <form action="/eliminar?_method=DELETE" class="cerrar" id="<%=ar%>" name="formEliminar" method="POST">
-                                                    <input type="text" name="archivo" class="hide" value="<%=ar%>">
+                                                    <input type="hidden" name="archivo" value="<%=ar%>">
                                                     <button type="submit" class="btn-close mx-2"></button>
                                                 </form>
                                             </div>
