@@ -38,8 +38,7 @@ if(document.getElementById('regresar')) {
 
 //FUNCTION
 function volver() {
-    console.log(window.location.href)
-    let cookie = (document.cookie).split('=')[1]
+    let cookie = getCookie('position')
     cookie = decodeURI(cookie);
     cookie = cookie.split('%2F').join('/')
     if (cookie.includes('/')) {
@@ -53,6 +52,12 @@ function volver() {
         window.location.replace('/')
     }
 };
+
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
 
 
 function animacionNum(id, primero, ultimo, duracion) {
