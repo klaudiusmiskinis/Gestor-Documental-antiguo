@@ -8,6 +8,5 @@ function imageExiste(elemento){
     $.get(ruta)
     .fail(function() { 
         elemento.src = '/assets/img-svg/file.svg';
-        console.clear();
     })
 }
