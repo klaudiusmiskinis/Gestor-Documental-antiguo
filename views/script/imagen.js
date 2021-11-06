@@ -4,8 +4,7 @@ for (let i = 0; i < elementos.length; i++) {
 }
 
 function imageExiste(elemento){
-    let ruta = elemento.currentSrc;
-    $.get(ruta)
+    $.get(elemento.currentSrc)
     .fail(function() { 
         elemento.src = '/assets/img-svg/file.svg';
     })
