@@ -3,9 +3,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/node/animate.css/animate.min.css"/>
-    <link rel="stylesheet" href="/node/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/node/sweetalert2/dist/sweetalert2.min.css">
+    <link rel="stylesheet" type="text/html" href="/node/animate.css/animate.min.css"/>
+    <link rel="stylesheet" type="text/html" href="/node/sweetalert2/dist/sweetalert2.min.css">
+    <link rel="stylesheet" type="text/css" href="/node/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="/assets/css/scrollbar.css"/>
     <link rel="stylesheet" type="text/css" href="/assets/css/transicion.css"/>
     <link rel="stylesheet" type="text/css" href="/assets/css/clases.css"/>
@@ -127,7 +127,7 @@
                                     <div class="col file-estilo bg-light text-dark m-1">
                                         <div class="d-flex">
                                             <div class="justify-content-left align-self-center px-1">
-                                                <img src="/assets/img-svg/<%=data.extensiones[i]%>.svg" class="text-center m-2 svg" width="35" alt="file <%=data.extensiones[i]%>">
+                                                <img src="/assets/img-svg/<%=data.extensiones[i]%>.svg" class="m-2 svg img-archivo" width="35" alt="file <%=data.extensiones[i]%>">
                                             </div>
                                             <div>
                                                 <form action="/descargar" method="post">
@@ -198,6 +198,7 @@
     <script src="/node/@popperjs/core/dist/umd/popper.min.js"></script>
     <script src="/node/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/node/sweetalert2/dist/sweetalert2.min.js"></script>
+    <script src="/script/imagen.js"></script>
     <script src="/script/ventana.js"></script>
     <script src="/script/botones.js"></script>
     <script src="/script/textos.js"></script>
