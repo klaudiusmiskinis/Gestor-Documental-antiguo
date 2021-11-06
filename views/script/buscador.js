@@ -1,4 +1,9 @@
 $('#buscador').on('input', () => {
-    console.log($('#buscador').val())
-    $('')
+    $('.archivo').each(function() {
+        if ($(this).html().includes($('#buscador').val())) {
+            $($(this).html()).hide();
+        } else {
+            $(this).show()
+        }
+    });
 })
