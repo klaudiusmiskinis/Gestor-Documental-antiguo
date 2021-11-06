@@ -130,7 +130,7 @@
                                 <% if ((i % 3) == 0) { %>
                                 <div class="row">
                                     <% } %>
-                                    <div class="col file-estilo bg-light text-dark m-1">
+                                    <div class="col file-estilo bg-light text-dark m-1" id="<%= ar %>">
                                         <div class="d-flex">
                                             <div class="justify-content-left align-self-center px-1">
                                                 <img src="/assets/img-svg/<%= data.extensiones[i] %>.svg" class="m-2 svg img-archivo" width="35" alt="file <%= data.extensiones[i] %>">
@@ -138,11 +138,11 @@
                                             <div>
                                                 <form action="/descargar" method="post">
                                                     <input type="hidden" name="descargar" value="<%= ar %>">
-                                                    <button type="submit" class="btn text-break card-body archivo line-clamp"><%=ar%></button>
+                                                    <button type="submit" class="btn text-break card-body archivo line-clamp"><%= ar %></button>
                                                 </form>
                                             </div>
                                             <div class="justify-content-right align-self-center ms-auto px-1">
-                                                <form action="/eliminar?_method=DELETE" class="cerrar" id="<%= ar %>" name="formEliminar" method="POST">
+                                                <form action="/eliminar?_method=DELETE" class="cerrar" id="<%= ar + 'form' %>" name="formEliminar" method="POST">
                                                     <input type="hidden" name="archivo" value="<%= ar %>">
                                                     <button type="submit" class="btn-close mx-2"></button>
                                                 </form>
