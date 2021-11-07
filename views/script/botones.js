@@ -1,3 +1,7 @@
+// EVENT LISTENER PARA CLICK DE BOTON-SUBIR
+/* NO DEVUELVE NADA */
+/* SE ENCARGA DE VER QUE ARCHIVOS TIENEN EL MISMO NOMBRE QUE EL ARCHIVO QUE SE VA A SUBIR */
+/* DEPENDIENDO DE LA RESPUESTA DEL FORMULARIO SE HARA UNA ACCION U OTRA */
 $('#subir-boton').on('click', function(e) {
     e.preventDefault();
         if (document.getElementById('subir-campo').files[0] != undefined) {
@@ -66,11 +70,15 @@ $('#subir-boton').on('click', function(e) {
             } 
         if (encontrado == false) {
             version = 0;
-            alertaSubir(nombreArc, version, 'nueva')
+            alertaSubir(nombreArc, version, 'nueva');
         }
     }
 })
 
+// EVENT LISTENER PARA CLICK DE INFO
+/* NO DEVUELVE NADA */
+/* SE ENCARGA DE MOSTRAR UNA MINI-GUÍA PARA VER COMO DEBE DE SER EL NOMBRE DEL ARCHIVO */
+/* PARA QUE LA COMPROBACIÓN SEA LA CORRECTA Y EL FIN DE LA APP SEA VÁLIDA */
 $('#info').on('click', function() {
     Swal.fire({
         title: info.titulo,
@@ -82,9 +90,13 @@ $('#info').on('click', function() {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp'
         }
-      })
+    })
 });
 
+// EVENT LISTENER PARA CLICK DE CERRAR
+/* NO DEVUELVE NADA */
+/* SE ENCARGA DE MOSTRAR UN POP UP EN CASO DE QUE SE QUIERA ELIMINAR UN ARCHIVO */
+/* ESTE POP UP CONTIENE UN FORMULARIO CON DATOS QUE DEBEN DE RELLENARSE */
 $('.cerrar').on('click', function(e) {
     e.preventDefault();
     Swal.fire({
@@ -110,6 +122,11 @@ $('.cerrar').on('click', function(e) {
     })
 });
 
+// FUNCION alertaSubir(param1, param2, param3)
+/* NO DEVUELVE NADA */
+/* TIENE 3 PARAMETROS: NOMBRE, VERSION Y TIPO */
+/* ACCION PARA SUBIR ARCHIVO */
+/* NO DEVUELVE NADA Y SU ULTIMA ACCION EN CASO DE SER CORRECTO, DEBERA HACER UN SUBMIT DEL FORMULARIO */
 function alertaSubir(nombre, version, tipo) {
     let inputVersion;
     if (version != null) {
@@ -184,6 +201,11 @@ function alertaSubir(nombre, version, tipo) {
     })
 }
 
+// FUNCION alertaEliminar(param1)
+/* NO DEVUELVE NADA */
+/* TIENE 1 PARAMETRO: ID */
+/* ACCION PARA ELIMINAR */
+/* NO DEVUELVE NADA Y SU ULTIMA ACCION EN CASO DE SER CORRECTO, DEBERÁ HACER UN SUBMIT DEL FORMULARIO */
 function alertaEliminar(id) {
     Swal.fire({
         title: eliminar.titulo,
@@ -208,9 +230,9 @@ function alertaEliminar(id) {
             if (!nombre || !apellidos || !email || !fecha || !motivos) {
                 Swal.showValidationMessage('Porfavor introduce todos los datos')
             }
-                return {nombre: nombre, apellidos: apellidos, email: email, arroba: arroba, fecha: fecha, motivos: motivos}
-            }
-        }).then((result2) => {
+            return {nombre: nombre, apellidos: apellidos, email: email, arroba: arroba, fecha: fecha, motivos: motivos}
+        }
+    }).then((result2) => {
         if (result2.isConfirmed) {
             datos = {
                 nombre: result2.value.nombre, 
