@@ -40,12 +40,6 @@
     --bs-gutter-y: 0;
 }
 
-.file, .dir, .subir-archivo {
-    padding: 1rem;
-    text-overflow: ellipsis;
-
-}
-
 .left{
     text-align: left !important;
 }
