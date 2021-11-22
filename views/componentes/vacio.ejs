@@ -1,0 +1,15 @@
+<% if (data.archivos.length == 0 && data.hijos.length == 0) { %>
+    <div class="container-fluid mt-5">
+        <div class="row">
+            <div class="col text-center"><img src="/assets/img-svg/vacio.png" class="img-fluid invertido" width="150"></div>
+        </div>
+        <div class="row mt-2">
+            <div class="col text-center justify-content-center invertido">
+                <h3>UPS, aqui no hay ni directorios ni archivos.</h3>
+            </div>
+        </div>
+        <div class="row text-center">
+            <a id="regresar"><img src="/assets/img-svg/back.svg" class="img-fluid invertido" width="45"></a>
+        </div>
+    </div>
+<% } %>
