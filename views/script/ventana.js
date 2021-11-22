@@ -14,7 +14,6 @@ window.onload = function(e) {
     if(document.getElementById('archivos-titulo')) {
         animacionNum('archivos-titulo', 0, document.getElementById('archivos-numero').value, 900);
     }
-    
 };
 
 if(document.getElementById('volver')) {
