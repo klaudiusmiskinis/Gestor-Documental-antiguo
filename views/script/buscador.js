@@ -1,11 +1,11 @@
 $('#buscador').on('input', () => {
     $('.archivo').each(function() {
         if ($(this).html().includes($('#buscador').val())) {
-            let id = '#' + $(this).html();
-            console.log(document.querySelector(id).id);
-            $($(this).html()).hide();
+            let padre = $(this).parents()[3];
+            padre.style.display = 'block';
         } else {
-            $(this).show()
+            let padre = $(this).parents()[3];
+            padre.style.display = 'none';
         }
     });
 })
