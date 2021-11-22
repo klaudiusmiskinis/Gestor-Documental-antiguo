@@ -1,0 +1,19 @@
+<div class="container-fluid mt-2">
+    <div class="subir-archivo">
+        <div class="d-flex text-light">Subir un archivo
+            <p class="mx-1 text-primary" id="info">ⓘ</p>
+        </div>
+        <div class="row">
+            <div class="col shadow-sm">
+                <form action="/subir" method="post" id="subir" enctype="multipart/form-data">
+                    <div class="row justify-content-center">
+                        <div class="input-group mb-3">
+                            <input type="file" class="form-control" id="subir-campo" name="file_data" required>
+                            <label class="input-group-text card"  type="submit" id="subir-boton">Subir archivo</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
