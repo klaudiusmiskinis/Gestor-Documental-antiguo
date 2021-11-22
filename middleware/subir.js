@@ -15,8 +15,8 @@ async function run(rutaRaiz, req, res) {
             if(!fs.existsSync(rutaArchivo)) {
                 await req.files.file_data.mv(rutaArchivo);
                 } else {
-                    if(req.query) {
                     let renombrar;
+                    if(req.query) {
                     if (req.query.nuevaversion == 'true') {
                         let version = req.query.version;
                         let nombre = (req.files.file_data.name).split('.');
