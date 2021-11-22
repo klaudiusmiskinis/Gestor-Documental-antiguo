@@ -3,16 +3,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/node/animate.css/animate.min.css"/>
-    <link rel="stylesheet" href="/node/sweetalert2/dist/sweetalert2.min.css">
-    <link rel="stylesheet" href="/node/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="/assets/css/scrollbar.css"/>
-    <link rel="stylesheet" type="text/css" href="/assets/css/transicion.css"/>
-    <link rel="stylesheet" type="text/css" href="/assets/css/clases.css"/>
-    <link rel="stylesheet" type="text/css" href="/assets/css/style.css"/>
-    <link rel="stylesheet" type="text/css" href="/assets/css/card.css"/>
-    <link rel="stylesheet" type="text/css" href="/assets/css/id.css"/>
-    <link rel="icon" href="/assets/img-svg/folder.svg"/>
+    <%- include('componentes/links') %> 
     <% if(data.nom == '/') { %> 
         <title>Home</title>
     <% } else { %>
@@ -21,198 +12,123 @@
 </head>
 <body class="hide">
 
-    <!-- NAVBAR SUPERIOR -->
-    <nav id="navbar" class="navbar navbar-light bg-light shadow-sm">
-        <div class="row container-fluid">
-            <div class="col-auto justify-content-left">
-                <a class="navbar-brand" href="/home"><h6 class="m-2">Gestor Documental</h6></a>
-            </div>
-            <div class="col-auto justify-content-right text-center">
-                <a class="btn" id="volver"><img src="/assets/img-svg/back.svg" class="img-fluid" width="25"></a>
-                <a class="btn" href="/home"><img src="/assets/img-svg/home.svg" class="img-fluid" width="35"></a>
-            </div>
-        </div>
-    </nav>
+    <%- include('componentes/navbar') %> 
+    <%- include('componentes/buscador') %> 
 
-            <!-- CONTENEDOR DE TU POSICION -->
+    <% if (data.hijos.length != 0) { %>
+        <!-- CONTENEDOR DE DIRECTORIOS -->
             <div class="container-fluid">
-                <div class="col text-center text-light ruta">
-                    <p class="peq">Te encuentras en:<%= ' ' + data.nom %></p>
-                </div>
-
-                <div class="row gap-2">
-                    <div class="col">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text bg-dark text-light">Buscador archivos</span>
-                            <input type="search" class="form-control" id="buscadorFile">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text bg-dark text-light">Buscador directorios</span>
-                            <input type="search" class="form-control" id="buscadorDir">
-                        </div>
-                    </div>
-                </div>
-                
-
-            </div>
-                <% if (data.hijos.length != 0) { %>
-                <!-- CONTENEDOR DE DIRECTORIOS -->
-                    <div class="container-fluid">
-                        <div class="accordion-item accordion-item-r-top">
-                            <h2 class="accordion-header" id="flush-directorios">
-                            <button 
-                                class="accordion-button collapsed" 
-                                type="button" 
-                                data-bs-toggle="collapse" 
-                                data-bs-target="#flush-collapseOne" 
-                                aria-expanded="false" 
-                                aria-controls="flush-collapseOne">
-                                Directorios
-                                <div class="mx-1" id="dir-titulo">0</div>
-                            </button>
-                        </h2>
-                            <div 
-                            id="flush-collapseOne" 
-                            class="accordion-collapse collapse" 
-                            aria-labelledby="flush-directorios" 
-                            data-bs-parent="#acordeon">
-                                <div class="dir">
-                                    <input type="hidden" id="dir-numero" value="<%= data.hijos.length %>">
-                                    <% data.hijos.forEach(function(hijo, i) { %> 
-                                    <% if ((i % 3) == 0) { %>
-                                    <div class="row">
-                                        <% }  %>
-                                        <div class="col file-estilo bg-light m-1">
-                                            <div class="d-flex">
-                                                <div class="justify-content-left align-self-center me-auto px-1">
-                                                    <img src="/assets/img-svg/folder.svg" class="img-fluid m-2 svg" width="30" alt="folder">
-                                                </div>
-                                                <div class="col">
-                                                    <a class="btn card-body directorio text-truncate" href="<%= '/' + hijo.rutaRelativa %>">
-                                                        <%= hijo.nombre %>
-                                                    </a>
-                                                </div>
-                                            </div> 
+                <div class="accordion-item accordion-item-r-top">
+                    <h2 class="accordion-header" id="flush-directorios">
+                    <button 
+                        class="accordion-button collapsed" 
+                        type="button" 
+                        data-bs-toggle="collapse" 
+                        data-bs-target="#flush-collapseOne" 
+                        aria-expanded="false" 
+                        aria-controls="flush-collapseOne">
+                        Directorios
+                        <div class="mx-1" id="dir-titulo">0</div>
+                    </button>
+                </h2>
+                    <div 
+                    id="flush-collapseOne" 
+                    class="accordion-collapse collapse" 
+                    aria-labelledby="flush-directorios" 
+                    data-bs-parent="#acordeon">
+                        <div class="dir">
+                            <input type="hidden" id="dir-numero" value="<%= data.hijos.length %>">
+                            <% data.hijos.forEach(function(hijo, i) { %> 
+                            <% if ((i % 3) == 0) { %>
+                            <div class="row">
+                                <% }  %>
+                                <div class="col file-estilo bg-light m-1">
+                                    <div class="d-flex">
+                                        <div class="justify-content-left align-self-center me-auto px-1">
+                                            <img src="/assets/img-svg/folder.svg" class="img-fluid m-2 svg" width="30" alt="folder">
                                         </div>
-                                        <% if ((i % 3) == 2) { %>
-                                    </div>
-                                    <% } %>
-                                    <% }) %>
+                                        <div class="col">
+                                            <a class="btn card-body directorio text-truncate" href="<%= '/' + hijo.rutaRelativa %>">
+                                                <%= hijo.nombre %>
+                                            </a>
+                                        </div>
+                                    </div> 
                                 </div>
+                                <% if ((i % 3) == 2) { %>
                             </div>
-                        </div>  
-                    </div>
-                </div>
-            <% } %>
-
-            <!-- CONTENEDOR DE ARCHIVOS -->
-            <% if (data.archivos.length > 0) { %>
-                <div class="container-fluid">
-                    <div class="accordion-item accordion-item-r-bottom">
-                        <h2 class="accordion-header" id="flush-archivos">
-                            <button 
-                            class="accordion-button collapsed" 
-                            type="button" 
-                            data-bs-toggle="collapse" 
-                            data-bs-target="#flush-collapseTwo" 
-                            aria-expanded="false" 
-                            aria-controls="flush-collapseTwo">
-                            Archivos
-                            <div class="mx-1" id="archivos-titulo">0</div>
-                            </button>
-                        </h2>
-                        <div 
-                        id="flush-collapseTwo" 
-                        class="accordion-collapse collapse" 
-                        aria-labelledby="flush-archivos" 
-                        data-bs-parent="#acordeon">
-                            <div class="file">
-                                <input type="hidden" id="archivos-numero" value="<%= data.archivos.length %>">
-                                <% data.archivos.forEach(function(ar, i) { %>
-                                <% if ((i % 3) == 0) { %>
-                                <div class="row">
-                                    <% } %>
-                                    <div class="col file-estilo bg-light text-dark m-1">
-                                        <div class="d-flex">
-                                            <div class="justify-content-left align-self-center px-1">
-                                                <img src="/assets/img-svg/<%= data.extensiones[i] %>.svg" class="m-2 svg img-archivo" width="35" alt="file <%= data.extensiones[i] %>">
-                                            </div>
-                                            <div>
-                                                <form action="/descargar" method="post">
-                                                    <input type="hidden" name="descargar" value="<%= ar %>">
-                                                    <button type="submit" class="btn text-break card-body archivo text-truncate"><%= ar %></button>
-                                                </form>
-                                            </div>
-                                            <div class="justify-content-right align-self-center ms-auto px-1">
-                                                <form action="/eliminar?_method=DELETE" class="cerrar" id="<%= ar + 'form' %>" name="formEliminar" method="POST">
-                                                    <input type="hidden" name="archivo" value="<%= ar %>">
-                                                    <button type="submit" class="btn-close mx-2"></button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <% if ((i % 3) == 2) { %>
-                                    </div>
-                                    <% } %>
-                                <% }) %>
-                            </div>
+                            <% } %>
+                            <% }) %>
                         </div>
                     </div>
-                </div>
-                <% } %>
-            </div>
-        </div>
-    </div>
-
-    <% if (data.archivos.length == 0 && data.hijos.length == 0) { %>
-    <!-- CONTENIDO EN CASO DE NO HABER NI DIRECTORIOS NI ARCHIVOS -->
-        <div class="container-fluid mt-5">
-            <div class="row">
-                <div class="col text-center"><img src="/assets/img-svg/vacio.png" class="img-fluid invertido" width="150"></div>
-            </div>
-            <div class="row mt-2">
-                <div class="col text-center justify-content-center invertido">
-                    <h3>UPS, aqui no hay ni directorios ni archivos.</h3>
-                </div>
-            </div>
-            <div class="row text-center">
-                <a id="regresar"><img src="/assets/img-svg/back.svg" class="img-fluid invertido" width="45"></a>
+                </div>  
             </div>
         </div>
     <% } %>
-    
-    <!-- APARTADO PARA SUBIR ARCHIVOS -->
-    <div class="container-fluid mt-2">
-        <div class="subir-archivo">
-            <div class="d-flex text-light">Subir un archivo
-                <p class="mx-1 text-primary" id="info">ⓘ</p>
-            </div>
-                <div class="row">
-                    <div class="col shadow-sm">
-                        <form action="/subir" method="post" id="subir" enctype="multipart/form-data">
-                            <div class="row justify-content-center">
-                                <div class="input-group mb-3">
-                                    <input type="file" class="form-control" id="subir-campo" name="file_data" required>
-                                    <label class="input-group-text card"  type="submit" id="subir-boton">Subir archivo</label>
+
+            
+        <% if (data.archivos.length > 0) { %>
+            <!-- CONTENEDOR DE ARCHIVOS -->
+            <div class="container-fluid">
+                <div class="accordion-item accordion-item-r-bottom">
+                    <h2 class="accordion-header" id="flush-archivos">
+                        <button 
+                        class="accordion-button collapsed" 
+                        type="button" 
+                        data-bs-toggle="collapse" 
+                        data-bs-target="#flush-collapseTwo" 
+                        aria-expanded="false" 
+                        aria-controls="flush-collapseTwo">
+                        Archivos
+                        <div class="mx-1" id="archivos-titulo">0</div>
+                        </button>
+                    </h2>
+                    <div 
+                    id="flush-collapseTwo" 
+                    class="accordion-collapse collapse" 
+                    aria-labelledby="flush-archivos" 
+                    data-bs-parent="#acordeon">
+                        <div class="file">
+                            <input type="hidden" id="archivos-numero" value="<%= data.archivos.length %>">
+                            <% data.archivos.forEach(function(ar, i) { %>
+                            <% if ((i % 3) == 0) { %>
+                            <div class="row">
+                                <% } %>
+                                <div class="col file-estilo bg-light text-dark m-1">
+                                    <div class="d-flex">
+                                        <div class="justify-content-left align-self-center px-1">
+                                            <img src="/assets/img-svg/<%= data.extensiones[i] %>.svg" class="m-2 svg img-archivo" width="35" alt="file <%= data.extensiones[i] %>">
+                                        </div>
+                                        <div>
+                                            <form action="/descargar" method="post">
+                                                <input type="hidden" name="descargar" value="<%= ar %>">
+                                                <button type="submit" class="btn text-break card-body archivo text-truncate"><%= ar %></button>
+                                            </form>
+                                        </div>
+                                        <div class="justify-content-right align-self-center ms-auto px-1">
+                                            <form action="/eliminar?_method=DELETE" class="cerrar" id="<%= ar + 'form' %>" name="formEliminar" method="POST">
+                                                <input type="hidden" name="archivo" value="<%= ar %>">
+                                                <button type="submit" class="btn-close mx-2"></button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                                <% if ((i % 3) == 2) { %>
+                                </div>
+                                <% } %>
+                            <% }) %>
+                        </div>
                     </div>
                 </div>
             </div>
+            <% } %>
+            </div>
+        </div>
     </div>
+    
+    <%- include('componentes/vacio') %> 
+    <%- include('componentes/subir') %>
+    <%- include('componentes/scripts') %> 
         
-    <!-- SCRIPTS -->        
-    <script src="/node/jquery/dist/jquery.min.js"></script>
-    <script src="/node/@popperjs/core/dist/umd/popper.min.js"></script>
-    <script src="/node/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/node/sweetalert2/dist/sweetalert2.min.js"></script>
-    <script src="/script/imagen.js"></script>
-    <script src="/script/ventana.js"></script>
-    <script src="/script/buscador.js"></script>
-    <script src="/script/botones.js"></script>
-    <script src="/script/textos.js"></script>
+    
 </body>
 </html>
