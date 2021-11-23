@@ -1,6 +1,6 @@
 $('#buscadorFile').on('input', () => {
     $('.archivo').each(function() {
-        if ($(this).html().includes($('#buscadorFile').val())) {
+        if (($(this).html().trim()).toLowerCase().includes((($('#buscadorFile').val()).toLowerCase()))) {
             let padre = $(this).parents()[3];
             padre.style.setProperty('display', 'block');
         } else {
@@ -11,8 +11,8 @@ $('#buscadorFile').on('input', () => {
 })
 
 $('#buscadorDir').on('input', () => {
-    $('.directorios').each(function() {
-        if ($(this).html().trim().includes($('#buscadorDir').val())) {
+    $('.directorio').each(function() {
+        if (($(this).html().trim()).toLowerCase().includes((($('#buscadorDir').val()).toLowerCase()))) {
             let padre = $(this).parents()[2];
             padre.style.setProperty('display', 'block');
         } else {
@@ -21,3 +21,13 @@ $('#buscadorDir').on('input', () => {
         }
     });
 })
+
+$('#buscadorRutas').on('input', () => {
+    $('.rutas').each(function() {
+        if (($(this).html().trim()).toLowerCase().includes((($('#buscadorRutas').val()).toLowerCase()))) {
+            $(this).show();
+        } else {
+            $(this).hide();
+        }
+    })
+});
