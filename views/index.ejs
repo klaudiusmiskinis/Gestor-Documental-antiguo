@@ -77,10 +77,10 @@
                         </button>
                     </h2>
                     <div 
-                    id="flush-collapseTwo" 
-                    class="accordion-collapse collapse" 
-                    aria-labelledby="flush-archivos" 
-                    data-bs-parent="#acordeon">
+                        id="flush-collapseTwo" 
+                        class="accordion-collapse collapse" 
+                        aria-labelledby="flush-archivos" 
+                        data-bs-parent="#acordeon">
                         <div class="file">
                             <input type="hidden" id="archivos-numero" value="<%= data.archivos.length %>">
                             <% data.archivos.forEach(function(ar, i) { %>
@@ -101,7 +101,9 @@
                                         <div class="justify-content-right align-self-center ms-auto px-1">
                                             <form action="/eliminar?_method=DELETE" class="cerrar" id="<%= ar + 'form' %>" name="formEliminar" method="POST">
                                                 <input type="hidden" name="archivo" value="<%= ar %>">
-                                                <button type="submit" class="btn-close mx-2"></button>
+                                                <% if (rol == 'escritura') { %>
+                                                    <button type="submit" class="btn-close mx-2"></button>
+                                                <% } %>
                                             </form>
                                         </div>
                                     </div>
@@ -119,6 +121,7 @@
         </div>
     </div>
 
+    <%- include('componentes/cerrar') %> 
     <%- include('componentes/lateral') %> 
     <%- include('componentes/login') %> 
     <%- include('componentes/vacio') %> 
