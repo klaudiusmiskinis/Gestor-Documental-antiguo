@@ -15,25 +15,26 @@
                 <div class="accordion-item accordion-item-r-top">
                     <h2 class="accordion-header" id="flush-directorios">
                     <button 
-                        class="accordion-button collapsed" 
+                        class="accordion-button" 
                         type="button" 
                         data-bs-toggle="collapse" 
                         data-bs-target="#flush-collapseOne" 
-                        aria-expanded="false" 
-                        aria-controls="flush-collapseOne">
+                        aria-controls="flush-collapseOne"
+                        aria-expanded="true">
                         Directorios
                         <div class="mx-1" id="dir-titulo">0</div>
                     </button>
                 </h2>
                     <div 
                     id="flush-collapseOne" 
-                    class="accordion-collapse collapse" 
+                    class="accordion-collapse" 
                     aria-labelledby="flush-directorios" 
+                    aria-expanded="true" 
                     data-bs-parent="#acordeon">
                         <div class="dir">
                             <input type="hidden" id="dir-numero" value="<%= data.hijos.length %>">
                             <% data.hijos.forEach(function(hijo, i) { %> 
-                            <% if ((i % 3) == 0) { %>
+                            <% if ((i % 2) == 0) { %>
                             <div class="row">
                                 <% }  %>
                                 <div class="col file-estilo bg-light m-1">
@@ -48,7 +49,7 @@
                                         </div>
                                     </div> 
                                 </div>
-                                <% if ((i % 3) == 2) { %>
+                                <% if ((i % 2) == 1) { %>
                             </div>
                             <% } %>
                             <% }) %>
@@ -66,25 +67,26 @@
                 <div class="accordion-item accordion-item-r-bottom">
                     <h2 class="accordion-header" id="flush-archivos">
                         <button 
-                        class="accordion-button collapsed" 
+                        class="accordion-button" 
                         type="button" 
                         data-bs-toggle="collapse" 
-                        data-bs-target="#flush-collapseTwo" 
-                        aria-expanded="false" 
-                        aria-controls="flush-collapseTwo">
+                        data-bs-target="#flush-collapseTwo"
+                        data-bs-parent="#acordeon"
+                        aria-expanded="true">
                         Archivos
                         <div class="mx-1" id="archivos-titulo">0</div>
                         </button>
                     </h2>
                     <div 
                         id="flush-collapseTwo" 
-                        class="accordion-collapse collapse" 
-                        aria-labelledby="flush-archivos" 
+                        class="accordion-collapse" 
+                        aria-labelledby="flush-archivos"
+                        aria-expanded="true" 
                         data-bs-parent="#acordeon">
                         <div class="file">
                             <input type="hidden" id="archivos-numero" value="<%= data.archivos.length %>">
                             <% data.archivos.forEach(function(ar, i) { %>
-                            <% if ((i % 3) == 0) { %>
+                            <% if ((i % 2) == 0) { %>
                             <div class="row">
                                 <% } %>
                                 <div class="col file-estilo bg-light text-dark m-1">
@@ -108,7 +110,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <% if ((i % 3) == 2) { %>
+                                <% if ((i % 2) == 1) { %>
                                 </div>
                                 <% } %>
                             <% }) %>
