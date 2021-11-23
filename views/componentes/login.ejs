@@ -1,0 +1,28 @@
+<!-- Modal -->
+<div class="modal fade" id="login" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content bg-dark text-light">
+        <div class="modal-header">
+          <h5 class="modal-title">Login</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="/login" method="post">
+                <div class="mb-3 text-start">
+                    <label for="nombre" class="form-label">Nombre de usuario</label>
+                    <input type="text" name="nombre" class="form-control" placeholder="Introduce el nombre">
+                </div>
+                <div class="mb-3 text-start">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" name="password" class="form-control" placeholder="Introduce la contraseña">
+                </div>
+                <hr>
+                <div class="d-grid mb-3 gap-2 text-center">
+                    <button type="submit" class="btn btn-outline-light">Iniciar sesión</button>
+                    <button type="button" class="btn btn-outline-danger">Cancelar</button>
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
