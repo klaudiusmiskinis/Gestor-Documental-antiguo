@@ -43,7 +43,7 @@ app.get('/', (req, res) => {
 app.get('/home', (req, res) => {
     actualizar();
     res.cookie('position', '/');
-    res.render('index.ejs', {data: recursivo.directorio('/', allFiles, dirFilter)});
+    res.render('index.ejs', {data: recursivo.directorio('/', allFiles, dirFilter), rutas: nomRutas});
 });
 
 // POSTs //
@@ -97,7 +97,7 @@ function actualizar() {
             actualizar();
             let data = recursivo.directorio(nom, allFiles, dirFilter);
             res.cookie('position', nom);
-            res.render('index.ejs', {data: data});
+            res.render('index.ejs', {data: data, rutas: nomRutas});
         });
     });
 };
