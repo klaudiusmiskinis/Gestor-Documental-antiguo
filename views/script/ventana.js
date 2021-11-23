@@ -1,4 +1,7 @@
 document.onreadystatechange = function(e) {
+    if (window.location.pathname == '/'){
+        window.location.replace('/home');
+    }
     if (document.readyState === 'complete') {
         $(document.body).hide('fast');
     }
@@ -37,6 +40,7 @@ if(document.getElementById('regresar')) {
 
 //FUNCTION
 function volver() {
+    console.log(document.cookie);
     let cookie = getCookie('position')
     cookie = decodeURI(cookie);
     cookie = cookie.split('%2F').join('/')
