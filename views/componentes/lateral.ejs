@@ -11,16 +11,19 @@
             </div>
         </div>
         <ul class="list-group border-0">
-            <% rutas.forEach(ruta => { %>
-            <% if(ruta == '/') { %>
-            <%    ruta = '/home';  %>
-            <% } %> 
+            <% rutas.forEach(ruta => {  %>
+            <% let href;                %>
+            <% if(ruta == '/') {        %>
+            <%  href = '/home';         %>
+            <% } else {                 %>      
+            <%   href = '/' + ruta;     %>
+            <% }                        %> 
                 <a 
                     class="list-group-item border-0 text-truncate rutas" 
                     data-bs-toggle="tooltip"
                     data-bs-placement="right" 
                     title="<%= ruta %>" 
-                    href="<%= ruta %>"
+                    href="<%= href %>"
                 >
                 <%= ruta %>
                 </a>
