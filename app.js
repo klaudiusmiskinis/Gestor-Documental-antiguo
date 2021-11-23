@@ -2,7 +2,9 @@
 require('dotenv').config(); 
 const fileupload = require('express-fileupload');
 const methodOverride = require('method-override');
+const bcrypt = require('bcrypt');
 const express = require('express');
+var cookieSession = require('cookie-session')
 const app = express();
 
 // MIDDLEWARES //
@@ -19,18 +21,23 @@ let allFiles = [];
 let dirFilter = [];
 let nomRutas = [];
 
-// DESPLIEGUE //
-actualizar();
-
 // CONFIGURACIÓN DE FUNCIONAMIENTO //
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 app.use(fileupload());
+app.use(cookieSession({
+    name: 'session',
+    keys: [process.env.SECRET_SESSION],
+    maxAge: 3 * 60 * 60 * 1000 ,
+}))
 /* RUTAS ESTATICAS PARA ARCHIVOS DE ESTILO, SCRIPTS Y NODE_MODULES */
 app.use('/assets', express.static('views/assets'));
 app.use('/script', express.static('views/script'));
 app.use('/node', express.static('node_modules'));
+
+// DESPLIEGUE //
+actualizar();
 
 // METODOS HTTPs //
 // GETs //
@@ -42,8 +49,9 @@ app.get('/', (req, res) => {
 /* HOME */
 app.get('/home', (req, res) => {
     actualizar();
+    let rol = checkRol(req)
     res.cookie('position', '/');
-    res.render('index.ejs', {data: recursivo.directorio('/', allFiles, dirFilter), rutas: nomRutas});
+    res.render('index.ejs', {data: recursivo.directorio('/', allFiles, dirFilter), rutas: nomRutas, rol: rol});
 });
 
 // POSTs //
@@ -61,8 +69,16 @@ app.post('/descargar', async (req, res) => {
 
 /* LOGIN */
 app.post('/login', async (req, res) => {
-    descargar.run(rutaRaiz, req, res);
-    res.download(rutaArchivo);
+    if (req.body.nombre == process.env.USER_LOGIN && await bcrypt.compareSync(req.body.password, process.env.PASSWORD_LOGIN)) {
+        req.session.user = 'admin'
+    }
+    res.redirect(req.get('referer'));
+});
+
+/* LOGOUT */
+app.post('/logout', async (req, res) => {
+    req.session = null;
+    res.redirect(req.get('referer'));
 });
 
 /* ACCION */
@@ -99,11 +115,25 @@ function actualizar() {
         if(nom.charAt(0) != '/') {
             transformado = '/' + transformado;
         }
-        app.get(transformado, (req, res) => {
+        app.get(transformado, async (req, res) => {
+            let rol = checkRol(req)
             actualizar();
             let data = recursivo.directorio(nom, allFiles, dirFilter);
             res.cookie('position', nom);
-            res.render('index.ejs', {data: data, rutas: nomRutas});
+            res.render('index.ejs', {data: data, rutas: nomRutas, rol: rol});
         });
     });
 };
+
+function checkRol(req) {
+    let rol;
+    if (!req.session.user){
+        req.session.user = 'none';
+        rol = 'lectura';
+    } else if (req.session.user === 'none'){
+        rol = 'lectura';
+    } else if (req.session.user === 'admin') {
+        rol = 'escritura';
+    }
+    return rol;
+}
