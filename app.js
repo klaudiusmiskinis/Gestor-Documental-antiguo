@@ -59,6 +59,12 @@ app.post('/descargar', async (req, res) => {
     res.download(rutaArchivo);
 });
 
+/* LOGIN */
+app.post('/login', async (req, res) => {
+    descargar.run(rutaRaiz, req, res);
+    res.download(rutaArchivo);
+});
+
 /* ACCION */
 app.post('/accion', async (req, res) => {
     console.log(req.body);
