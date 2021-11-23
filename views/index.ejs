@@ -4,18 +4,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%- include('componentes/links') %> 
-    <% if(data.nom == '/') { %> 
-        <title>Home</title>
-    <% } else { %>
-        <title><%= data.nom %></title>
-    <% } %>
+    <%- include('componentes/titulo') %>
 </head>
 <body class="hide">
-
     <%- include('componentes/navbar') %> 
     <%- include('componentes/buscador') %> 
-
-    <% if (data.hijos.length != 0) { %>
+    <% if (data.hijos.length > 0) { %>
         <!-- CONTENEDOR DE DIRECTORIOS -->
             <div class="container-fluid">
                 <div class="accordion-item accordion-item-r-top">
@@ -129,7 +123,6 @@
     <%- include('componentes/vacio') %> 
     <%- include('componentes/subir') %>
     <%- include('componentes/scripts') %> 
-        
     
 </body>
 </html>
