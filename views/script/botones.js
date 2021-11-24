@@ -14,7 +14,7 @@ $('#subir-boton').on('click', function(e) {
                 document.getElementById('subir').submit();
             }
             for(let i = 0; i < archivos.length; i++) {
-                nombres.push(archivos[i].innerHTML)
+                nombres.push(archivos[i].innerHTML);
                 if(archivos[i].innerHTML === nombreArc) {
                     encontrado = true;
                     Swal.fire({
@@ -51,7 +51,7 @@ $('#subir-boton').on('click', function(e) {
                                 } else if (!sumada && i == (nombres.length - 1)){
                                     version = 1;
                                     if (version == 1) {
-                                        alertaSubir(nombreArc, version, 'nueva')
+                                        alertaSubir(nombreArc, version, 'nueva');
                                     }
                                 } 
                                 if (!(document.getElementById('subir').action).includes('?')) {
