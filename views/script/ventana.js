@@ -40,7 +40,6 @@ if(document.getElementById('regresar')) {
 
 //FUNCTION
 function volver() {
-    console.log(document.cookie);
     let cookie = getCookie('position')
     cookie = decodeURI(cookie);
     cookie = cookie.split('%2F').join('/')
@@ -48,7 +47,6 @@ function volver() {
         cookie = cookie.split('/');
         cookie.splice(-1);
         cookie = cookie.join('/');
-        cookie = encodeURI(cookie)
         cookie = '/' + cookie
         window.location.replace(cookie)
     } else {
