@@ -8,8 +8,8 @@ function run(rutaRaiz, req, res) {
                 rutaArchivo = rutaRaiz + req.body.descargar;
             } else {
                 let archivo = (req.body.descargar).split('%2F').join('/');
+                position = decodeURI(position)
                 position = position.split('%2F').join('/');
-                position = position.split('%20').join(' ');
                 rutaArchivo = rutaRaiz + position + '/' + archivo;
             }
             console.log('Descargando:', req.body.descargar);
