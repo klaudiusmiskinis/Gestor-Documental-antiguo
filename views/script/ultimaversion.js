@@ -7,27 +7,36 @@ function mostrarUltimaVersion() {
     let mostrar = [];
 
     for(let i = 0; i < archivos.length; i++) {
+        nombres.push(archivos[i].innerHTML);
         archivos[i].id = 'archivoVersion' + i;
+        let data = archivos[i].innerHTML.split('.')[0]
+        let version = data.split('_')[1]
+        let nombre = data.split('_')[0]
         let obj = {
             id: archivos[i].id,
-            nombre: archivos[i].innerHTML
+            nombre: nombre,
+            version: parseInt(version)
         }
         arrArchivos.push(obj);
-        nombres.push(archivos[i].innerHTML);
     }
+
+    let dupArr = [];
+    var contadorPropiedades = _.countBy(arrArchivos, function (item) {
+        return item.nombre;
+    });
     
-    let version;
-    for(let i = 0; i < nombres.length; i++) {
-        let comparacion = nombres[i];
-        for (let j = 0; j < arrArchivos.length; j++){
-            if (arrArchivos[j].nombre.includes(comparacion)) {
-                console.log('Igual', comparacion, arrArchivos[j].nombre)
-                version = arrArchivos[j].nombre.split('.')[0];
-                version = version.split('_')[1];
-                console.log(version);
-            } else {
-                // console.log('No igual', arrArchivos[j].nombre, comparacion)
-            }
+    for (var nombre in contadorPropiedades) {
+        if (contadorPropiedades[nombre] > 1) {
+            _.where(arrArchivos, {
+                nombre: nombre
+            }).map(function (item) {
+                dupArr.push(item);
+            });
         }
-    }
+    };
+
+    var highest = _.max(dupArr, function(o){return o.version;});
+    mostrar.push(highest)
+    console.log(mostrar)
 }
+
