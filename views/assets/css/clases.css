@@ -88,10 +88,3 @@
     background-color: rgb(158, 158, 158) !important;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out,border-radius .15s ease;
 }
-
-.line-clamp {
-    height: 3rem;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
-
