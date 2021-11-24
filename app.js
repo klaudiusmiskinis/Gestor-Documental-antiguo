@@ -9,10 +9,11 @@ const app = express();
 
 // MIDDLEWARES //
 const recursivo = require('./middleware/recursivo');
-const eliminar = require('./middleware/eliminar');
 const descargar = require('./middleware/descargar');
+const eliminar = require('./middleware/eliminar');
 const accion = require('./middleware/accion');
 const subir = require('./middleware/subir');
+const rol = require('./middleware/rol');
 
 // VARIABLES //
 const rutaRaiz = process.env.RUTA_LOCAL;
@@ -49,23 +50,12 @@ app.get('/', (req, res) => {
 /* HOME */
 app.get('/home', (req, res) => {
     actualizar();
-    let rol = checkRol(req)
+    let modo = rol.checkRol(req)
     res.cookie('position', '/');
-    res.render('index.ejs', {data: recursivo.directorio('/', allFiles, dirFilter), rutas: nomRutas, rol: rol});
+    res.render('index.ejs', {data: recursivo.directorio('/', allFiles, dirFilter), rutas: nomRutas, rol: modo});
 });
 
 // POSTs //
-/* SUBIR */
-app.post('/subir', async (req, res) => {
-    subir.run(rutaRaiz, req, res);
-    res.redirect(req.get('referer'));
-});
-
-/* DESCARGAR */
-app.post('/descargar', async (req, res) => {
-    descargar.run(rutaRaiz, req, res);
-    res.download(rutaArchivo);
-});
 
 /* LOGIN */
 app.post('/login', async (req, res) => {
@@ -79,6 +69,18 @@ app.post('/login', async (req, res) => {
 app.post('/logout', async (req, res) => {
     req.session = null;
     res.redirect(req.get('referer'));
+});
+
+/* SUBIR */
+app.post('/subir', async (req, res) => {
+    subir.run(rutaRaiz, req, res);
+    res.redirect(req.get('referer'));
+});
+
+/* DESCARGAR */
+app.post('/descargar', async (req, res) => {
+    descargar.run(rutaRaiz, req, res);
+    res.download(rutaArchivo);
 });
 
 /* ACCION */
@@ -116,24 +118,13 @@ function actualizar() {
             transformado = '/' + transformado;
         }
         app.get(transformado, async (req, res) => {
-            let rol = checkRol(req)
+            let modo = rol.checkRol(req)
             actualizar();
             let data = recursivo.directorio(nom, allFiles, dirFilter);
             res.cookie('position', nom);
-            res.render('index.ejs', {data: data, rutas: nomRutas, rol: rol});
+            res.render('index.ejs', {data: data, rutas: nomRutas, rol: modo});
         });
     });
 };
 
-function checkRol(req) {
-    let rol;
-    if (!req.session.user){
-        req.session.user = 'none';
-        rol = 'lectura';
-    } else if (req.session.user === 'none'){
-        rol = 'lectura';
-    } else if (req.session.user === 'admin') {
-        rol = 'escritura';
-    }
-    return rol;
-}
+
