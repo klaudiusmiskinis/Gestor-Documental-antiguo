@@ -4,7 +4,7 @@ $('#ultimaVersion').on('click', function(e) {
     let archivos = document.getElementsByClassName('archivo');
     if ($(this).hasClass('ultima')) {
         let hijo = $(this).children()[0];
-        hijo.src = 'http://localhost:3000/assets/img-svg/eyecross.svg'
+        hijo.src = 'http://localhost:3000/assets/img-svg/eyecross.svg';
         let ultimos = mostrarUltimaVersion();
         ultimos.forEach(ultimo => {
             for (let i = 0; i < archivos.length; i++) {
@@ -85,4 +85,3 @@ function mostrarUltimaVersion() {
         return mostrar;
     }
 }
-
