@@ -35,7 +35,6 @@ function mostrarUltimaVersion() {
         }
     };
 
-
     var highest = _.max(dupArr, function(o){return o.version;});
     mostrar.push(highest)
     mostrar.forEach(elementoI => {
@@ -46,6 +45,15 @@ function mostrarUltimaVersion() {
         })
     });
 
+    console.log(mostrar)
+    mostrar = removeItemOnce(mostrar, -Infinity)
+    function removeItemOnce(arr, value) {
+        var index = arr.indexOf(value);
+        if (index > -1) {
+          arr.splice(index, 1);
+        }
+        return arr;
+    }
     console.log(mostrar)
 }
 
