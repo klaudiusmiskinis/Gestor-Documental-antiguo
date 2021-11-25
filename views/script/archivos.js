@@ -41,7 +41,7 @@ class Archivo {
         this.version = version;
     };
 
-    //MÉTHODs
+    //METHODs
     datos() {
         return [this.getNombreCompleto(), this.getNombreSimple(), this.getExtension(), this.getVersion()]
     };
@@ -50,11 +50,20 @@ class Archivo {
         let nombre = this.getNombreCompleto();
         nombre = nombre.split('.');
         let extension = nombre[1];
-        let version = nombre[0].split('_')[1];
+        let version = nombre[0].split('_')[1] ?? 0;
+        version = parseInt(version);
         nombre = nombre[0].split('_')[0] + '.' + extension;
         return [nombre, extension, version];
     };
 };
 
-let archivo = new Archivo('asd_1.txt');
-console.log(archivo.datos());
+arrayArchivos = []
+
+let archivos = document.getElementsByClassName('archivo');
+for (let i = 0; i < archivos.length; i++) {
+    const element = archivos[i];
+    let archivo = new Archivo(archivos[i].innerHTML);
+    arrayArchivos.push(archivo);
+}
+
+console.log(arrayArchivos)
