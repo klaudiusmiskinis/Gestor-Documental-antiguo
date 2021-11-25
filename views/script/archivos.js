@@ -1,15 +1,31 @@
 class Archivo {
     //CONSTRUCTOR
-    constructor(nombreCompleto) {
+    constructor(nombreCompleto, elementoPadre) {
         this.nombreCompleto = nombreCompleto,
-        this.nombreSimple = this.init()[0],
-        this.extension = this.init()[1],
-        this.version = this.init()[2]
+        this.elementoPadre = elementoPadre,
+        this.nombreSinVersion;
+        this.nombreSinExtension;
+        this.nombreSimple;
+        this.extension;
+        this.version;
+        this.init();
     };
 
     //GETTERs
     getNombreCompleto() {
         return this.nombreCompleto;
+    };
+
+    getElementoPadre() {
+        return this.elementoPadre;
+    }
+
+    getNombreSinVersion(){
+        return this.nombreSinVersion;
+    };
+    
+    getNombreSinExtension(){
+        return this.nombreSinExtension;
     };
 
     getNombreSimple(){
@@ -29,6 +45,18 @@ class Archivo {
         this.nombreCompleto = nombreCompleto;
     };
 
+    setElementoPadre(elementoPadre) {
+        this.elementoPadre = elementoPadre;
+    }
+
+    setNombreSinVersion(nombreSinVersion){
+        this.nombreSinVersion = nombreSinVersion;
+    };
+
+    setNombreSinExtension(nombreSinExtension){
+        this.nombreSinExtension = nombreSinExtension
+    };
+
     setNombreSimple(nombreSimple) {
         this.nombreSimple = nombreSimple;
     };
@@ -37,33 +65,29 @@ class Archivo {
         this.extension = extension;
     };
 
-    seVersion(version) {
+    setVersion(version) {
         this.version = version;
     };
 
     //METHODs
     datos() {
-        return [this.getNombreCompleto(), this.getNombreSimple(), this.getExtension(), this.getVersion()]
+        return [this.getNombreCompleto(), this.getNombreSinVersion(), this.getNombreSinExtension(), this.getNombreSimple(), this.getExtension(), this.getVersion()]
     };
 
     init() {
-        let nombre = this.getNombreCompleto();
-        nombre = nombre.split('.');
-        let extension = nombre[1];
-        let version = nombre[0].split('_')[1] ?? 0;
-        version = parseInt(version);
-        nombre = nombre[0].split('_')[0] + '.' + extension;
-        return [nombre, extension, version];
+        let nombre = this.getNombreCompleto().split('.');
+        this.setExtension(nombre.pop());
+        this.setVersion(parseInt(nombre[0].split('_')[1] ?? 0));
+        this.setNombreSinVersion(nombre[0].split('_')[0]);
+        this.setNombreSinExtension(nombre[0])
+        this.setNombreSimple(this.getNombreSinVersion() + '.' + this.getExtension())
     };
 };
 
 arrayArchivos = []
 
-let archivos = document.getElementsByClassName('archivo');
-for (let i = 0; i < archivos.length; i++) {
-    const element = archivos[i];
-    let archivo = new Archivo(archivos[i].innerHTML);
-    arrayArchivos.push(archivo);
-}
+$('.archivo').each(function(i) {
+    arrayArchivos.push(new Archivo($(this).text(), $(this).parents()[3]))
+});
 
 console.log(arrayArchivos)
