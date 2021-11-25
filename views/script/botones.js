@@ -195,7 +195,6 @@ function alertaSubir(nombre, version, tipo) {
                 motivo = 'Se ha creado una nueva version (' + version + ') del archivo ' + nombre
                 document.getElementById('subir').action = '/subir?nuevaversion=true&version=' + version;
             }
-            console.log(tipo)
             document.getElementById('subir').submit();
         }
     })
