@@ -39,12 +39,12 @@ function mostrarUltimaVersion() {
             nombres.push(archivos[i].innerHTML);
             archivos[i].id = 'archivoVersion' + i;
             let data = archivos[i].innerHTML.split('.')[0]
-            let version = data.split('_')[1]
+            let mayor = data.split('_')[1]
             let nombre = data.split('_')[0]
             let obj = {
                 id: archivos[i].id,
                 nombre: nombre,
-                version: parseInt(version)
+                mayor: parseInt(mayor)
             }
             arrArchivos.push(obj);
         }
@@ -64,7 +64,7 @@ function mostrarUltimaVersion() {
             }
         };
     
-        var highest = _.max(dupArr, function(o){return o.version;});
+        var highest = _.max(dupArr, function(o){return o.mayor;});
         mostrar.push(highest)
         mostrar.forEach(elementoI => {
             arrArchivos.forEach(elementoJ => {
