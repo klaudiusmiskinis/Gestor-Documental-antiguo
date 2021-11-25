@@ -35,8 +35,17 @@ function mostrarUltimaVersion() {
         }
     };
 
+
     var highest = _.max(dupArr, function(o){return o.version;});
     mostrar.push(highest)
+    mostrar.forEach(elementoI => {
+        arrArchivos.forEach(elementoJ => {
+            if (elementoI.nombre !== elementoJ.nombre) {
+                mostrar.push(elementoJ);
+            }
+        })
+    });
+
     console.log(mostrar)
 }
 
