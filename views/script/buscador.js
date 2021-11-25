@@ -2,10 +2,10 @@ $('#buscadorFile').on('input', () => {
     $('.archivo').each(function() {
         if (($(this).html().trim()).toLowerCase().includes((($('#buscadorFile').val()).toLowerCase()))) {
             let padre = $(this).parents()[3]
-            $('#' + padre.id).fadeIn();
+            $('#' + padre.id).fadeIn('fast');
         } else {
             let padre = $(this).parents()[3]
-            $('#' + padre.id).fadeOut();
+            $('#' + padre.id).fadeOut('fast');
         }
     });
 })
@@ -14,11 +14,11 @@ $('#buscadorDir').on('input', () => {
     $('.directorio').each(function() {
         if (($(this).html().trim()).toLowerCase().includes((($('#buscadorDir').val()).toLowerCase()))) {
             let padre = $(this).parents()[2]
-            $('#' + padre.id).fadeIn();
+            $('#' + padre.id).fadeIn('fast');
             
         } else {
             let padre = $(this).parents()[2]
-            $('#' + padre.id).fadeOut();
+            $('#' + padre.id).fadeOut('fast');
         }
     });
 })
@@ -26,9 +26,9 @@ $('#buscadorDir').on('input', () => {
 $('#buscadorRutas').on('input', () => {
     $('.rutas').each(function() {
         if (($(this).html().trim()).toLowerCase().includes((($('#buscadorRutas').val()).toLowerCase()))) {
-            $(this).fadeIn();
+            $(this).fadeIn('fast');
         } else {
-            $(this).fadeOut();
+            $(this).fadeOut('fast');
         }
     })
 });
