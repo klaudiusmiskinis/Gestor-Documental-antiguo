@@ -6,6 +6,11 @@
     --b: #fff;
 }
 
+::selection {
+    background-color: var(--col);
+    color: var(--b);
+}
+
 *, html, body {
     font-family: 'Inter', sans-serif;
 }
