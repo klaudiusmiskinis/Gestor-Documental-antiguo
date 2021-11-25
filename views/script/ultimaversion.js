@@ -2,28 +2,30 @@
 $('#ultimaVersion').on('click', function(e) {
     $(this).toggleClass('ultima');
     let archivos = document.getElementsByClassName('archivo');
-    if ($(this).hasClass('ultima')) {
-        let hijo = $(this).children()[0];
-        hijo.src = 'http://localhost:3000/assets/img-svg/eyecross.svg';
-        let ultimos = mostrarUltimaVersion();
-        ultimos.forEach(ultimo => {
+    if (archivos.length > 1) {
+        if ($(this).hasClass('ultima')) {
+            let hijo = $(this).children()[0];
+            hijo.src = 'http://localhost:3000/assets/img-svg/eyecross.svg';
+            let ultimos = mostrarUltimaVersion();
+            ultimos.forEach(ultimo => {
+                for (let i = 0; i < archivos.length; i++) {
+                    let padre = $('#' + archivos[i].id).parents()[3]
+                    $('#' + padre.id).fadeOut('fast');
+                    if (ultimo.id === archivos[i].id) {
+                        archivos = _(archivos).filter(function(item) {
+                            return item.id !== ultimo.id
+                        });
+                        $('#' + padre.id).fadeIn('fast');
+                    }
+                }
+            });   
+        } else {
+            let hijo = $(this).children()[0];
+            hijo.src = 'http://localhost:3000/assets/img-svg/eye.svg'
             for (let i = 0; i < archivos.length; i++) {
                 let padre = $('#' + archivos[i].id).parents()[3]
-                $('#' + padre.id).fadeOut('fast');
-                if (ultimo.id === archivos[i].id) {
-                    archivos = _(archivos).filter(function(item) {
-                        return item.id !== ultimo.id
-                    });
-                    $('#' + padre.id).fadeIn('fast');
-                }
+                $('#' + padre.id).fadeIn('fast');
             }
-        });   
-    } else {
-        let hijo = $(this).children()[0];
-        hijo.src = 'http://localhost:3000/assets/img-svg/eye.svg'
-        for (let i = 0; i < archivos.length; i++) {
-            let padre = $('#' + archivos[i].id).parents()[3]
-            $('#' + padre.id).fadeIn('fast');
         }
     }
 });
