@@ -1,43 +1,60 @@
 class Archivo {
     //CONSTRUCTOR
-    constructor(nombreCompleto, nombreSimple, extension, version) {
+    constructor(nombreCompleto) {
         this.nombreCompleto = nombreCompleto,
-        this.nombreSimple = nombreSimple,
-        this.extension = extension,
-        this.version = version
-    }
+        this.nombreSimple = this.init()[0],
+        this.extension = this.init()[1],
+        this.version = this.init()[2]
+    };
 
     //GETTERs
-    get nombreCompleto() {
+    getNombreCompleto() {
         return this.nombreCompleto;
-    }
+    };
 
-    get nombreSimple(){
+    getNombreSimple(){
         return this.nombreSimple;
-    }
+    };
 
-    get extension(){
+    getExtension(){
         return this.extension;
-    }
+    };
 
-    get version() {
+    getVersion() {
         return this.version;
-    }
+    };
 
     //SETTERs
-    set nombreCompleto(nombreCompleto) {
+    setNombreCompleto(nombreCompleto) {
         this.nombreCompleto = nombreCompleto;
-    }
+    };
 
-    set nombreSimple(nombreSimple) {
+    setNombreSimple(nombreSimple) {
         this.nombreSimple = nombreSimple;
-    }
+    };
 
-    set extension(extension) {
+    setExtension(extension) {
         this.extension = extension;
-    }
+    };
 
-    set version(version) {
+    seVersion(version) {
         this.version = version;
-    }
-}
+    };
+
+    //MÉTHODs
+    datos() {
+        return [this.getNombreCompleto(), this.getNombreSimple(), this.getExtension(), this.getVersion()]
+    };
+
+    init() {
+        let nombre = this.getNombreCompleto();
+        nombre = nombre.split('.');
+        let extension = nombre[1];
+        let version = nombre[0].split('_')[1];
+        nombre = nombre[0].split('_')[0] + '.' + extension;
+        return [nombre, extension, version];
+    };
+};
+
+let archivo = new Archivo('asd_1.txt');
+console.log(archivo.datos());
