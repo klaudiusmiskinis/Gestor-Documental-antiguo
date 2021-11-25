@@ -9,12 +9,12 @@ $('#ultimaVersion').on('click', function(e) {
         ultimos.forEach(ultimo => {
             for (let i = 0; i < archivos.length; i++) {
                 let padre = $('#' + archivos[i].id).parents()[3]
-                $('#' + padre.id).fadeOut();
+                $('#' + padre.id).fadeOut('fast');
                 if (ultimo.id === archivos[i].id) {
                     archivos = _(archivos).filter(function(item) {
                         return item.id !== ultimo.id
                     });
-                    $('#' + padre.id).fadeIn();
+                    $('#' + padre.id).fadeIn('fast');
                 }
             }
         });   
@@ -23,7 +23,7 @@ $('#ultimaVersion').on('click', function(e) {
         hijo.src = 'http://localhost:3000/assets/img-svg/eye.svg'
         for (let i = 0; i < archivos.length; i++) {
             let padre = $('#' + archivos[i].id).parents()[3]
-            $('#' + padre.id).fadeIn();
+            $('#' + padre.id).fadeIn('fast');
         }
     }
 });
