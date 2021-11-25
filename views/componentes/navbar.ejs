@@ -10,12 +10,12 @@
         </div>
         <div class="col-auto justify-content-right text-center">
             <a class="btn" id="volver"><img src="/assets/img-svg/back.svg" class="img-fluid" width="25"></a>
+            <a class="btn" href="/home"><img src="/assets/img-svg/home.svg" class="img-fluid" width="25"></a>
             <% if (rol == 'lectura') { %> 
             <a class="btn" data-bs-toggle="modal" data-bs-target="#login"><img src="/assets/img-svg/user.svg" class="img-fluid" width="25"></a>
             <% } else if (rol == 'escritura') { %>
                 <a class="btn" data-bs-toggle="modal" data-bs-target="#cerrar"><img src="/assets/img-svg/logout.svg" class="img-fluid" width="25"></a>
             <% } %>
-            <a class="btn" href="/home"><img src="/assets/img-svg/home.svg" class="img-fluid" width="25"></a>
         </div>
     </div>
 </nav>
