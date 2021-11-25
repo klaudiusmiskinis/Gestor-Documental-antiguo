@@ -1,9 +1,10 @@
 const fs = require('fs');
+const cookies = require('../middleware/cookie');
 
 async function run(rutaRaiz, req, res){
     let rutaArchivo = '';
-    let position = decodeURI(req.headers.cookie)
-    position = position.split('=')[1];
+    let lista = cookies.listarCookies(req.headers.cookie);
+    let position = lista.position;
 
     if(position == '%2F') {
         rutaArchivo = rutaRaiz + req.body.archivo;
