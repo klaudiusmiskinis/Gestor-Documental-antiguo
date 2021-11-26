@@ -113,13 +113,21 @@ class Archivo {
         if (this.nombreSimple === archivo.nombreSimple) {
             this.setRepetido(true);
             archivo.setRepetido(true);
-            if(this.version > archivo.version){
+            if (this.version > archivo.version){
                 this.setMayor(true);
                 archivo.setMayor(false)
             } else {
                 this.setMayor(false);
                 archivo.setMayor(true);
             }
+        }
+    }
+
+    comprobarExistente(nombreDeArchivo){
+        if (this.getNombreCompleto() === nombreDeArchivo) {
+            return true;
+        } else {
+            return false;
         }
     }
 
