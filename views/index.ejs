@@ -40,8 +40,8 @@
                                         <div class="justify-content-left align-self-center me-auto px-1">
                                             <img src="/assets/img-svg/folder.svg" class="img-fluid m-2 svg" width="30" alt="folder">
                                         </div>
-                                        <div class="col">
-                                            <a class="btn card-body directorio text-truncate" href="<%= '/' + hijo.rutaRelativa %>">
+                                        <div class="col text-truncate">
+                                            <a class="btn card-body directorio" href="<%= '/' + hijo.rutaRelativa %>">
                                                 <%= hijo.nombre %>
                                             </a>
                                         </div>
@@ -85,12 +85,12 @@
                             <% if ((i % 2) == 0) { %>
                             <div class="row p-1 gap-2">
                                 <% } %>
-                                <div class="col-md file-estilo bg-light text-dark" id="arch-estilo<%= i %>">
+                                <div class="col-md file-estilo bg-light text-dark" id="arch-estilo <%= i %>">
                                     <div class="d-flex">
                                         <div class="justify-content-left align-self-center px-1">
                                             <img src="/assets/img-svg/<%= data.extensiones[i] %>.svg" class="m-2 svg img-archivo" width="35" alt="file <%= data.extensiones[i] %>">
                                         </div>
-                                        <div>
+                                        <div class="col text-truncate">
                                             <form action="/descargar" method="post">
                                                 <input type="hidden" name="descargar" value="<%= ar %>">
                                                 <button type="submit" class="btn text-break card-body archivo text-truncate"><%= ar %></button>
@@ -119,6 +119,7 @@
         </div>
     </div>
 
+    <%- include('componentes/modal') %> 
     <%- include('componentes/cerrar') %> 
     <%- include('componentes/lateral') %> 
     <%- include('componentes/login') %> 
