@@ -1,86 +1,27 @@
-// EVENT LISTENER PARA CLICK DE BOTON-SUBIR
-/* NO DEVUELVE NADA */
-/* SE ENCARGA DE VER QUE ARCHIVOS TIENEN EL MISMO NOMBRE QUE EL ARCHIVO QUE SE VA A SUBIR */
-/* DEPENDIENDO DE LA RESPUESTA DEL FORMULARIO SE HARA UNA ACCION U OTRA */
 $('#subir-boton').on('click', function(e) {
     e.preventDefault();
-        if (document.getElementById('subir-campo').files[0] != undefined) {
-            let nombreArchivoSubir = document.getElementById('subir-campo').files[0].name;
-            let arrayArchivosClase = document.getElementsByClassName('archivo');
+    if (document.getElementById('subir-campo').files[0] != undefined) {
+        let nombreArchivoSubir = document.getElementById('subir-campo').files[0].name;
+        let datosFormulario = {
+            existenciaRepetida: false,
+        }
+        arrayArchivos = []
+        $('.archivo').each(function(i) {
+            arrayArchivos.push(new Archivo($(this).text(), $(this).parents()[3]))
+        });
 
-            arrayArchivos = []
-            $('.archivo').each(function(i) {
-                arrayArchivos.push(new Archivo($(this).text(), $(this).parents()[3]))
-            });
-
-            arrayArchivos.forEach(archivo => {
-                console.log(nombreArchivoSubir)
-                nombreArchivoSubir = archivo.generarDatos(nombreArchivoSubir);
-                console.log(nombreArchivoSubir)
-            });
-            
-
-            if (arrayArchivosClase.length == 0 && nombreArchivoSubir.length > 0) {
-                document.getElementById('subir').submit();
+        arrayArchivos.forEach(archivo => {
+            if (archivo.comprobarExistente(nombreArchivoSubir)) {
+                datosFormulario.existenciaRepetida = true;
             }
-            for(let i = 0; i < arrayArchivosClase.length; i++) {
-                nombres.push(arrayArchivosClase[i].innerHTML);
-                if(arrayArchivosClase[i].innerHTML === nombreArchivoSubir) {
-                    archivoEncontrado = true;
-                    Swal.fire({
-                        title: '¿Quieres crear una nueva versión?',
-                        text: 'Ya hay archivo con ese nombre.',  
-                        icon: 'warning',
-                        showDenyButton: true,
-                        showCancelButton: true,
-                        focusConfirm: false,
-                        confirmButtonColor: 'var(--col)',
-                        cancelButtonColor: 'var(--col)',
-                        confirmButtonText: 'Si, crear una nueva versión.',
-                        denyButtonText: 'No, sobreescribir el archivo.',
-                        cancelButtonText: 'Cancelar.',
-                        showClass: {
-                            popup: 'animate__animated animate__fadeIn'
-                        },
-                        hideClass: {
-                            popup: 'animate__animated animate__fadeOut'
-                        }
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            let version = 0;
-                            let sumada = false;
-                            for(let i = 0; i < nombres.length; i++) {
-                                version = 0;
-                                let nombre = nombres[i].split('_');
-                                if (nombre.length > 1) {
-                                    let a = nombre[1].split('.')
-                                    version = parseInt(a[0])
-                                    version++;
-                                    sumada = true;
-                                    alertaSubir(nombreArchivoSubir, version, 'nueva')
-                                } else if (!sumada && i == (nombres.length - 1)){
-                                    version = 1;
-                                    if (version == 1) {
-                                        alertaSubir(nombreArchivoSubir, version, 'nueva');
-                                    }
-                                } 
-                                if (!(document.getElementById('subir').action).includes('?')) {
-                                    document.getElementById('subir').action += '?nuevaversion=true&version=' + version;
-                                }
-                            }
-                        } else if (result.isDenied) {
-                            version = null
-                            alertaSubir(nombreArchivoSubir, version, 'sobreescribir')
-                        } 
-                    })    
-                }
-                if (i == (arrayArchivosClase.length -1) && archivoEncontrado == null) {
-                    archivoEncontrado = false;
-                }
-            } 
-        if (archivoEncontrado == false) {
-            version = 0;
-            alertaSubir(nombreArchivoSubir, version, 'nueva');
+        });
+
+        arrayArchivos.forEach(archivo => {
+            nombreArchivoSubir = archivo.generarDatos(nombreArchivoSubir);
+        });
+
+        if(datosFormulario.existenciaRepetida) {
+            $('#archivoExistente').modal('show'); 
         }
     }
 })
