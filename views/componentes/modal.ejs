@@ -1,18 +1,38 @@
-<div class="modal fade" id="archivoExistente" tabindex="-1" aria-labelledby="archivoExistenteLabel" aria-hidden="true">
+<div class="modal fade" id="archivo-existente" tabindex="-1" aria-labelledby="archivo-existenteLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content bg-color">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalArcho">Archivo ya existente</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content bg-color">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalArcho">Archivo ya existente</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <h5><b>Aviso</b></h5>
+                <p><b>Se ha detectado que el archivo que quieres subir ya existe.</b>¿Qué deseas hacer?</p>
+            </div>
+            <div class="bg-dark p-2 gap-2 d-grid border-top border-light">
+                <button type="button" class="btn btn-light" id="crear-nueva-version">Crear una nueva versión</button>
+                <button type="button" class="btn btn-light" id="sobreescribir-version">Sobreescribir el archivo ya existente</button>
+            </div>
         </div>
-        <div class="modal-body text-center">
-            <h5>Aviso</h5>
-            <p>Se ha detectado que el archivo que quieres subir ya existe. <b>¿Qué deseas hacer?</b></p>
-        </div>
-        <div class="bg-dark p-2 gap-2 d-grid border-top border-light">
-            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Crear una nueva versión</button>
-            <button type="button" class="btn btn-light">Sobreescribir el archivo ya existente</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
+
+<div class="modal fade" id="crear-nueva-version-modal" tabindex="-1" aria-labelledby="archivo-existenteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-color">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalArcho">Formulario de nueva versión</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <h5><b>Aviso</b></h5>
+                <p><b>Se ha detectado que el archivo que quieres subir ya existe.</b>¿Qué deseas hacer?</p>
+            </div>
+            <div class="bg-dark p-2 gap-2 d-grid border-top border-light">
+                <button type="button" class="btn btn-light" id="crear-nueva-version">Crear una nueva versión</button>
+                <button type="button" class="btn btn-light" id="sobreescribir-version">Sobreescribir el archivo ya existente</button>
+            </div>
+        </div>
+    </div>
+</div>
+
