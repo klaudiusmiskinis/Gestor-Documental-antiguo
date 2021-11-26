@@ -8,6 +8,8 @@ class Archivo {
         this.nombreSimple;
         this.extension;
         this.version;
+        this.repetido = null;
+        this.mayor = null;
         this.init();
     };
 
@@ -40,6 +42,14 @@ class Archivo {
         return this.version;
     };
 
+    getRepetido() {
+        return this.repetido;
+    }
+
+    getMayor(){
+        return this.mayor;
+    }
+
     //SETTERs
     setNombreCompleto(nombreCompleto) {
         this.nombreCompleto = nombreCompleto;
@@ -69,11 +79,23 @@ class Archivo {
         this.version = version;
     };
 
-    //METHODs
-    datos() {
-        return [this.getNombreCompleto(), this.getNombreSinVersion(), this.getNombreSinExtension(), this.getNombreSimple(), this.getExtension(), this.getVersion()]
-    };
+    setRepetido(repetido) {
+        if (repetido) {
+            this.repetido = true;
+        } else {
+            this.repetido = false;
+        }
+    }
 
+    setMayor(mayor) {
+        if (mayor){
+            this.mayor = true;
+        } else {
+            this.mayor = false;
+        }
+    }
+
+    //METHODs
     init() {
         let nombre = this.getNombreCompleto().split('.');
         this.setExtension(nombre.pop());
@@ -82,6 +104,35 @@ class Archivo {
         this.setNombreSinExtension(nombre[0])
         this.setNombreSimple(this.getNombreSinVersion() + '.' + this.getExtension())
     };
+
+    datos() {
+        return [this.getNombreCompleto(), this.getNombreSinVersion(), this.getNombreSinExtension(), this.getNombreSimple(), this.getExtension(), this.getVersion(), this.getRepetido(), this.getMayor()]
+    };
+
+    compararRepetidos(archivo) {
+        if (this.nombreSimple === archivo.nombreSimple) {
+            this.setRepetido(true);
+            archivo.setRepetido(true);
+            if(this.version > archivo.version){
+                this.setMayor(true);
+                archivo.setMayor(false)
+            } else {
+                this.setMayor(false);
+                archivo.setMayor(true);
+            }
+        } else {
+            archivo.setRepetido(false);
+            this.setRepetido(false)
+        }
+    }
+
+    esconder() {
+        $('#' + this.elementoPadre.id).fadeOut();
+    }
+
+    mostrar() {
+        $('#' + this.elementoPadre.id).fadeIn();
+    }
 };
 
 arrayArchivos = []
