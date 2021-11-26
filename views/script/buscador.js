@@ -1,6 +1,6 @@
-$('#buscadorFile').on('input', () => {
+$('#buscador-file').on('input', () => {
     $('.archivo').each(function() {
-        if (($(this).html().trim()).toLowerCase().includes((($('#buscadorFile').val()).toLowerCase()))) {
+        if (($(this).html().trim()).toLowerCase().includes((($('#buscador-file').val()).toLowerCase()))) {
             let padre = $(this).parents()[3]
             $('#' + padre.id).fadeIn('fast');
         } else {
@@ -10,9 +10,9 @@ $('#buscadorFile').on('input', () => {
     });
 })
 
-$('#buscadorDir').on('input', () => {
+$('#buscador-dir').on('input', () => {
     $('.directorio').each(function() {
-        if (($(this).html().trim()).toLowerCase().includes((($('#buscadorDir').val()).toLowerCase()))) {
+        if (($(this).html().trim()).toLowerCase().includes((($('#buscador-dir').val()).toLowerCase()))) {
             let padre = $(this).parents()[2]
             $('#' + padre.id).fadeIn('fast');
             
