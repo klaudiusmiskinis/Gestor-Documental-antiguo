@@ -4,7 +4,7 @@ const fileupload = require('express-fileupload');
 const methodOverride = require('method-override');
 const bcrypt = require('bcrypt');
 const express = require('express');
-var cookieSession = require('cookie-session')
+const cookieSession = require('cookie-session')
 const app = express();
 
 // MIDDLEWARES //
