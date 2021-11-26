@@ -61,12 +61,12 @@ function getCookie(name) {
 
 function animacionNum(id, primero, ultimo, duracion) {
     if (primero === ultimo) return;
-    var rango = ultimo - primero;
-    var current = primero;
-    var increment = ultimo > primero? 1 : -1;
-    var stepTime = Math.abs(Math.floor(duracion / rango));
-    var obj = document.getElementById(id);
-    var timer = setInterval(function() {
+    let rango = ultimo - primero;
+    let current = primero;
+    let increment = ultimo > primero? 1 : -1;
+    let stepTime = Math.abs(Math.floor(duracion / rango));
+    let obj = document.getElementById(id);
+    let timer = setInterval(function() {
         current += increment;
         obj.innerHTML = current;
         if (current == ultimo) {
