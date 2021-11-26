@@ -116,3 +116,12 @@
     outline: 0;
     box-shadow: 0 0 0 0.10rem  var(--col-transparent);
 }
+
+.bg-color {
+    background-color: var(--col) !important;
+    color: var(--b) !important;
+}
+
+.btn-light:hover {
+    background-color: var(--g) !important;
+}
