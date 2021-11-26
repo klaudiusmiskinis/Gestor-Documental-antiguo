@@ -109,7 +109,7 @@ class Archivo {
         return [this.getNombreCompleto(), this.getNombreSinVersion(), this.getNombreSinExtension(), this.getNombreSimple(), this.getExtension(), this.getVersion(), this.getRepetido(), this.getMayor()]
     };
 
-    compararRepetidos(archivo) {
+    compararArchivosRepetidos(archivo) {
         if (this.nombreSimple === archivo.nombreSimple) {
             this.setRepetido(true);
             archivo.setRepetido(true);
@@ -120,9 +120,6 @@ class Archivo {
                 this.setMayor(false);
                 archivo.setMayor(true);
             }
-        } else {
-            archivo.setRepetido(false);
-            this.setRepetido(false)
         }
     }
 
@@ -134,11 +131,3 @@ class Archivo {
         $('#' + this.elementoPadre.id).fadeIn();
     }
 };
-
-arrayArchivos = []
-
-$('.archivo').each(function(i) {
-    arrayArchivos.push(new Archivo($(this).text(), $(this).parents()[3]))
-});
-
-console.log(arrayArchivos)
