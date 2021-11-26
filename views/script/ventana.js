@@ -38,7 +38,6 @@ if(document.getElementById('regresar')) {
     };
 };
 
-//FUNCTION
 function volver() {
     let cookie = getCookie('position')
     cookie = decodeURI(cookie);
@@ -59,7 +58,6 @@ function getCookie(name) {
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();
 }
-
 
 function animacionNum(id, primero, ultimo, duracion) {
     if (primero === ultimo) return;
