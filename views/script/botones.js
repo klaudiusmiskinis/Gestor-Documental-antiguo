@@ -5,18 +5,28 @@
 $('#subir-boton').on('click', function(e) {
     e.preventDefault();
         if (document.getElementById('subir-campo').files[0] != undefined) {
-            var archivo = document.getElementById('subir-campo');
-            let nombreArc = archivo.files[0].name;
-            let archivos = document.getElementsByClassName('archivo');
-            let encontrado = null;
-            let nombres = [];
-            if (archivos.length == 0 && nombreArc.length > 0) {
+            let nombreArchivoSubir = document.getElementById('subir-campo').files[0].name;
+            let arrayArchivosClase = document.getElementsByClassName('archivo');
+
+            arrayArchivos = []
+            $('.archivo').each(function(i) {
+                arrayArchivos.push(new Archivo($(this).text(), $(this).parents()[3]))
+            });
+
+            arrayArchivos.forEach(archivo => {
+                console.log(nombreArchivoSubir)
+                nombreArchivoSubir = archivo.generarDatos(nombreArchivoSubir);
+                console.log(nombreArchivoSubir)
+            });
+            
+
+            if (arrayArchivosClase.length == 0 && nombreArchivoSubir.length > 0) {
                 document.getElementById('subir').submit();
             }
-            for(let i = 0; i < archivos.length; i++) {
-                nombres.push(archivos[i].innerHTML);
-                if(archivos[i].innerHTML === nombreArc) {
-                    encontrado = true;
+            for(let i = 0; i < arrayArchivosClase.length; i++) {
+                nombres.push(arrayArchivosClase[i].innerHTML);
+                if(arrayArchivosClase[i].innerHTML === nombreArchivoSubir) {
+                    archivoEncontrado = true;
                     Swal.fire({
                         title: '¿Quieres crear una nueva versión?',
                         text: 'Ya hay archivo con ese nombre.',  
@@ -47,11 +57,11 @@ $('#subir-boton').on('click', function(e) {
                                     version = parseInt(a[0])
                                     version++;
                                     sumada = true;
-                                    alertaSubir(nombreArc, version, 'nueva')
+                                    alertaSubir(nombreArchivoSubir, version, 'nueva')
                                 } else if (!sumada && i == (nombres.length - 1)){
                                     version = 1;
                                     if (version == 1) {
-                                        alertaSubir(nombreArc, version, 'nueva');
+                                        alertaSubir(nombreArchivoSubir, version, 'nueva');
                                     }
                                 } 
                                 if (!(document.getElementById('subir').action).includes('?')) {
@@ -60,17 +70,17 @@ $('#subir-boton').on('click', function(e) {
                             }
                         } else if (result.isDenied) {
                             version = null
-                            alertaSubir(nombreArc, version, 'sobreescribir')
+                            alertaSubir(nombreArchivoSubir, version, 'sobreescribir')
                         } 
                     })    
                 }
-                if (i == (archivos.length -1) && encontrado == null) {
-                    encontrado = false;
+                if (i == (arrayArchivosClase.length -1) && archivoEncontrado == null) {
+                    archivoEncontrado = false;
                 }
             } 
-        if (encontrado == false) {
+        if (archivoEncontrado == false) {
             version = 0;
-            alertaSubir(nombreArc, version, 'nueva');
+            alertaSubir(nombreArchivoSubir, version, 'nueva');
         }
     }
 })
