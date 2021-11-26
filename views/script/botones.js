@@ -1,3 +1,5 @@
+$('#crear-nueva-version-modal').modal('show');
+
 $('#subir-boton').on('click', function(e) {
     e.preventDefault();
     if (document.getElementById('subir-campo').files[0] != undefined) {
@@ -21,9 +23,19 @@ $('#subir-boton').on('click', function(e) {
         });
 
         if(datosFormulario.existenciaRepetida) {
-            $('#archivoExistente').modal('show'); 
+            $('#archivo-existente').modal('show'); 
         }
     }
+})
+
+$('#crear-nueva-version').on('click', function() {
+    $('#archivo-existente').modal('hide');
+    $('#crear-nueva-version-modal').modal('show');
+})
+
+$('#sobreescribir-version').on('click', function() {
+    $('#archivo-existente').modal('hide');
+    $('#sobreescribir-version-modal').modal('show');
 })
 
 // EVENT LISTENER PARA CLICK DE INFO
