@@ -4,6 +4,7 @@
     --col: #212529;
     --col-transparent: #21252981;
     --b: #fff;
+    --g: rgb(182, 182, 182);
 }
 
 ::selection {
@@ -47,10 +48,4 @@ hr {
 form {
     padding: 0 !important;
     margin: 0 !important;
-}
-
-@media only screen and (max-width: 900px) {
-    .btn {
-      font-size: 14px;
-    }
 }
