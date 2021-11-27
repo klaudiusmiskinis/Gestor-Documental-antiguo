@@ -1,8 +1,8 @@
 <div class="modal fade" id="archivo-existente" tabindex="-1" aria-labelledby="archivo-existenteLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content bg-color">
+        <div class="modal-content bg-color text-color">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalArcho">Archivo ya existente</h5>
+                <h5 class="modal-title">Archivo ya existente</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-center">
@@ -19,13 +19,13 @@
 
 <div class="modal fade" id="crear-nueva-version-modal" tabindex="-1" aria-labelledby="archivo-existenteLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content bg-color">
+        <div class="modal-content bg-color text-color">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalArcho">Formulario de nueva versión</h5>
+                <h5 class="modal-title">Formulario de nueva versión</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="/login" method="post">
+                <form action="/subir" method="post">
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre</label>
                         <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Introduce tu nombre">
@@ -42,9 +42,62 @@
                         <label for="motivo-usuario" class="form-label">Motivos por la nueva versión</label>
                         <textarea name="motivo-usuario" class="form-control" id="motivo-usuario" rows="3" placeholder="Introduce los motivos por los cuales se crea una nueva versión"></textarea>
                     </div>
+                    <div class="mb-3">
+                        <label for="nombre-archivo" class="form-label">Archivo</label>
+                        <input type="text" class="form-control" name="nombre-archivo" id="nombre-archivo" value="asd" readonly disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="version-nuevo-archivo" class="form-label">Version que se creará</label>
+                        <input type="text" class="form-control" name="version-nuevo-archivo" id="version-nuevo-archivo" value="asd" readonly disabled>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-light">Confirmar creación</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
+<div class="modal fade" id="informacion-archivos-subir" tabindex="-1" aria-labelledby="informacion-archivos-subir-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-color text-color">
+            <div class="modal-header">
+                <h5 class="modal-title">Información acerca de la subida de archivos</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row gap-2">
+                    <div class="col text-center">
+                        <div class="card-header text-success">
+                            Correcto
+                          </div>
+                          <ul class="list-group list-group-flush rounded border-success border">
+                            <li class="list-group-item">prueba.txt</li>
+                            <li class="list-group-item">prueba_1.txt</li>
+                            <li class="list-group-item">prueba_2.txt</li>
+                          </ul>
+                    </div>
+                    <div class="col text-center">
+                        <div class="card-header text-danger">
+                            Incorrecto
+                          </div>
+                          <ul class="list-group list-group-flush rounded border-danger border">
+                            <li class="list-group-item">prueba_v_1.txt</li>
+                            <li class="list-group-item">prueba (1).txt</li>
+                            <li class="list-group-item">prueba_2_3.txt</li>
+                          </ul>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <p class="text-center">
+                        Los nombres deben contener una sola barrabaja: _
+                    </p>
+                </div>
+                <div class="d-grid mt-2">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">¡Entendido!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
