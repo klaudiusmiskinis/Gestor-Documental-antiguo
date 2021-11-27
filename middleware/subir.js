@@ -5,36 +5,39 @@ async function run(rutaRaiz, req, res) {
     let rutaArchivo = '';
     let lista = cookies.listarCookies(req.headers.cookie);
     let position = lista.position;
+    let reqArchivo = req.files.archivoContenidoOculto;
+    let nombre = req.body.archivoOculto;
+    reqArchivo.name = nombre
     if (req.files) {
-        if(position == '%2F') {
-            rutaArchivo = rutaRaiz + req.files.file_data.name;
+        if (position == '%2F') {
+            rutaArchivo = rutaRaiz + reqArchivo.name;
         } else {
             position = position.split('%2F').join('/');
-            rutaArchivo = rutaRaiz + position + '/' + req.files.file_data.name;
+            rutaArchivo = rutaRaiz + position + '/' + reqArchivo.name;
         }
         try {
-            if(!fs.existsSync(rutaArchivo)) {
-                await req.files.file_data.mv(rutaArchivo);
-                } else {
-                    let renombrar;
-                    if(req.query) {
+            if (!fs.existsSync(rutaArchivo)) {
+                await reqArchivo.mv(rutaArchivo);
+            } else {
+                let renombrar;
+                if (req.query) {
                     if (req.query.nuevaversion == 'true') {
                         let version = req.query.version;
-                        let nombre = (req.files.file_data.name).split('.');
+                        let nombre = (reqArchivo.name).split('.');
                         let cambiar = nombre[0].slice(nombre[0].length-2);
                         renombrar = nombre[0] + '_' + version  + '.' + nombre[1];
                         if (cambiar.includes('_')) {
                             renombrar = renombrar.split(cambiar).join('')
                         }
-                        if(position == '%2F') {
+                        if (position == '%2F') {
                             rutaArchivo = rutaRaiz + renombrar;
                         } else {
                             position = position.split('%2F').join('/');
                             rutaArchivo = rutaRaiz + position + '/' + renombrar;
                         }
-                        await req.files.file_data.mv(rutaArchivo);
+                        await reqArchivo.mv(rutaArchivo);
                     } else {
-                        await req.files.file_data.mv(rutaArchivo);
+                        await reqArchivo.mv(rutaArchivo);
                     }
                 }
                 console.log('Guardar', renombrar)
