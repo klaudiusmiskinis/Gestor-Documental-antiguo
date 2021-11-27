@@ -96,6 +96,7 @@ class Archivo {
     }
 
     //METHODs
+    /* Inicializa el objeto */
     init() {
         let nombre = this.getNombreCompleto().split('.');
         this.setExtension(nombre.pop());
@@ -105,15 +106,17 @@ class Archivo {
         this.setNombreSimple(this.getNombreSinVersion() + '.' + this.getExtension())
     };
 
+    /* Devuelve todos los atributos de la instancia */
     datos() {
         return [this.getNombreCompleto(), this.getNombreSinVersion(), this.getNombreSinExtension(), this.getNombreSimple(), this.getExtension(), this.getVersion(), this.getRepetido(), this.getMayor()]
     };
 
+    /* Evalua si el archivo a comparar es una versión mayor o menor si los atributos coinciden */
     compararArchivosRepetidos(archivo) {
-        if (this.nombreSimple === archivo.nombreSimple) {
+        if (this.getNombreSimple() === archivo.getNombreSimple()) {
             this.setRepetido(true);
             archivo.setRepetido(true);
-            if (this.version > archivo.version){
+            if (this.getVersion() > archivo.getVersion()){
                 this.setMayor(true);
                 archivo.setMayor(false)
             } else {
@@ -123,24 +126,40 @@ class Archivo {
         }
     }
 
-    comprobarExistente(nombreDeArchivo){
-        if (this.getNombreCompleto() === nombreDeArchivo) {
+    /* Comprueba si el nombre del archivo a subir existe en la carpeta en la que se va a subir */
+    comprobarExistencia(nombreDeArchivo){
+        let nombreDeArchivoSimple = this.generarNombreSimple(nombreDeArchivo);
+        if (this.getNombreSimple() === nombreDeArchivoSimple) {
             return true;
         } else {
             return false;
         }
     }
 
-    generarDatos(nombreDeArchivo){
-        let nombreDeArchivoSimple = (nombreDeArchivo.split('_')[0] + '.' + nombreDeArchivo.split('.').pop())
+    /* Genera el archivo que se utilizara para subir  */
+    generarDatosPorNombreDeArchivo(nombreDeArchivo){
+        let nombreDeArchivoSimple = this.generarNombreSimple(nombreDeArchivo);
         let nombreDeArchivoVersion = (nombreDeArchivo.split('.')[0]).split('_')[1] ?? 0;
         if (nombreDeArchivoSimple === this.getNombreSimple()) {
-            if (this.getVersion() > nombreDeArchivoVersion) {
+            if (this.getVersion() >= nombreDeArchivoVersion) {
                 nombreDeArchivoVersion = (this.getVersion() + 1)
                 return this.nombreSinVersion + '_' + nombreDeArchivoVersion + '.' + this.getExtension();
             }
         }
         return nombreDeArchivo;
+    }
+
+    generarNombreSimple(nombreDeArchivo) {
+        if (nombreDeArchivo.includes('_')) {
+            return (nombreDeArchivo.split('_')[0] + '.' + nombreDeArchivo.split('.').pop())
+        } else {
+            return (nombreDeArchivo.split('_')[0])
+        }
+    }
+
+    generarDatosFormularioExistente(nombreDeArchivo) {
+        let nombreDeArchivoVersion = (nombreDeArchivo.split('.')[0]).split('_')[1] ?? 0;
+        return [nombreDeArchivo, nombreDeArchivoVersion];
     }
 
     esconder() {
