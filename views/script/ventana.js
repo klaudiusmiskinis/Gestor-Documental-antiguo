@@ -10,16 +10,16 @@ document.onreadystatechange = function(e) {
 window.onload = function(e) {
     $(document.body).fadeIn('slow');
 
-    if(document.getElementById('dir-titulo')) {
+    if (document.getElementById('dir-titulo')) {
         animacionNum('dir-titulo', 0, document.getElementById('dir-numero').value, 900);
     }
 
-    if(document.getElementById('archivos-titulo')) {
+    if (document.getElementById('archivos-titulo')) {
         animacionNum('archivos-titulo', 0, document.getElementById('archivos-numero').value, 900);
     }
 };
 
-if(document.getElementById('volver')) {
+if (document.getElementById('volver')) {
     if (document.title == 'Home') {
         document.getElementById('volver').className += ' hide';
         document.getElementById('volver').onclick = function() {
@@ -32,7 +32,7 @@ if(document.getElementById('volver')) {
     };
 };
 
-if(document.getElementById('regresar')) {
+if (document.getElementById('regresar')) {
     document.getElementById('regresar').onclick = function() {
         volver();
     };

@@ -7,14 +7,14 @@ $('#ultimaVersion').on('click', function(e) {
         arrayArchivos.push(new Archivo($(this).text(), $(this).parents()[3]))
     });
 
-    if($(this).hasClass('ultima')) {
+    if ($(this).hasClass('ultima')) {
         arrayArchivos.forEach(archivoI => {
             arrayArchivos.forEach(archivoJ => {
                 archivoI.compararArchivosRepetidos(archivoJ);
             });
         });
         arrayArchivos.forEach(archivoI => {
-            if(!archivoI.getMayor()) {
+            if (!archivoI.getMayor()) {
                 archivoI.esconder();
             }
         })

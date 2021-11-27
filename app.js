@@ -114,7 +114,7 @@ function actualizar() {
     nomRutas = data[3];
     nomRutas.forEach(nom => {
         transformado = encodeURI(nom);
-        if(nom.charAt(0) != '/') {
+        if (nom.charAt(0) != '/') {
             transformado = '/' + transformado;
         }
         app.get(transformado, async (req, res) => {
