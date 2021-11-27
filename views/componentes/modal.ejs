@@ -25,30 +25,36 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="/subir" method="post">
+                <form action="/subir" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Introduce tu nombre">
+                        <input type="text" minlength="3" maxlength="50" class="form-control" name="nombre" id="nombre" placeholder="Introduce tu nombre" required>
                     </div>
                     <div class="mb-3">
                         <label for="apellidos" class="form-label">Apellidos</label>
-                        <input type="text" class="form-control" name="apellidos" id="apellidos" placeholder="Introduce tus apellidos">
+                        <input type="text" minlength="3" maxlength="50" class="form-control" name="apellidos" id="apellidos" placeholder="Introduce tus apellidos" required>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" name="email" id="email" placeholder="Introduce tu email de empresa">
+                        <input type="email" minlength="6" maxlength="50" class="form-control" name="email" id="email" placeholder="Introduce tu email de empresa" required>
                     </div>
                     <div class="mb-3">
-                        <label for="motivo-usuario" class="form-label">Motivos por la nueva versión</label>
-                        <textarea name="motivo-usuario" class="form-control" id="motivo-usuario" rows="3" placeholder="Introduce los motivos por los cuales se crea una nueva versión"></textarea>
+                        <label for="motivoUsuario" class="form-label">Motivos por la nueva versión</label>
+                        <textarea name="motivoUsuario" class="form-control" maxlength="200" id="motivoUsuario" rows="3" placeholder="Introduce los motivos por los cuales se crea una nueva versión" required></textarea>
+                    </div>
+                    <div class="mb-3 hide">
+                        <input type="hidden" name="tipoMotivo" id="tipoMotivo">
+                        <input type="hidden" name="versionOculto" id="versionOculto">
+                        <input type="hidden" name="archivoOculto" id="archivoOculto">
+                        <input type="file" name="archivoContenidoOculto" id="archivoContenidoOculto" class="hide">
                     </div>
                     <div class="mb-3">
                         <label for="nombre-archivo" class="form-label">Archivo</label>
-                        <input type="text" class="form-control" name="nombre-archivo" id="nombre-archivo" value="asd" readonly disabled>
+                        <input type="text" class="form-control" name="nombre-archivo" id="nombre-archivo" disabled>
                     </div>
                     <div class="mb-3">
                         <label for="version-nuevo-archivo" class="form-label">Version que se creará</label>
-                        <input type="text" class="form-control" name="version-nuevo-archivo" id="version-nuevo-archivo" value="asd" readonly disabled>
+                        <input type="text" class="form-control" name="version-nuevo-archivo" id="version-nuevo-archivo" disabled>
                     </div>
                     <div class="d-grid">
                         <button type="submit" class="btn btn-light">Confirmar creación</button>
