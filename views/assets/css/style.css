@@ -8,8 +8,8 @@
 }
 
 ::selection {
-    background-color: var(--col);
-    color: var(--b);
+    background-color: var(--g) !important;
+    color: var(--col);
 }
 
 *, html, body {
@@ -19,13 +19,6 @@
 body {
     background-color: var(--col);
 }
-
-::selection {
-    filter: invert(100%);
-    background-color: var(--col);
-    color: var(--b);
-}
-
 
 a:hover .invertido {
     -webkit-filter: invert(100%);
