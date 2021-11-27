@@ -3,7 +3,7 @@ const cookies = require('../middleware/cookie');
 function run(rutaRaiz, req, res) {
     let lista = cookies.listarCookies(req.headers.cookie);
     let position = lista.position;
-    if(position == '%2F') {
+    if (position == '%2F') {
         rutaArchivo = rutaRaiz + req.body.descargar;
     } else {
         let archivo = (req.body.descargar).split('%2F').join('/');

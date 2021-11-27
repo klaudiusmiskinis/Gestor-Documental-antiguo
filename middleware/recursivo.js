@@ -11,7 +11,7 @@ function recursivo(rutaRaiz) {
     reload();
 
     function rutas(dir) {
-        if(dir.padre == rutaRaiz) {
+        if (dir.padre == rutaRaiz) {
             return dir.nombre
         } else {
             return dir.rutaRelativa
@@ -29,9 +29,9 @@ function recursivo(rutaRaiz) {
 
         files.forEach(file => {
             file = file.replace(/\\/g, '/');
-            if(fs.lstatSync(rutaRaiz + file).isDirectory()) {
+            if (fs.lstatSync(rutaRaiz + file).isDirectory()) {
                 allDirectories.push(file)
-            } else if(fs.lstatSync(rutaRaiz + file).isFile()) {
+            } else if (fs.lstatSync(rutaRaiz + file).isFile()) {
                 allFiles.push(file)
             }
         });
@@ -83,9 +83,9 @@ function recursivo(rutaRaiz) {
             let separador = file.split('/')
             dirFilter.find(dir => {
 
-                if(separador.length == 1 && dir.nombre == '/') {
+                if (separador.length == 1 && dir.nombre == '/') {
                     dir.archivos.push(separador[0])
-                } else if(separador.length == 2 && dir.nombre == separador[0] && dir.padre == '/') {
+                } else if (separador.length == 2 && dir.nombre == separador[0] && dir.padre == '/') {
                     dir.archivos.push(separador[1])
                 }
 
@@ -120,7 +120,7 @@ function directorio(nom, allFiles, dirFilter) {
 
         if (dir.nombre == '/') {
             data.archivos = dir.archivos;
-        } else if(dir.rutaRelativa == nom) { 
+        } else if (dir.rutaRelativa == nom) { 
             data.archivos = dir.archivos;
             data.archivos = _.without(data.archivos, 'Thumbs.db')
         } 
