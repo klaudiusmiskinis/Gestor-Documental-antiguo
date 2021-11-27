@@ -119,6 +119,9 @@
 
 .bg-color {
     background-color: var(--col) !important;
+}
+
+.text-color {
     color: var(--b) !important;
 }
 
