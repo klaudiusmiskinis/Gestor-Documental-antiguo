@@ -1,7 +1,7 @@
-const cookies = require('../middleware/cookie');
+const { listarCookies } = require('../middleware/cookie');
 
 function run(rutaRaiz, req, res) {
-    let lista = cookies.listarCookies(req.headers.cookie);
+    let lista = listarCookies(req.headers.cookie);
     let position = lista.position;
     if (position == '%2F') {
         rutaArchivo = rutaRaiz + req.body.descargar;
