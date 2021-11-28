@@ -13,7 +13,7 @@ const descargar = require('./middleware/descargar');
 const eliminar = require('./middleware/eliminar');
 const accion = require('./middleware/accion');
 const subir = require('./middleware/subir');
-const rol = require('./middleware/rol');
+const { checkRol } = require('./middleware/rol');
 
 // VARIABLES //
 const rutaRaiz = process.env.RUTA_LOCAL;
@@ -50,7 +50,7 @@ app.get('/', (req, res) => {
 /* HOME */
 app.get('/home', (req, res) => {
     actualizar();
-    let modo = rol.checkRol(req)
+    let modo = checkRol(req)
     res.cookie('position', '/');
     res.render('index.ejs', {data: recursivo.directorio('/', allFiles, dirFilter), rutas: nomRutas, rol: modo});
 });
@@ -118,7 +118,7 @@ function actualizar() {
             transformado = '/' + transformado;
         }
         app.get(transformado, async (req, res) => {
-            let modo = rol.checkRol(req)
+            let modo = checkRol(req)
             actualizar();
             let data = recursivo.directorio(nom, allFiles, dirFilter);
             res.cookie('position', nom);
