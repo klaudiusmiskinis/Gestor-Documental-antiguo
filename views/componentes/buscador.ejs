@@ -1,12 +1,12 @@
 <div class="container-fluid">
-    <div class="col text-center text-light ruta">
+    <div class="col text-center text-color ruta">
         <p class="peq">Modo: <%= rol %>. Te encuentras en:<%= ' ' + data.nom %></p>
     </div>
     <div class="row gap-2">
         <% if (data.archivos.length > 0) { %>
             <div class="col">
                 <div class="input-group mb-3">
-                    <span class="input-group-text bg-dark text-light">Archivos<img class="img-fluid mx-2" src="/assets/img-svg/search.svg" width="20"></span>
+                    <span class="input-group-text bg-color text-color">Archivos<img class="img-fluid mx-2" src="/assets/img-svg/search.svg" width="20"></span>
                     <input type="search" class="form-control" id="buscador-file">
                 </div>
             </div>
@@ -14,7 +14,7 @@
         <% if (data.hijos.length > 0) { %>
             <div class="col">
                 <div class="input-group mb-3">
-                    <span class="input-group-text bg-dark text-light">Directorios<img class="img-fluid mx-2" src="/assets/img-svg/search.svg" width="20"></span>
+                    <span class="input-group-text bg-color text-color">Directorios<img class="img-fluid mx-2" src="/assets/img-svg/search.svg" width="20"></span>
                     <input type="search" class="form-control" id="buscador-dir">
                 </div>
             </div>
