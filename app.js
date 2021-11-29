@@ -1,37 +1,40 @@
 // SETUP //
 require('dotenv').config(); 
-const fileupload = require('express-fileupload');
+const fileupload     = require('express-fileupload');
 const methodOverride = require('method-override');
-const bcrypt = require('bcrypt');
-const express = require('express');
-const cookieSession = require('cookie-session')
-const app = express();
+const cookieSession  = require('cookie-session')
+const express        = require('express');
+const bcrypt         = require('bcrypt');
+const csrf           = require('csurf')
+const app            = express();
 
 // MIDDLEWARES //
-const recursivo = require('./middleware/recursivo');
-const descargar = require('./middleware/descargar');
-const eliminar = require('./middleware/eliminar');
-const accion = require('./middleware/accion');
-const subir = require('./middleware/subir');
-const { checkRol } = require('./middleware/rol');
+const recursivo      = require('./middleware/recursivo');
+const descargar      = require('./middleware/descargar');
+const eliminar       = require('./middleware/eliminar');
+const accion         = require('./middleware/accion');
+const subir          = require('./middleware/subir');
+const { checkRol }   = require('./middleware/rol');
 
 // VARIABLES //
-const rutaRaiz = process.env.RUTA_LOCAL;
-let allDirectories = [];
-let allFiles = [];
-let dirFilter = [];
-let nomRutas = [];
+const rutaRaiz       = process.env.RUTA_LOCAL;
+let allDirectories   = [];
+let allFiles         = [];
+let dirFilter        = [];
+let nomRutas         = [];
+
 
 // CONFIGURACIÓN DE FUNCIONAMIENTO //
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 app.use(fileupload());
+csrf({ cookie: true });
 app.use(cookieSession({
     name: 'session',
     keys: [process.env.SECRET_SESSION],
-    maxAge: 3 * 60 * 60 * 1000 ,
-}))
+    maxAge: 3 * 60 * 60 * 1000
+}));
 /* RUTAS ESTATICAS PARA ARCHIVOS DE ESTILO, SCRIPTS Y NODE_MODULES */
 app.use('/assets', express.static('views/assets'));
 app.use('/script', express.static('views/script'));
@@ -44,12 +47,10 @@ actualizar();
 
 // METODOS HTTPs //
 // GETs //
-/* PADRE */
 app.get('/', (req, res) => {
     res.redirect('/home');
 });
 
-/* HOME */
 app.get('/home', (req, res) => {
     actualizar();
     let modo = checkRol(req)
@@ -58,7 +59,6 @@ app.get('/home', (req, res) => {
 });
 
 // POSTs //
-
 /* LOGIN */
 app.post('/login', async (req, res) => {
     if (req.body.nombre == process.env.USER_LOGIN && await bcrypt.compareSync(req.body.password, process.env.PASSWORD_LOGIN)) {
