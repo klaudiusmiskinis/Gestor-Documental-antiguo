@@ -14,8 +14,8 @@ async function run(rutaRaiz, req, res){
 
     try {
         await fs.unlinkSync(rutaArchivo);
-    } catch(err) {
-       console.error(err);
+    } catch(e) {
+        return e;
     }
     console.log('Eliminando:', req.body.archivo);
 }
