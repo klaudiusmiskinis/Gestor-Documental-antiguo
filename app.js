@@ -31,7 +31,7 @@ app.use(fileupload());
 app.use(cookieSession({
     name: 'session',
     keys: [process.env.SECRET_SESSION],
-    maxAge: 3 * 60 * 60 * 1000
+    maxAge: 1 * 60 * 60 * 1000
 }));
 /* RUTAS ESTATICAS PARA ARCHIVOS DE ESTILO, SCRIPTS Y NODE_MODULES */
 app.use('/assets', express.static('views/assets'));
@@ -92,6 +92,7 @@ app.post('/accion', async (req, res) => {
 /* ELIMINAR */
 app.delete('/eliminar', async (req, res) => {
     eliminar.run(rutaRaiz, req, res);
+    console.log(req.body)
     res.redirect(req.get('referer'));
 });
 
