@@ -5,7 +5,6 @@ const methodOverride = require('method-override');
 const cookieSession  = require('cookie-session')
 const express        = require('express');
 const bcrypt         = require('bcrypt');
-const csrf           = require('csurf')
 const app            = express();
 
 // MIDDLEWARES //
@@ -29,7 +28,6 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 app.use(fileupload());
-app.use(csrf());
 app.use(cookieSession({
     name: 'session',
     keys: [process.env.SECRET_SESSION],
