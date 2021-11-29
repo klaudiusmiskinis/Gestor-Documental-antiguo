@@ -6,7 +6,7 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-center">
-                <h5><b>Aviso</b></h5>
+                <h5 class="text-danger"><b>Aviso</b></h5>
                 <p><b>Se ha detectado que el archivo que quieres subir ya existe. <br></b>¿Qué deseas hacer?</p>
             </div>
             <div class="bg-color p-2 gap-2 d-grid border-top border-light">
@@ -39,8 +39,8 @@
                         <input type="email" minlength="6" maxlength="50" class="form-control" name="email" id="email" placeholder="Introduce tu email de empresa" required>
                     </div>
                     <div class="mb-3">
-                        <label for="motivoUsuario" class="form-label">Motivos por la nueva versión</label>
-                        <textarea name="motivoUsuario" class="form-control" maxlength="200" id="motivoUsuario" rows="3" placeholder="Introduce los motivos por los cuales se crea una nueva versión" required></textarea>
+                        <label for="motivo" class="form-label">Motivos por la nueva versión</label>
+                        <textarea name="motivo" class="form-control" maxlength="200" id="motivo" rows="3" placeholder="Introduce los motivos por los cuales se crea una nueva versión" required></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="nombre-archivo" class="form-label">Archivo</label>
@@ -58,6 +58,48 @@
                         <input type="hidden" name="versionOculto" id="versionOculto">
                         <input type="hidden" name="archivoOculto" id="archivoOculto">
                         <input type="file" name="archivoContenidoOculto" id="archivoContenidoOculto" class="hide">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="eliminar-archivo-modal" tabindex="-1" aria-labelledby="eliminar-archivoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content bg-color text-color">
+            <div class="modal-header">
+                <h5 class="modal-title">Formulario de eliminación de archivos</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/eliminar?_method=DELETE" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="eliminarNombre" class="form-label">Nombre</label>
+                        <input type="text" minlength="3" maxlength="50" class="form-control" name="eliminarNombre" id="eliminarNombre" placeholder="Introduce tu nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="eliminarApellidos" class="form-label">Apellidos</label>
+                        <input type="text" minlength="3" maxlength="50" class="form-control" name="eliminarApellidos" id="eliminarApellidos" placeholder="Introduce tus apellidos" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="eliminarEmail" class="form-label">Email</label>
+                        <input type="Email" minlength="6" maxlength="50" class="form-control" name="eliminarEmail" id="eliminarEmail" placeholder="Introduce tu email de empresa" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="eliminarMotivo" class="form-label">Motivos</label>
+                        <textarea name="eliminarMotivo" class="form-control" maxlength="200" id="eliminarMotivo" rows="3" placeholder="Introduce los motivos por los cuales se elimina la versión" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="eliminarArchivoNombre" class="form-label">Archivo</label>
+                        <input type="text" class="form-control" name="eliminarArchivoNombre" id="eliminarArchivoNombre" disabled>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-light">Eliminar archivo</button>
+                    </div>
+                    <div class="hide">
+                        <input type="hidden" name="eliminarTipoMotivoOculto" id="eliminarTipoMotivoOculto">
+                        <input type="hidden" name="eliminarArchivoOculto" id="eliminarArchivoOculto">
                     </div>
                 </form>
             </div>
