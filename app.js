@@ -62,7 +62,7 @@ app.get('/home', (req, res) => {
 /* LOGIN */
 app.post('/login', async (req, res) => {
     if (req.body.nombre == process.env.USER_LOGIN && await bcrypt.compareSync(req.body.password, process.env.PASSWORD_LOGIN)) {
-        req.session.user = process.env.ROL;
+        req.session.user = process.env.ROL_HIGH;
     }
     res.redirect(req.get('referer'));
 });
