@@ -35,7 +35,9 @@ app.use(cookieSession({
 /* RUTAS ESTATICAS PARA ARCHIVOS DE ESTILO, SCRIPTS Y NODE_MODULES */
 app.use('/assets', express.static('views/assets'));
 app.use('/script', express.static('views/script'));
-app.use('/node', express.static('node_modules'));
+app.use('/jquery', express.static('node_modules/jquery'));
+app.use('/bootstrap', express.static('node_modules/bootstrap'));
+app.use('/popper', express.static('node_modules/@popperjs'));
 
 // DESPLIEGUE //
 actualizar();
