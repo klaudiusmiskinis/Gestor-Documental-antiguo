@@ -40,10 +40,10 @@ async function run(rutaRaiz, req, res) {
                         await reqArchivo.mv(rutaArchivo);
                     }
                 }
-                console.log('Guardar', renombrar)
+                console.log('Guardando', reqArchivo.name)
             }
         } catch(e) {
-            console.log(e);
+            return e;
         }
     }
 }
