@@ -85,7 +85,7 @@
                             <% if ((i % 2) == 0) { %>
                             <div class="row p-1 gap-2">
                                 <% } %>
-                                <div class="col-md file-estilo bg-light text-dark" id="arch-estilo <%= i %>">
+                                <div class="col-md file-estilo bg-light text-dark" id="<%= 'arch-estilo' + i %>">
                                     <div class="d-flex">
                                         <div class="justify-content-left align-self-center px-1">
                                             <img src="/assets/img-svg/<%= data.extensiones[i] %>.svg" class="m-2 svg img-archivo" width="35" alt="file <%= data.extensiones[i] %>">
