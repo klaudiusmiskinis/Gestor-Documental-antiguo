@@ -1,5 +1,6 @@
 $('#subir-boton').on('click', function(e) {
     e.preventDefault();
+
     if (document.getElementById('subir-campo').files[0] != undefined) {
         let nombreArchivoSubir = document.getElementById('subir-campo').files[0].name;
         nombreArchivoSubir = new Archivo(nombreArchivoSubir).comprobarParentesis(nombreArchivoSubir)
@@ -30,16 +31,12 @@ $('#subir-boton').on('click', function(e) {
             $('#archivo-existente').modal('show'); 
         } else {
             let nuevoArchivo = new Archivo($('#subir-campo')[0].files[0].name);
-            nuevoArchivo.setNombreCompleto(nuevoArchivo.comprobarParentesis(nuevoArchivo.getNombreCompleto()))
+            nuevoArchivo.setNombreCompleto(nuevoArchivo.comprobarParentesis(nuevoArchivo.getNombreCompleto()));
             formularioExistenciaRepetidaValores(nuevoArchivo.generarDatosFormularioExistente(nuevoArchivo.generarDatosPorNombreDeArchivoSinSuma(nuevoArchivo.getNombreCompleto())), 'Nuevo archivo');
             $('#crear-nueva-version-modal').modal('show'); 
         }
     }
 })
-
-$("#subir-campo").change(function() {
-    $(this).after($(this).clone()).appendTo($('#archivoContenidoOculto'));
-});
 
 /* DESPLIEGA EL MODAL DE INFORMACION */
 $('#info').on('click', function() {
@@ -56,9 +53,16 @@ $('#crear-nueva-version').on('click', function() {
 $('#sobreescribir-version').on('click', function() {
     $('#archivo-existente').modal('hide');
     let nuevoArchivo = new Archivo($('#subir-campo')[0].files[0].name);
-    nuevoArchivo.setNombreCompleto(nuevoArchivo.comprobarParentesis(nuevoArchivo.getNombreCompleto()))
-    formularioExistenciaRepetidaValores(nuevoArchivo.generarDatosFormularioExistente(nuevoArchivo.generarDatosPorNombreDeArchivoSinSuma(nuevoArchivo.getNombreCompleto())), 'Sobreescrito');
+    nuevoArchivo.setNombreCompleto(nuevoArchivo.comprobarParentesis(nuevoArchivo.getNombreCompleto()));
+    formularioExistenciaRepetidaValores(nuevoArchivo.generarDatosFormularioExistente(nuevoArchivo.generarDatosPorNombreDeArchivoSinSuma(nuevoArchivo.getNombreCompleto())), 'Sobreescribir');
     $('#crear-nueva-version-modal').modal('show');
+})
+
+$('.cerrar').on('click', function(e) {
+    e.preventDefault();
+    let archivoEliminar = $(this).children()[0];
+    $('#eliminar-archivo-modal').modal('show');
+    formularioEliminar(archivoEliminar.value, 'Eliminar');
 })
 
 function formularioExistenciaRepetidaValores(nombreArchivoSubirDatos, tipo) {
@@ -70,5 +74,11 @@ function formularioExistenciaRepetidaValores(nombreArchivoSubirDatos, tipo) {
     $('#tipoMotivo').val(tipo);
     $("#subir-campo").change(function() {
            $(this).after($(this).clone()).appendTo($('#archivoContenidoOculto'));
-     });
+    });
+}
+
+function formularioEliminar(nombreDelArchivoEliminar, tipo) {
+    $('#eliminarTipoMotivoOculto').val(tipo);
+    $('#eliminarArchivoOculto').val(nombreDelArchivoEliminar);
+    $('#eliminarArchivoNombre').val(nombreDelArchivoEliminar);
 }
