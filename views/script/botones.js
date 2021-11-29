@@ -2,6 +2,7 @@ $('#subir-boton').on('click', function(e) {
     e.preventDefault();
     if (document.getElementById('subir-campo').files[0] != undefined) {
         let nombreArchivoSubir = document.getElementById('subir-campo').files[0].name;
+        nombreArchivoSubir = new Archivo(nombreArchivoSubir).comprobarParentesis(nombreArchivoSubir)
         let datosFormulario = {
             existenciaRepetida: false,
         }
@@ -25,13 +26,20 @@ $('#subir-boton').on('click', function(e) {
             arrayArchivos.forEach(archivo => {
                 nombreArchivoSubirDatos = archivo.generarDatosFormularioExistente(nombreArchivoSubir);
             });
-            formularioExistenciaRepetidaValores(nombreArchivoSubirDatos)
+            formularioExistenciaRepetidaValores(nombreArchivoSubirDatos, 'Nueva versión')
             $('#archivo-existente').modal('show'); 
         } else {
-            
+            let nuevoArchivo = new Archivo($('#subir-campo')[0].files[0].name);
+            nuevoArchivo.setNombreCompleto(nuevoArchivo.comprobarParentesis(nuevoArchivo.getNombreCompleto()))
+            formularioExistenciaRepetidaValores(nuevoArchivo.generarDatosFormularioExistente(nuevoArchivo.generarDatosPorNombreDeArchivoSinSuma(nuevoArchivo.getNombreCompleto())), 'Nuevo archivo');
+            $('#crear-nueva-version-modal').modal('show'); 
         }
     }
 })
+
+$("#subir-campo").change(function() {
+    $(this).after($(this).clone()).appendTo($('#archivoContenidoOculto'));
+});
 
 /* DESPLIEGA EL MODAL DE INFORMACION */
 $('#info').on('click', function() {
@@ -45,19 +53,20 @@ $('#crear-nueva-version').on('click', function() {
 
 $('#sobreescribir-version').on('click', function() {
     $('#archivo-existente').modal('hide');
-    $('#sobreescribir-version-modal').modal('show');
+    let nuevoArchivo = new Archivo($('#subir-campo')[0].files[0].name);
+    nuevoArchivo.setNombreCompleto(nuevoArchivo.comprobarParentesis(nuevoArchivo.getNombreCompleto()))
+    formularioExistenciaRepetidaValores(nuevoArchivo.generarDatosFormularioExistente(nuevoArchivo.generarDatosPorNombreDeArchivoSinSuma(nuevoArchivo.getNombreCompleto())), 'Sobreescrito');
+    $('#crear-nueva-version-modal').modal('show');
 })
 
-function formularioExistenciaRepetidaValores(nombreArchivoSubirDatos) {
+function formularioExistenciaRepetidaValores(nombreArchivoSubirDatos, tipo) {
     $('#version-nuevo-archivo').val('Versión: ' + nombreArchivoSubirDatos[1]);
     $('#archivoContenidoOculto')[0].files = $('#subir-campo')[0].files
     $('#nombre-archivo').val(nombreArchivoSubirDatos[0]);
     $('#archivoOculto').val(nombreArchivoSubirDatos[0])
     $('#versionOculto').val(nombreArchivoSubirDatos[1])
-    $('#tipoMotivo').val('Nueva versión');
+    $('#tipoMotivo').val(tipo);
     $("#subir-campo").change(function() {
-        var $this = $(this),
-           $clone = $this.clone();
-        $this.after($clone).appendTo($('#archivoContenidoOculto'));
+           $(this).after($(this).clone()).appendTo($('#archivoContenidoOculto'));
      });
 }
