@@ -60,7 +60,7 @@ app.get('/home', (req, res) => {
 /* LOGIN */
 app.post('/login', async (req, res) => {
     if (req.body.nombre == process.env.USER_LOGIN && await bcrypt.compareSync(req.body.password, process.env.PASSWORD_LOGIN)) {
-        req.session.user = 'admin'
+        req.session.user = process.env.ROL;
     }
     res.redirect(req.get('referer'));
 });
@@ -85,7 +85,6 @@ app.post('/descargar', async (req, res) => {
 
 /* ACCION */
 app.post('/accion', async (req, res) => {
-    console.log(req.body);
     res.end();
 });
 
@@ -100,10 +99,9 @@ app.delete('/eliminar', async (req, res) => {
 app.listen(process.env.PORT_APP);
 
 // FUNCIONES //
-
 /* ACTUALIZAR */
 /* PARAMETROS: NO */
-/* DEVUELVE: NADA */
+/* RETURN: NADA */
 /* SE ENCARGA DE HACER LA RECURSIVIDAD DE LOS DIRECTORIOS Y GENERAR LOS CONTENIDOS DE LAS VARIABLES */
 /* UNA VEZ CONTIENE LOS DATOS, CREA METODOS HTTP GET CON LAS RUTAS DE DIRECTORIOS PARA CONECTARNOS */
 function actualizar() {
