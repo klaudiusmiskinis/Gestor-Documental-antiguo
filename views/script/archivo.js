@@ -149,6 +149,7 @@ class Archivo {
         return nombreDeArchivo;
     }
 
+    /* Genera el archivo que se utilizara para subir sin cambiar la versión  */
     generarDatosPorNombreDeArchivoSinSuma(nombreDeArchivo){
         let nombreDeArchivoSimple = this.generarNombreSimple(nombreDeArchivo);
         let nombreDeArchivoVersion = (nombreDeArchivo.split('.')[0]).split('_')[1] ?? 0;
@@ -161,6 +162,7 @@ class Archivo {
         return nombreDeArchivo;
     }
 
+    /* Genera el archivo que se utilizara para subir  */
     generarNombreSimple(nombreDeArchivo) {
         if (nombreDeArchivo.includes('_')) {
             return (nombreDeArchivo.split('_')[0] + '.' + nombreDeArchivo.split('.').pop())
@@ -169,6 +171,7 @@ class Archivo {
         }
     }
 
+    /* Comprobante de parentesis en el nombre  */
     comprobarParentesis(nombreArchivoSubir) {
         if (/\([\d]+\)/.test(nombreArchivoSubir)) {
             nombreArchivoSubir = nombreArchivoSubir.replace(/ *\([^)]*\) */g, "");
@@ -178,15 +181,18 @@ class Archivo {
         }
     }
 
+    /* Genera los datos para los campos disabled del formulario  */
     generarDatosFormularioExistente(nombreDeArchivo) {
         let nombreDeArchivoVersion = (nombreDeArchivo.split('.')[0]).split('_')[1] ?? 0;
         return [nombreDeArchivo, nombreDeArchivoVersion];
     }
 
+    /* Hace desaparecer al elemento padre que lo envuelve  */
     esconder() {
         $('#' + this.elementoPadre.id).fadeOut();
     }
 
+    /* Hace aparecer al elemento padre que lo envuelve  */
     mostrar() {
         $('#' + this.elementoPadre.id).fadeIn();
     }
