@@ -29,7 +29,7 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 app.use(fileupload());
-csrf({ cookie: true });
+app.use(csrf());
 app.use(cookieSession({
     name: 'session',
     keys: [process.env.SECRET_SESSION],
