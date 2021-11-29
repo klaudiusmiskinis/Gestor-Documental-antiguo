@@ -149,11 +149,32 @@ class Archivo {
         return nombreDeArchivo;
     }
 
+    generarDatosPorNombreDeArchivoSinSuma(nombreDeArchivo){
+        let nombreDeArchivoSimple = this.generarNombreSimple(nombreDeArchivo);
+        let nombreDeArchivoVersion = (nombreDeArchivo.split('.')[0]).split('_')[1] ?? 0;
+        if (nombreDeArchivoSimple === this.getNombreSimple()) {
+            if (this.getVersion() >= nombreDeArchivoVersion) {
+                nombreDeArchivoVersion = (this.getVersion())
+                return this.nombreSinVersion + '_' + nombreDeArchivoVersion + '.' + this.getExtension();
+            }
+        }
+        return nombreDeArchivo;
+    }
+
     generarNombreSimple(nombreDeArchivo) {
         if (nombreDeArchivo.includes('_')) {
             return (nombreDeArchivo.split('_')[0] + '.' + nombreDeArchivo.split('.').pop())
         } else {
             return (nombreDeArchivo.split('_')[0])
+        }
+    }
+
+    comprobarParentesis(nombreArchivoSubir) {
+        if (/\([\d]+\)/.test(nombreArchivoSubir)) {
+            nombreArchivoSubir = nombreArchivoSubir.replace(/ *\([^)]*\) */g, "");
+            return nombreArchivoSubir;
+        } else {
+            return nombreArchivoSubir;
         }
     }
 
