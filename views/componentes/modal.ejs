@@ -42,12 +42,6 @@
                         <label for="motivoUsuario" class="form-label">Motivos por la nueva versión</label>
                         <textarea name="motivoUsuario" class="form-control" maxlength="200" id="motivoUsuario" rows="3" placeholder="Introduce los motivos por los cuales se crea una nueva versión" required></textarea>
                     </div>
-                    <div class="mb-3 hide">
-                        <input type="hidden" name="tipoMotivo" id="tipoMotivo">
-                        <input type="hidden" name="versionOculto" id="versionOculto">
-                        <input type="hidden" name="archivoOculto" id="archivoOculto">
-                        <input type="file" name="archivoContenidoOculto" id="archivoContenidoOculto" class="hide">
-                    </div>
                     <div class="mb-3">
                         <label for="nombre-archivo" class="form-label">Archivo</label>
                         <input type="text" class="form-control" name="nombre-archivo" id="nombre-archivo" disabled>
@@ -58,6 +52,12 @@
                     </div>
                     <div class="d-grid">
                         <button type="submit" class="btn btn-light">Confirmar creación</button>
+                    </div>
+                    <div class="hide">
+                        <input type="hidden" name="tipoMotivo" id="tipoMotivo">
+                        <input type="hidden" name="versionOculto" id="versionOculto">
+                        <input type="hidden" name="archivoOculto" id="archivoOculto">
+                        <input type="file" name="archivoContenidoOculto" id="archivoContenidoOculto" class="hide">
                     </div>
                 </form>
             </div>
