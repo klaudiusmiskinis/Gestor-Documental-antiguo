@@ -12,7 +12,7 @@
     <% if (directorios.hijos.length > 0) { %>
         <!-- CONTENEDOR DE DIRECTORIOS -->
             <div class="container-fluid">
-                <div class="accordion-item accordion-item-r-top">
+                <div class="accordion-item shadow-sm border-0 mb-3">
                     <h2 class="accordion-header" id="flush-directorios">
                     <button 
                         class="accordion-button collapse show" 
@@ -27,30 +27,35 @@
                     <div 
                     id="flush-collapse-one" 
                     class="accordion-collapse collapse show" 
-                    aria-labelledby="flush-directorios" 
+                    aria-labelledby="flush-directorios"                     
                     data-bs-parent="#acordeon">
                         <div class="dir">
                             <input type="hidden" id="dir-numero" value="<%= directorios.hijos.length %>">
                             <% directorios.hijos.forEach(function(hijo, i) { %> 
-                            <% if ((i % 2) == 0) { %>
-                            <div class="row p-1 gap-2">
+                            <% if ((i % 3) == 0) { %>
+                            <div class="row gap-1">
                                 <% }  %>
-                                <div class="col-md file-estilo bg-light" id="file-estilo<%= i %>">
-                                    <div class="d-flex">
-                                        <div class="justify-content-left align-self-center me-auto px-1">
-                                            <img src="/assets/img-svg/folder.svg" class="img-fluid m-2 svg" width="30" alt="folder">
+                                <div class="col m-2 text-truncate" id="<%= 'file-estilo' + i %>">
+                                    <div class="card card-span">
+                                      <div class="card-body shadow-sm border-bottom border-3 border-color">
+                                        <div class="justify-content-left align-self-center text-center">
+                                            <img src="/assets/img-svg/folder.svg" class="img-fluid svg" width="30" alt="folder">
                                         </div>
-                                        <div class="col text-truncate">
-                                            <a class="btn card-body directorio" href="<%= '/' + hijo.rutaRelativa %>">
+                                        <div class="col text-center">
+                                            <div class="text-muted">Directorio</div>
+                                        </div>
+                                        <div class="col text-truncate text-center text-dark">
+                                            <a class="text-decoration-none text-color card-body directorio" href="<%= '/' + hijo.rutaRelativa %>">
                                                 <%= hijo.nombre %>
                                             </a>
                                         </div>
-                                    </div> 
+                                      </div>
+                                    </div>
                                 </div>
-                                <% if ((i % 2) == 1) { %>
+
+                                <% if ((i % 3) == 2) { %>
                             </div>
-                            <% } %>
-                            <% }) %>
+                            <% }}) %>
                         </div>
                     </div>
                 </div>  
@@ -61,7 +66,7 @@
         <% if (directorios.archivos.length > 0) { %>
             <!-- CONTENEDOR DE ARCHIVOS -->
             <div class="container-fluid">
-                <div class="accordion-item accordion-item-r-bottom">
+                <div class="accordion-item shadow-sm border-0 mb-3">
                     <h2 class="accordion-header" id="flush-archivos">
                         <button 
                         class="accordion-button collapse show" 
@@ -80,34 +85,42 @@
                         data-bs-parent="#acordeon">
                         <div class="file">
                             <input type="hidden" id="archivos-numero" value="<%= directorios.archivos.length %>">
-                            <% directorios.archivos.forEach(function(ar, i) { %>
-                            <% if ((i % 2) == 0) { %>
-                            <div class="row p-1 gap-2">
+                            <% directorios.archivos.forEach(function(archivo, i) { %>
+                            <% if ((i % 3) == 0) { %>
+                            <div class="row gap-1">
                                 <% } %>
-                                <div class="col-md file-estilo bg-light text-dark" id="<%= 'arch-estilo' + i %>">
-                                    <div class="d-flex">
-                                        <div class="justify-content-left align-self-center px-1">
+
+                                <div class="col m-2 text-truncate" id="<%= 'arch-estilo' + i %>">
+                                    <div class="card card-span">
+                                        <div class="card-body shadow-sm border-bottom border-3 border-color">
+                                            <div class="text-end justify-content-right">
+                                                <form action="/eliminar?_method=DELETE" class="cerrar" id="<%= archivo + 'form' %>" name="formEliminar" method="POST">
+                                                    <input type="hidden" name="archivo" class="me-auto" value="<%= archivo %>">
+                                                    <% if (rol == 'escritura') { %>
+                                                        <button type="submit" class="btn-close"></button>
+                                                    <% } %>
+                                                </form>
+                                            </div>
+                                        <div class="justify-content-left align-self-center text-center">
                                             <img src="/assets/img-svg/<%= directorios.extensiones[i] %>.svg" class="m-2 svg img-archivo" width="35" alt="file <%= directorios.extensiones[i] %>">
                                         </div>
-                                        <div class="col text-truncate">
-                                            <form action="/descargar" method="post">
-                                                <input type="hidden" name="descargar" value="<%= ar %>">
-                                                <button type="submit" class="btn text-break card-body archivo text-truncate"><%= ar %></button>
-                                            </form>
+                                        <div class="col text-center">
+                                            <div class="text-muted">Archivo (<%= directorios.extensiones[i] %>)</div>
                                         </div>
-                                        <div class="justify-content-right align-self-center ms-auto px-1">
-                                            <form action="/eliminar?_method=DELETE" class="cerrar" id="<%= ar + 'form' %>" name="formEliminar" method="POST">
-                                                <input type="hidden" name="archivo" value="<%= ar %>">
-                                                <% if (rol == 'escritura') { %>
-                                                    <button type="submit" class="btn-close mx-2"></button>
-                                                <% } %>
+                                        <div class="col text-center text-dark">
+                                            <form action="/descargar" method="post">
+                                                <input type="hidden" name="descargar" value="<%= archivo %>">
+                                                <button type="submit" class="btn text-color text-decoration-none directorio archivo">
+                                                    <%= archivo %>
+                                                </button>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
-                                <% if ((i % 2) == 1) { %>
-                                </div>
-                                <% } %>
+                             </div>
+                            <% if ((i % 3) == 2) { %>
+                            </div>
+                            <% } %>
                             <% }) %>
                         </div>
                     </div>
@@ -117,6 +130,11 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        
+    </div>
+    
 
     <%- include('componentes/modal') %> 
     <%- include('componentes/cerrar') %> 
