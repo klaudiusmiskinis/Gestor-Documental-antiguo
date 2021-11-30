@@ -189,11 +189,11 @@ class Archivo {
 
     /* Hace desaparecer al elemento padre que lo envuelve  */
     esconder() {
-        $('#' + this.elementoPadre.id).fadeOut();
+        $('#' + this.elementoPadre.id).fadeOut('fast');
     }
 
     /* Hace aparecer al elemento padre que lo envuelve  */
     mostrar() {
-        $('#' + this.elementoPadre.id).fadeIn();
+        $('#' + this.elementoPadre.id).fadeIn('fast');
     }
 };
