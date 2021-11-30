@@ -4,7 +4,7 @@ $('#ultimaVersion').on('click', function(e) {
     arrayArchivos = []
 
     $('.archivo').each(function(i) {
-        arrayArchivos.push(new Archivo($(this).text(), $(this).parents()[3]))
+        arrayArchivos.push(new Archivo($(this).text(), $(this).parents()[4]))
     });
 
     if ($(this).hasClass('ultima')) {
