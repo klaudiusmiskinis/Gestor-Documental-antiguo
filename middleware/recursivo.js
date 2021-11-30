@@ -8,7 +8,7 @@ function recursivo(rutaRaiz) {
     let dirFilter = [];
     let nomRutas = [];
 
-    reload();
+    recargar(allDirectories, allFiles, dirFilter, nomRutas);
 
     function rutas(dir) {
         if (dir.padre == rutaRaiz) {
@@ -18,21 +18,16 @@ function recursivo(rutaRaiz) {
         }
     };
 
-    function reload() {
-        allDirectories = []
-        allFiles = []
-        dirFilter = []
-        nomRutas = []
+    function recargar(allDirectories, allFiles, dirFilter, nomRutas) {
 
         var files = wrench.readdirSyncRecursive(rutaRaiz);
-        wrench.readdirRecursive(rutaRaiz, function (error, files) {});
 
-        files.forEach(file => {
-            file = file.replace(/\\/g, '/');
-            if (fs.lstatSync(rutaRaiz + file).isDirectory()) {
-                allDirectories.push(file)
-            } else if (fs.lstatSync(rutaRaiz + file).isFile()) {
-                allFiles.push(file)
+        files.forEach(archivo => {
+            archivo = archivo.replace(/\\/g, '/');
+            if (fs.lstatSync(rutaRaiz + archivo).isDirectory()) {
+                allDirectories.push(archivo)
+            } else if (fs.lstatSync(rutaRaiz + archivo).isFile()) {
+                allFiles.push(archivo)
             }
         });
 
@@ -49,61 +44,59 @@ function recursivo(rutaRaiz) {
         allDirectories.forEach(dir => {
             let separador = dir.split('/')
             let directorio = getPadre(separador)
-            function getPadre(sep) {
-                if (sep.length > 1) {
-                    let dirObj = {
-                        nombre: sep[sep.length -1],
-                        padre: sep[sep.length -2] + '/',
+            function getPadre(separador) {
+                if (separador.length > 1) {
+                    let directorioObj = {
+                        nombre: separador[separador.length -1],
+                        padre: separador[separador.length -2] + '/',
                         rutaRelativa: dir,
                         rutaAbsoluta: rutaRaiz + dir + '/',
                         archivos: []
                     }
-                    return dirObj;  
+                    return directorioObj;  
                 } else {
-                    let dirObj = {
-                        nombre: sep[sep.length -1],
+                    let directorioObj = {
+                        nombre: separador[separador.length -1],
                         padre: '/',
                         rutaRelativa: dir,
                         rutaAbsoluta: rutaRaiz + dir,
                         archivos: []
                     } 
-                    return dirObj; 
+                    return directorioObj; 
                 }
             }    
             dirFilter.push(directorio)
         })
 
         // LOOP de nombre de rutas para el HTTP
-        dirFilter.forEach(dir => {
-            nomRutas.push(rutas(dir))
+        dirFilter.forEach(directorio => {
+            nomRutas.push(rutas(directorio))
         })
         
         // LOOP para saber que archivo pertenece a que directorio
-        allFiles.forEach(file => {   
-            let separador = file.split('/')
-            dirFilter.find(dir => {
-
-                if (separador.length == 1 && dir.nombre == '/') {
-                    dir.archivos.push(separador[0])
-                } else if (separador.length == 2 && dir.nombre == separador[0] && dir.padre == '/') {
-                    dir.archivos.push(separador[1])
+        allFiles.forEach(archivo => {   
+            let separador = archivo.split('/')
+            dirFilter.find(directorio => {
+                if (separador.length == 1 && directorio.nombre == '/') {
+                    directorio.archivos.push(separador[0])
+                } else if (separador.length == 2 && directorio.nombre == separador[0] && directorio.padre == '/') {
+                    directorio.archivos.push(separador[1])
                 }
 
-                if (dir.nombre == separador[separador.length-2] && dir.padre == ((separador[separador.length-3]) + '/'))  {
-                    dir.archivos.push(separador[separador.length-1])
-                } else if (dir.nombre == separador) {
-                    dir.archivos.push(separador)
+                if (directorio.nombre == separador[separador.length-2] && directorio.padre == ((separador[separador.length-3]) + '/'))  {
+                    directorio.archivos.push(separador[separador.length-1])
+                } else if (directorio.nombre == separador) {
+                    directorio.archivos.push(separador)
                 }
-
             })
         })
     }
     return [allDirectories, allFiles, dirFilter, nomRutas];
 }
 
-function directorio(nom, allFiles, dirFilter) {
-    let data = {
-        nom: nom,
+function directorio(nombre, allFiles, dirFilter) {
+    let directorioObj = {
+        nombre: nombre,
         hijos: [],
         archivos: [],
         extensiones: [],
@@ -112,26 +105,26 @@ function directorio(nom, allFiles, dirFilter) {
     };
 
     dirFilter.find(dir => {
-        if (dir.padre == nom) {
-            data.hijos.push(dir);
-        } else if ((nom + '/' + dir.nombre) == dir.rutaRelativa) {
-            data.hijos.push(dir);
+        if (dir.padre == nombre) {
+            directorioObj.hijos.push(dir);
+        } else if ((nombre + '/' + dir.nombre) == dir.rutaRelativa) {
+            directorioObj.hijos.push(dir);
         }
 
         if (dir.nombre == '/') {
-            data.archivos = dir.archivos;
-        } else if (dir.rutaRelativa == nom) { 
-            data.archivos = dir.archivos;
-            data.archivos = _.without(data.archivos, 'Thumbs.db')
+            directorioObj.archivos = dir.archivos;
+        } else if (dir.rutaRelativa == nombre) { 
+            directorioObj.archivos = dir.archivos;
+            directorioObj.archivos = _.without(directorioObj.archivos, 'Thumbs.db')
         } 
     });
 
-    data.archivos.forEach(archivo => {
+    directorioObj.archivos.forEach(archivo => {
         let extension = archivo.split('.')
         extension = extension[extension.length - 1]
-        data.extensiones.push(extension)
+        directorioObj.extensiones.push(extension)
     })
-    return data;
+    return directorioObj;
 };
 
 module.exports = {
