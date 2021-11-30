@@ -1,21 +1,18 @@
-<div class="container-fluid">
-    <div class="col text-center text-color ruta">
-        <p class="peq">Modo: <%= rol %>. Te encuentras en:<%= ' ' + directorios.nom %></p>
-    </div>
+<div class="container-fluid mt-2">
     <div class="row gap-2">
         <% if (directorios.archivos.length > 0) { %>
             <div class="col">
-                <div class="input-group mb-3">
-                    <span class="input-group-text bg-color text-color">Archivos<img class="img-fluid mx-2" src="/assets/img-svg/search.svg" width="20"></span>
-                    <input type="search" class="form-control" id="buscador-file">
+                <div class="input-group mb-3 shadow-sm">
+                    <span class="input-group-text bg-color text-light border-0 border-bottom border-color border-3 rounded-0">Archivos<img class="img-fluid mx-2" src="/assets/img-svg/search.svg" width="20"></span>
+                    <input type="search" class="form-control border-0 border-0 border-bottom border-color border-1 rounded-0" id="buscador-file">
                 </div>
             </div>
         <% } %> 
         <% if (directorios.hijos.length > 0) { %>
             <div class="col">
-                <div class="input-group mb-3">
-                    <span class="input-group-text bg-color text-color">Directorios<img class="img-fluid mx-2" src="/assets/img-svg/search.svg" width="20"></span>
-                    <input type="search" class="form-control" id="buscador-dir">
+                <div class="input-group mb-3 shadow-sm">
+                    <span class="input-group-text bg-color text-light border-0 border-bottom border-color border-3 rounded-0">Directorios<img class="img-fluid mx-2" src="/assets/img-svg/search.svg" width="20"></span>
+                    <input type="search" class="form-control border-0 border-0 border-bottom border-color border-1 rounded-0" id="buscador-dir">
                 </div>
             </div>
         <% } %>
