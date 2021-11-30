@@ -3,12 +3,15 @@ document.onreadystatechange = function(e) {
         window.location.replace('/home');
     }
     if (document.readyState === 'complete') {
+        $('.peq').hide();
         $(document.body).hide('fast');
     }
 };
 
 window.onload = function(e) {
-    $(document.body).fadeIn('slow');
+    $(document.body).fadeIn('slow', function() {
+        
+    });
 
     if (document.getElementById('dir-titulo')) {
         animacionNum('dir-titulo', 0, document.getElementById('dir-numero').value, 900);
