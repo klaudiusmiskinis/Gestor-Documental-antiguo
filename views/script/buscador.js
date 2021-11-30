@@ -1,10 +1,10 @@
 $('#buscador-file').on('input', () => {
     $('.archivo').each(function() {
         if (($(this).html().trim()).toLowerCase().includes((($('#buscador-file').val()).toLowerCase()))) {
-            let padre = $(this).parents()[3]
+            let padre = $(this).parents()[4]
             $('#' + padre.id).fadeIn('fast');
         } else {
-            let padre = $(this).parents()[3]
+            let padre = $(this).parents()[4]
             $('#' + padre.id).fadeOut('fast');
         }
     });
@@ -13,12 +13,15 @@ $('#buscador-file').on('input', () => {
 $('#buscador-dir').on('input', () => {
     $('.directorio').each(function() {
         if (($(this).html().trim()).toLowerCase().includes((($('#buscador-dir').val()).toLowerCase()))) {
-            let padre = $(this).parents()[3]
-            $('#' + padre.id).fadeIn('fast');
-            
+            let padre = $(this).parents()[3];
+            try {
+            $('#' + padre.id).fadeIn('fast')
+            } catch {}
         } else {
-            let padre = $(this).parents()[3]
-            $('#' + padre.id).fadeOut('fast');
+            try {
+                let padre = $(this).parents()[3];
+                $('#' + padre.id).fadeOut('fast');
+            } catch {}
         }
     });
 })
