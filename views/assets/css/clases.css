@@ -128,3 +128,8 @@
 .btn-light:hover {
     background-color: var(--g) !important;
 }
+
+.svg {
+    color: red !important;
+    fill: red !important
+}
