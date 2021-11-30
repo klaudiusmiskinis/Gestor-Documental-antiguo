@@ -53,7 +53,7 @@ app.get('/home', (req, res) => {
     actualizar();
     let modo = checkRol(req)
     res.cookie('position', '/');
-    res.render('index.ejs', {data: recursivo.directorio('/', allFiles, dirFilter), rutas: nomRutas, rol: modo});
+    res.render('index.ejs', {directorios: recursivo.directorio('/', allFiles, dirFilter), rutas: nomRutas, rol: modo});
 });
 
 // POSTs //
@@ -106,11 +106,11 @@ app.listen(process.env.PORT_APP);
 /* SE ENCARGA DE HACER LA RECURSIVIDAD DE LOS DIRECTORIOS Y GENERAR LOS CONTENIDOS DE LAS VARIABLES */
 /* UNA VEZ CONTIENE LOS DATOS, CREA METODOS HTTP GET CON LAS RUTAS DE DIRECTORIOS PARA CONECTARNOS */
 function actualizar() {
-    let data = recursivo.recursivo(rutaRaiz);
-    allDirectories = data[0];
-    allFiles = data[1];
-    dirFilter = data[2];
-    nomRutas = data[3];
+    let directorios = recursivo.recursivo(rutaRaiz);
+    allDirectories = directorios[0];
+    allFiles = directorios[1];
+    dirFilter = directorios[2];
+    nomRutas = directorios[3];
     nomRutas.forEach(nom => {
         transformado = encodeURI(nom);
         if (nom.charAt(0) != '/') {
@@ -119,9 +119,9 @@ function actualizar() {
         app.get(transformado, async (req, res) => {
             let modo = checkRol(req)
             actualizar();
-            let data = recursivo.directorio(nom, allFiles, dirFilter);
+            let directorios = recursivo.directorio(nom, allFiles, dirFilter);
             res.cookie('position', nom);
-            res.render('index.ejs', {data: data, rutas: nomRutas, rol: modo});
+            res.render('index.ejs', {directorios: directorios, rutas: nomRutas, rol: modo});
         });
     });
 };
