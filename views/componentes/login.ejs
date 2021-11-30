@@ -2,12 +2,12 @@
 <% if (rol == 'lectura') { %> 
 <div class="modal fade" id="login" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-      <div class="modal-content bg-color text-color">
+      <div class="modal-content bg-color text-light">
         <div class="modal-header">
           <h5 class="modal-title">Login</h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body bg-light text-color">
             <form action="/login" method="post">
                 <div class="mb-3 text-start">
                     <label for="nombre" class="form-label">Nombre de usuario</label>
@@ -19,7 +19,7 @@
                 </div>
                 <hr>
                 <div class="d-grid mb-3 gap-2 text-center">
-                    <button type="submit" class="btn btn-light">Iniciar sesión</button>
+                    <button type="submit" class="btn btn-color">Iniciar sesión</button>
                 </div>
             </form>
         </div>
