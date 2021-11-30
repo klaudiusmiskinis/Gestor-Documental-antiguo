@@ -13,11 +13,11 @@ $('#buscador-file').on('input', () => {
 $('#buscador-dir').on('input', () => {
     $('.directorio').each(function() {
         if (($(this).html().trim()).toLowerCase().includes((($('#buscador-dir').val()).toLowerCase()))) {
-            let padre = $(this).parents()[2]
+            let padre = $(this).parents()[3]
             $('#' + padre.id).fadeIn('fast');
             
         } else {
-            let padre = $(this).parents()[2]
+            let padre = $(this).parents()[3]
             $('#' + padre.id).fadeOut('fast');
         }
     });
