@@ -4,20 +4,6 @@
 
 .card:hover {
     transition: 0.5s;
-    background-color: var(--col);
-    border: 1px solid var(--b);
+    background-color: var(--bs-gray-300);
     color: var(--b) !important;
-}
-
-.card:hover .btn {
-    color: var(--b) !important;
-}
-
-.card img{
-    transition: 0.5s;
-}
-
-.card:hover img{
-    transition: 0.5s;
-    filter: invert(100);
 }
