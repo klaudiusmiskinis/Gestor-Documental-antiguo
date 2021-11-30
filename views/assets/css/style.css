@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap');
 
 :root {
-    --col: #212529;
-    --col-transparent: #21252981;
+    --col: #F27428;
+    --col-transparent: #f2752880;
     --b: #fff;
     --g: rgb(182, 182, 182);
 }
@@ -14,16 +14,6 @@
 
 *, html, body {
     font-family: 'Inter', sans-serif;
-}
-
-body {
-    background-color: var(--col);
-}
-
-a:hover .invertido {
-    -webkit-filter: invert(100%);
-    filter: invert(100%);
-    transition: 0.5s;
 }
 
 div a:hover {
