@@ -9,7 +9,7 @@
 <body class="hide">
     <%- include('componentes/navbar') %> 
     <%- include('componentes/buscador') %> 
-    <% if (data.hijos.length > 0) { %>
+    <% if (directorios.hijos.length > 0) { %>
         <!-- CONTENEDOR DE DIRECTORIOS -->
             <div class="container-fluid">
                 <div class="accordion-item accordion-item-r-top">
@@ -30,8 +30,8 @@
                     aria-labelledby="flush-directorios" 
                     data-bs-parent="#acordeon">
                         <div class="dir">
-                            <input type="hidden" id="dir-numero" value="<%= data.hijos.length %>">
-                            <% data.hijos.forEach(function(hijo, i) { %> 
+                            <input type="hidden" id="dir-numero" value="<%= directorios.hijos.length %>">
+                            <% directorios.hijos.forEach(function(hijo, i) { %> 
                             <% if ((i % 2) == 0) { %>
                             <div class="row p-1 gap-2">
                                 <% }  %>
@@ -57,9 +57,8 @@
             </div>
         </div>
     <% } %>
-
             
-        <% if (data.archivos.length > 0) { %>
+        <% if (directorios.archivos.length > 0) { %>
             <!-- CONTENEDOR DE ARCHIVOS -->
             <div class="container-fluid">
                 <div class="accordion-item accordion-item-r-bottom">
@@ -80,15 +79,15 @@
                         aria-labelledby="flush-archivos"
                         data-bs-parent="#acordeon">
                         <div class="file">
-                            <input type="hidden" id="archivos-numero" value="<%= data.archivos.length %>">
-                            <% data.archivos.forEach(function(ar, i) { %>
+                            <input type="hidden" id="archivos-numero" value="<%= directorios.archivos.length %>">
+                            <% directorios.archivos.forEach(function(ar, i) { %>
                             <% if ((i % 2) == 0) { %>
                             <div class="row p-1 gap-2">
                                 <% } %>
                                 <div class="col-md file-estilo bg-light text-dark" id="<%= 'arch-estilo' + i %>">
                                     <div class="d-flex">
                                         <div class="justify-content-left align-self-center px-1">
-                                            <img src="/assets/img-svg/<%= data.extensiones[i] %>.svg" class="m-2 svg img-archivo" width="35" alt="file <%= data.extensiones[i] %>">
+                                            <img src="/assets/img-svg/<%= directorios.extensiones[i] %>.svg" class="m-2 svg img-archivo" width="35" alt="file <%= directorios.extensiones[i] %>">
                                         </div>
                                         <div class="col text-truncate">
                                             <form action="/descargar" method="post">
