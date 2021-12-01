@@ -7,11 +7,10 @@ $('#ultimaVersion').on('click', function() {
     ultimaVersion($(this).attr('id'));
 });
 
-
 function ultimaVersion(id){
     id = '#' + id;
     arrayArchivos = []
-    
+
     $(id).toggleClass('ultima');
     $('.archivo').each(function() {
         arrayArchivos.push(new Archivo($(this).text(), $(this).parents()[4]))
