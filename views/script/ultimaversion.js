@@ -1,6 +1,8 @@
 
 $('#ultimaVersion').on('click', function(e) {
-    $(this).toggleClass('ultima')
+    $(this).toggleClass('ultima');
+    let hijo = $(this).children()[0];
+    hijo.src = 'assets/img-svg/eyecross.svg'
     arrayArchivos = []
 
     $('.archivo').each(function(i) {
@@ -19,6 +21,8 @@ $('#ultimaVersion').on('click', function(e) {
             }
         })
     } else {
+        let hijo = $(this).children()[0];
+        hijo.src = 'assets/img-svg/eye.svg'
         arrayArchivos.forEach(archivoI => {
             archivoI.mostrar();
         });
