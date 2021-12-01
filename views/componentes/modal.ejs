@@ -1,31 +1,27 @@
 <div class="modal fade" id="archivo-existente" tabindex="-1" aria-labelledby="archivo-existenteLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content bg-color text-color">
-            <div class="modal-header">
-                <h5 class="modal-title">Archivo ya existente</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal-dialog">
+        <div class="modal-content border-0 border-bottom border-3 border-color rounded-0">
+            <div class="modal-header border-0 border-bottom border-3 border-color rounded-0">
+                <h5 class="modal-title text-color">Archivo ya existente</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body text-center">
-                <h5 class="text-danger"><b>Aviso</b></h5>
-                <p><b>Se ha detectado que el archivo que quieres subir ya existe. <br></b>¿Qué deseas hacer?</p>
-            </div>
-            <div class="bg-color p-2 gap-2 d-grid border-top border-light">
-                <button type="button" class="btn btn-light" id="crear-nueva-version">Crear una nueva versión</button>
-                <button type="button" class="btn btn-light" id="sobreescribir-version">Sobreescribir el archivo ya existente</button>
+            <div class="gap-2 m-2 d-grid border-top border-light">
+                <button type="button" class="btn btn-color shadow-sm" id="crear-nueva-version">Crear una nueva versión</button>
+                <button type="button" class="btn btn-color shadow-sm" id="sobreescribir-version">Sobreescribir el archivo ya existente</button>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="crear-nueva-version-modal" tabindex="-1" aria-labelledby="archivo-existenteLabel" aria-hidden="true">
+<div class="modal fade" id="version-modal" tabindex="-1" aria-labelledby="archivo-existenteLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content bg-color text-color">
-            <div class="modal-header">
-                <h5 class="modal-title text-light">Formulario de nueva versión</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content border-0 border-bottom border-3 border-color rounded-0">
+            <div class="modal-header border-0 border-bottom border-3 border-color rounded-0">
+                <h5 class="modal-title text-color" id="titulo-modal">Formulario de nueva versión</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body bg-light">
-                <form action="/subir" method="post" enctype="multipart/form-data">
+            <div class="modal-body">
+                <form action="/subir" method="post" class="text-color" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre</label>
                         <input type="text" minlength="3" maxlength="50" class="form-control" name="nombre" id="nombre" placeholder="Introduce tu nombre" required>
@@ -51,7 +47,7 @@
                         <input type="text" class="form-control" name="version-nuevo-archivo" id="version-nuevo-archivo" disabled>
                     </div>
                     <div class="d-grid">
-                        <button type="submit" class="btn btn-light">Confirmar creación</button>
+                        <button type="submit" class="btn btn-color">Confirmar creación</button>
                     </div>
                     <div class="hide">
                         <input type="hidden" name="tipoMotivo" id="tipoMotivo">
@@ -65,11 +61,11 @@
     </div>
 </div>
 
-<div class="modal fade" id="eliminar-archivo-modal" tabindex="-1" aria-labelledby="eliminar-archivoLabel" aria-hidden="true">
+<div class="modal fade" id="eliminar-archivo-modal" tabindex="-1" aria-labelledby="eliminar-archivoLabel">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content bg-color text-color">
+        <div class="modal-content text-color">
             <div class="modal-header">
-                <h5 class="modal-title">Formulario de eliminación de archivos</h5>
+                <h5 class="modal-title" id="titulo-eliminar">Formulario de eliminación de archivos</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
