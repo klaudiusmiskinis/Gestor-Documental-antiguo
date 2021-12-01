@@ -117,7 +117,9 @@
 }
 
 .btn-color:hover {
-
+    border: 1px solid var(--col);
+    background-color: var(--b) !important;
+    color: var(--col);
 }
 
 .list-color:hover {
