@@ -63,10 +63,10 @@
 
 <div class="modal fade" id="eliminar-archivo-modal" tabindex="-1" aria-labelledby="eliminar-archivoLabel">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content text-color">
-            <div class="modal-header">
+        <div class="modal-content text-color border-0 border-bottom border-3 border-color rounded-0">
+            <div class="modal-header border-0 border-bottom border-3 border-color rounded-0">
                 <h5 class="modal-title" id="titulo-eliminar">Formulario de eliminación de archivos</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form action="/eliminar?_method=DELETE" method="post" enctype="multipart/form-data">
@@ -91,7 +91,7 @@
                         <input type="text" class="form-control" name="eliminarArchivoNombre" id="eliminarArchivoNombre" disabled>
                     </div>
                     <div class="d-grid">
-                        <button type="submit" class="btn btn-light">Eliminar archivo</button>
+                        <button type="submit" class="btn btn-color">Eliminar archivo</button>
                     </div>
                     <div class="hide">
                         <input type="hidden" name="eliminarTipoMotivoOculto" id="eliminarTipoMotivoOculto">
