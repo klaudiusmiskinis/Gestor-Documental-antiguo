@@ -3,14 +3,19 @@ document.onreadystatechange = function(e) {
         window.location.replace('/home');
     }
     if (document.readyState === 'complete') {
-        $('.peq').hide();
         $(document.body).hide('fast');
+        let color = getComputedStyle(document.documentElement).getPropertyValue('--col');
+        $('#colorPicker').val(toRGB(color));
     }
 };
 
+$('#colorPicker').on('change', function(){
+    document.documentElement.style.setProperty('--col', $(this).val());
+})
+
 window.onload = function(e) {
     $(document.body).fadeIn('slow', function() {
-        
+        let color = getComputedStyle(document.documentElement).getPropertyValue('--col');
     });
 
     if (document.getElementById('dir-titulo')) {
@@ -77,3 +82,10 @@ function animacionNum(id, primero, ultimo, duracion) {
         }
     }, stepTime);
 }
+
+function toRGB(hex) {
+    hex = hex.split('#')[1]
+    var aRgbHex = hex.match(/.{1,2}/g);
+    aRgbHex = '#' + aRgbHex[0] + aRgbHex[1] + aRgbHex[2]
+    return aRgbHex;
+  }
