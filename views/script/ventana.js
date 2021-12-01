@@ -9,7 +9,7 @@ document.onreadystatechange = function(e) {
     }
 };
 
-$('#colorPicker').on('change', function(){
+$('#colorPicker').on('input', function(){
     document.documentElement.style.setProperty('--col', $(this).val());
 })
 
