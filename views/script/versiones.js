@@ -9,10 +9,11 @@ $('#subir-boton').on('click', function(e) {
         }
         arrayArchivos = []
         $('.archivo').each(function() {
-            arrayArchivos.push(new Archivo($(this).text(), $(this).parents()[3]))
+            arrayArchivos.push(new Archivo($(this).text().trim(), $(this).parents()[4]))
         });
 
         arrayArchivos.forEach(archivo => {
+            console.log(archivo)
             if (archivo.comprobarExistencia(nombreArchivoSubir)) {
                 datosFormulario.existenciaRepetida = true;
             }
@@ -21,6 +22,8 @@ $('#subir-boton').on('click', function(e) {
         arrayArchivos.forEach(archivo => {
             nombreArchivoSubir = archivo.generarDatosPorNombreDeArchivo(nombreArchivoSubir);
         });
+
+        console.log(arrayArchivos)
 
         if (datosFormulario.existenciaRepetida) {
             let nombreArchivoSubirDatos;
