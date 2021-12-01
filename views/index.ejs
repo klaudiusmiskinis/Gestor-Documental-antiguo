@@ -37,7 +37,7 @@
                                 <% }  %>
                                 <div class="col m-2 text-truncate" id="<%= 'file-estilo' + i %>">
                                     <div class="card card-span">
-                                      <div class="card-body shadow-sm border-bottom border-3 border-color">
+                                      <div class="card-body p-3 shadow-sm border-bottom border-3 border-color">
                                         <div class="justify-content-left align-self-center text-center">
                                             <img src="/assets/img-svg/folder.svg" class="img-fluid svg" width="30" alt="folder">
                                         </div>
@@ -92,7 +92,7 @@
 
                                 <div class="col m-2 text-truncate" id="<%= 'arch-estilo' + i %>">
                                     <div class="card card-span">
-                                        <div class="card-body shadow-sm border-bottom border-3 border-color">
+                                        <div class="card-body p-2 shadow-sm border-bottom border-3 border-color">
                                             <div class="text-end justify-content-right">
                                                 <form action="/eliminar?_method=DELETE" class="cerrar" id="<%= archivo + 'form' %>" name="formEliminar" method="POST">
                                                     <input type="hidden" name="archivo" class="me-auto" value="<%= archivo %>">
