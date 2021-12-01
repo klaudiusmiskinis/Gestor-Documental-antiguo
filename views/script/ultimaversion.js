@@ -1,15 +1,24 @@
 
-$('#ultimaVersion').on('click', function(e) {
-    $(this).toggleClass('ultima');
-    
-    arrayArchivos = []
+$(document).ready(function() {
+    ultimaVersion($('#ultimaVersion').attr('id'))
+})
 
-    $('.archivo').each(function(i) {
+$('#ultimaVersion').on('click', function() {
+    ultimaVersion($(this).attr('id'));
+});
+
+
+function ultimaVersion(id){
+    id = '#' + id;
+    arrayArchivos = []
+    
+    $(id).toggleClass('ultima');
+    $('.archivo').each(function() {
         arrayArchivos.push(new Archivo($(this).text(), $(this).parents()[4]))
     });
 
-    if ($(this).hasClass('ultima')) {
-        let hijo = $(this).children()[0];
+    if ($(id).hasClass('ultima')) {
+        let hijo = $(id).children()[0];
         hijo.src = 'assets/img-svg/eyecross.svg'
         arrayArchivos.forEach(archivoI => {
             arrayArchivos.forEach(archivoJ => {
@@ -22,10 +31,10 @@ $('#ultimaVersion').on('click', function(e) {
             }
         })
     } else {
-        let hijo = $(this).children()[0];
+        let hijo = $(id).children()[0];
         hijo.src = 'assets/img-svg/eye.svg'
         arrayArchivos.forEach(archivoI => {
             archivoI.mostrar();
         });
     }
-});
+}
