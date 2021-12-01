@@ -1,8 +1,7 @@
 
 $('#ultimaVersion').on('click', function(e) {
     $(this).toggleClass('ultima');
-    let hijo = $(this).children()[0];
-    hijo.src = 'assets/img-svg/eyecross.svg'
+    
     arrayArchivos = []
 
     $('.archivo').each(function(i) {
@@ -10,6 +9,8 @@ $('#ultimaVersion').on('click', function(e) {
     });
 
     if ($(this).hasClass('ultima')) {
+        let hijo = $(this).children()[0];
+        hijo.src = 'assets/img-svg/eyecross.svg'
         arrayArchivos.forEach(archivoI => {
             arrayArchivos.forEach(archivoJ => {
                 archivoI.compararArchivosRepetidos(archivoJ);
