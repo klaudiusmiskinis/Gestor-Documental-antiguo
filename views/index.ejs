@@ -14,16 +14,16 @@
             <div class="container-fluid">
                 <div class="accordion-item shadow-sm border-0 mb-3">
                     <h2 class="accordion-header" id="flush-directorios">
-                    <button 
-                        class="accordion-button collapse show" 
-                        type="button" 
-                        data-bs-toggle="collapse" 
-                        data-bs-target="#flush-collapse-one" 
-                        aria-controls="flush-collapse-one">
-                        Directorios
-                        <div class="mx-1" id="dir-titulo">0</div>
-                    </button>
-                </h2>
+                        <button 
+                            class="accordion-button collapse show" 
+                            type="button" 
+                            data-bs-toggle="collapse" 
+                            data-bs-target="#flush-collapse-one" 
+                            aria-controls="flush-collapse-one">
+                            Directorios
+                            <div class="mx-1 fw-bold" id="dir-titulo">0</div>
+                        </button>
+                    </h2>
                     <div 
                     id="flush-collapse-one" 
                     class="accordion-collapse collapse show" 
@@ -45,7 +45,7 @@
                                             <div class="text-muted">Directorio</div>
                                         </div>
                                         <div class="col text-truncate text-center text-dark">
-                                            <a class="text-decoration-none text-color card-body directorio" href="<%= '/' + hijo.rutaRelativa %>">
+                                            <a class="text-decoration-none text-color fw-bold card-body directorio" href="<%= '/' + hijo.rutaRelativa %>">
                                                 <%= hijo.nombre %>
                                             </a>
                                         </div>
@@ -95,7 +95,7 @@
                                         <div class="card-body p-2 shadow-sm border-bottom border-3 border-color">
                                             <div class="text-end justify-content-right">
                                                 <form action="/eliminar?_method=DELETE" class="cerrar" id="<%= archivo + 'form' %>" name="formEliminar" method="POST">
-                                                    <input type="hidden" name="archivo" class="me-auto" value="<%= archivo %>">
+                                                    <input type="hidden" name="archivo" value="<%= archivo %>">
                                                     <% if (rol == 'escritura') { %>
                                                         <button type="submit" class="btn-close"></button>
                                                     <% } %>
@@ -110,7 +110,7 @@
                                         <div class="col text-center text-dark">
                                             <form action="/descargar" method="post">
                                                 <input type="hidden" name="descargar" value="<%= archivo %>">
-                                                <button type="submit" class="btn text-color text-decoration-none directorio archivo">
+                                                <button type="submit" class="btn text-decoration-none text-color fw-bold card-body archivo">
                                                     <%= archivo %>
                                                 </button>
                                             </form>
