@@ -1,3 +1,4 @@
+<% if (rol == 'escritura') { %>
 <div class="modal fade" id="archivo-existente" tabindex="-1" aria-labelledby="archivo-existenteLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content border-0 border-bottom border-3 border-color rounded-0">
@@ -17,22 +18,15 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content border-0 border-bottom border-3 border-color rounded-0">
             <div class="modal-header border-0 border-bottom border-3 border-color rounded-0">
-                <h5 class="modal-title text-color" id="titulo-modal">Formulario de nueva versión</h5>
+                <h5 class="modal-title text-color" id="titulo-modal"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form action="/subir" method="post" class="text-color" enctype="multipart/form-data">
                     <div class="mb-3">
-                        <label for="nombre" class="form-label">Nombre</label>
-                        <input type="text" minlength="3" maxlength="50" class="form-control" name="nombre" id="nombre" placeholder="Introduce tu nombre" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="apellidos" class="form-label">Apellidos</label>
-                        <input type="text" minlength="3" maxlength="50" class="form-control" name="apellidos" id="apellidos" placeholder="Introduce tus apellidos" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" minlength="6" maxlength="50" class="form-control" name="email" id="email" placeholder="Introduce tu email de empresa" required>
+                        <label for="dni" class="form-label">DNI</label>
+                        <select class="form-select" id="dni" name="dni">
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="motivo" class="form-label">Motivos por la nueva versión</label>
@@ -47,10 +41,9 @@
                         <input type="text" class="form-control" name="version-nuevo-archivo" id="version-nuevo-archivo" disabled>
                     </div>
                     <div class="d-grid">
-                        <button type="submit" class="btn btn-color">Confirmar creación</button>
+                        <button type="submit" class="btn btn-color shadow-sm">Confirmar creación</button>
                     </div>
                     <div class="hide">
-                        <input type="hidden" name="tipoMotivo" id="tipoMotivo">
                         <input type="hidden" name="versionOculto" id="versionOculto">
                         <input type="hidden" name="archivoOculto" id="archivoOculto">
                         <input type="file" name="archivoContenidoOculto" id="archivoContenidoOculto" class="hide">
@@ -65,22 +58,14 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content text-color border-0 border-bottom border-3 border-color rounded-0">
             <div class="modal-header border-0 border-bottom border-3 border-color rounded-0">
-                <h5 class="modal-title" id="titulo-eliminar">Formulario de eliminación de archivos</h5>
+                <h5 class="modal-title" id="titulo-eliminar"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form action="/eliminar?_method=DELETE" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
-                        <label for="eliminarNombre" class="form-label">Nombre</label>
-                        <input type="text" minlength="3" maxlength="50" class="form-control" name="eliminarNombre" id="eliminarNombre" placeholder="Introduce tu nombre" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="eliminarApellidos" class="form-label">Apellidos</label>
-                        <input type="text" minlength="3" maxlength="50" class="form-control" name="eliminarApellidos" id="eliminarApellidos" placeholder="Introduce tus apellidos" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="eliminarEmail" class="form-label">Email</label>
-                        <input type="Email" minlength="6" maxlength="50" class="form-control" name="eliminarEmail" id="eliminarEmail" placeholder="Introduce tu email de empresa" required>
+                        <label for="dniEliminar" class="form-label">DNI</label>
+                        <select class="form-select" id="dniEliminar" name="dniEliminar"></select>
                     </div>
                     <div class="mb-3">
                         <label for="eliminarMotivo" class="form-label">Motivos</label>
@@ -94,7 +79,6 @@
                         <button type="submit" class="btn btn-color">Eliminar archivo</button>
                     </div>
                     <div class="hide">
-                        <input type="hidden" name="eliminarTipoMotivoOculto" id="eliminarTipoMotivoOculto">
                         <input type="hidden" name="eliminarArchivoOculto" id="eliminarArchivoOculto">
                     </div>
                 </form>
@@ -103,7 +87,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="informacion-archivos-subir" tabindex="-1" aria-labelledby="informacion-archivos-subir-label" aria-hidden="true">
+<div class="modal fade" id="informacion-archivos-subir" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content bg-color text-color">
             <div class="modal-header">
@@ -145,3 +129,4 @@
         </div>
     </div>
 </div>
+<% } %>
