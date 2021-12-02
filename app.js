@@ -11,7 +11,6 @@ const app            = express();
 const recursivo      = require('./middleware/recursivo');
 const descargar      = require('./middleware/descargar');
 const eliminar       = require('./middleware/eliminar');
-const accion         = require('./middleware/accion');
 const subir          = require('./middleware/subir');
 const mysql          = require('./middleware/mysql')
 const { checkRol }   = require('./middleware/rol');
@@ -120,6 +119,9 @@ function actualizar() {
     allDirectories = directorios[0];
     allFiles = directorios[1];
     dirFilter = directorios[2];
+    
+    console.log(process.env)
+
     nomRutas = directorios[3];
     nomRutas.forEach(nom => {
         transformado = encodeURI(nom);
