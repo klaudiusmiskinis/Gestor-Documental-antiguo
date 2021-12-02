@@ -33,7 +33,7 @@
                             <input type="hidden" id="dir-numero" value="<%= directorios.hijos.length %>">
                             <% directorios.hijos.forEach(function(hijo, i) { %> 
                             <% if ((i % 3) == 0) { %>
-                            <div class="row gap-1">
+                            <div class="row">
                                 <% }  %>
                                 <div class="col m-2 text-truncate" id="<%= 'file-estilo' + i %>">
                                     <div class="card card-span">
@@ -87,7 +87,7 @@
                             <input type="hidden" id="archivos-numero" value="<%= directorios.archivos.length %>">
                             <% directorios.archivos.forEach(function(archivo, i) { %>
                             <% if ((i % 3) == 0) { %>
-                            <div class="row gap-1">
+                            <div class="row">
                                 <% } %>
 
                                 <div class="col m-2 text-truncate" id="<%= 'arch-estilo' + i %>">
