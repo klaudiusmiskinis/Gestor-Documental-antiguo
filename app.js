@@ -1,7 +1,6 @@
 // SETUP //
 require('dotenv').config(); 
 const fileupload     = require('express-fileupload');
-const mysql          = require('middleware/mysql')
 const methodOverride = require('method-override');
 const cookieSession  = require('cookie-session')
 const express        = require('express');
@@ -14,6 +13,7 @@ const descargar      = require('./middleware/descargar');
 const eliminar       = require('./middleware/eliminar');
 const accion         = require('./middleware/accion');
 const subir          = require('./middleware/subir');
+const mysql          = require('./middleware/mysql')
 const { checkRol }   = require('./middleware/rol');
 
 // VARIABLES //
@@ -55,12 +55,19 @@ app.get('/', (req, res) => {
     res.redirect('/home');
 });
 
-app.get('/home', (req, res) => {
+app.get('/home', async (req, res) => {
     actualizar();
-    let modo = checkRol(req)
+    let modo = checkRol(req);
     res.cookie('position', '/');
     res.render('index.ejs', {directorios: recursivo.directorio('/', allFiles, dirFilter), rutas: nomRutas, rol: modo});
 });
+
+app.get('/subdepartamento', async (req, res) => {
+    if (req.session.user === process.env.ROL_HIGH) {
+        res.send(await mysql.findUserBySubdepartamento(12));
+    }
+    res.send({ERROR: 'No tienes permisos'})
+})
 
 // POSTs //
 /* LOGIN */
