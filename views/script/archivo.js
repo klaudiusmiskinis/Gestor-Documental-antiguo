@@ -100,7 +100,7 @@ class Archivo {
     init() {
         let nombre = this.getNombreCompleto().split('.');
         this.setExtension(nombre.pop());
-        this.setVersion(parseInt(nombre[0].split('_')[1] ?? 0));
+        this.setVersion(parseInt(nombre[0].split('_')[1] ?? 1));
         this.setNombreSinVersion(nombre[0].split('_')[0]);
         this.setNombreSinExtension(nombre[0])
         this.setNombreSimple(this.getNombreSinVersion() + '.' + this.getExtension())
@@ -139,7 +139,7 @@ class Archivo {
     /* Genera el archivo que se utilizara para subir  */
     generarDatosPorNombreDeArchivo(nombreDeArchivo){
         let nombreDeArchivoSimple = this.generarNombreSimple(nombreDeArchivo);
-        let nombreDeArchivoVersion = (nombreDeArchivo.split('.')[0]).split('_')[1] ?? 0;
+        let nombreDeArchivoVersion = (nombreDeArchivo.split('.')[0]).split('_')[1] ?? 1;
         if (nombreDeArchivoSimple === this.getNombreSimple()) {
             if (this.getVersion() >= nombreDeArchivoVersion) {
                 nombreDeArchivoVersion = (this.getVersion() + 1)
@@ -152,7 +152,7 @@ class Archivo {
     /* Genera el archivo que se utilizara para subir sin cambiar la versión  */
     generarDatosPorNombreDeArchivoSinSuma(nombreDeArchivo){
         let nombreDeArchivoSimple = this.generarNombreSimple(nombreDeArchivo);
-        let nombreDeArchivoVersion = (nombreDeArchivo.split('.')[0]).split('_')[1] ?? 0;
+        let nombreDeArchivoVersion = (nombreDeArchivo.split('.')[0]).split('_')[1] ?? 1;
         if (nombreDeArchivoSimple === this.getNombreSimple()) {
             if (this.getVersion() >= nombreDeArchivoVersion) {
                 nombreDeArchivoVersion = (this.getVersion())
@@ -183,7 +183,7 @@ class Archivo {
 
     /* Genera los datos para los campos disabled del formulario  */
     generarDatosFormularioExistente(nombreDeArchivo) {
-        let nombreDeArchivoVersion = (nombreDeArchivo.split('.')[0]).split('_')[1] ?? 0;
+        let nombreDeArchivoVersion = (nombreDeArchivo.split('.')[0]).split('_')[1] ?? 1;
         return [nombreDeArchivo, nombreDeArchivoVersion];
     }
 
