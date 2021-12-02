@@ -2,6 +2,7 @@ $('#subir-boton').on('click', function(e) {
     e.preventDefault();
 
     if (document.getElementById('subir-campo').files[0] != undefined) {
+        selectPersonasDepartamento('dni');
         let nombreArchivoSubir = document.getElementById('subir-campo').files[0].name;
         nombreArchivoSubir = new Archivo(nombreArchivoSubir).comprobarParentesis(nombreArchivoSubir)
         let datosFormulario = {
@@ -61,6 +62,7 @@ $('#sobreescribir-version').on('click', function() {
 
 $('.cerrar').on('click', function(e) {
     e.preventDefault();
+    selectPersonasDepartamento('dniEliminar');
     let archivoEliminar = $(this).children()[0];
     $('#eliminar-archivo-modal').modal('show');
     formularioEliminar(archivoEliminar.value, 'Eliminar', 'Formulario para eliminar');
@@ -73,7 +75,6 @@ function formularioExistenciaRepetidaValores(nombreArchivoSubirDatos, tipo, titu
     $('#nombre-archivo').val(nombreArchivoSubirDatos[0]);
     $('#archivoOculto').val(nombreArchivoSubirDatos[0])
     $('#versionOculto').val(nombreArchivoSubirDatos[1])
-    $('#tipoMotivo').val(tipo);
     $("#subir-campo").change(function() {
         $(this).after($(this).clone()).appendTo($('#archivoContenidoOculto'));
     });
