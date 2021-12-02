@@ -1,6 +1,7 @@
 // SETUP //
 require('dotenv').config(); 
 const fileupload     = require('express-fileupload');
+const mysql          = require('middleware/mysql')
 const methodOverride = require('method-override');
 const cookieSession  = require('cookie-session')
 const express        = require('express');
