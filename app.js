@@ -62,11 +62,12 @@ app.get('/home', async (req, res) => {
     res.render('index.ejs', {directorios: recursivo.directorio('/', allFiles, dirFilter), rutas: nomRutas, rol: modo});
 });
 
-app.get('/subdepartamento', async (req, res) => {
+app.get('/subdepartamento', async(req, res) => {
     if (req.session.user === process.env.ROL_HIGH) {
         res.send(await mysql.findUserBySubdepartamento(12));
+    } else {
+        res.send(['Sin permiso']);
     }
-    res.send({ERROR: 'No tienes permisos'})
 })
 
 // POSTs //
@@ -87,6 +88,7 @@ app.post('/logout', async (req, res) => {
 /* SUBIR */
 app.post('/subir', async (req, res) => {
     subir.run(rutaRaiz, req, res);
+    console.log(req.body);
     res.redirect(req.get('referer'));
 });
 
@@ -94,11 +96,6 @@ app.post('/subir', async (req, res) => {
 app.post('/descargar', async (req, res) => {
     descargar.run(rutaRaiz, req, res);
     res.download(rutaArchivo);
-});
-
-/* ACCION */
-app.post('/accion', async (req, res) => {
-    res.end();
 });
 
 // DELETEs //
