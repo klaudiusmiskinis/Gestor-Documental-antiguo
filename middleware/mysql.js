@@ -10,18 +10,17 @@ const conexion = async (database) => {
     });
 }
 
-function findUserByDNI(dni) {
+function findUserBySubdepartamento(subdepartamento) {
     return new Promise(async (resolve, reject) => {
         try {
             let db = await conexion(process.env.DB_1);
             db.query(
-                mysql.format("SELECT Nombre, Apellido, DNI, Email, Imagen, Departamento, Subdepartamento  FROM login WHERE dni = ?", [dni]),
+                mysql.format("SELECT dni, nombre, apellido FROM login WHERE subdepartamento = ?", subdepartamento),
                 function(err, rows) {
                     if (err) {
                         reject(err);
                     }
-                    let user = rows[0];
-                    resolve(user);
+                    resolve(rows);
                 }
             );
             db.end();
@@ -34,5 +33,5 @@ function findUserByDNI(dni) {
 // EXPORTS
 module.exports = {
     conexion,
-    findUserByDNI,
+    findUserBySubdepartamento,
 };
