@@ -82,7 +82,7 @@
     transition: transform 0.2s ease-in-out;
 }
 
-.form-control:focus {
+.form-control:focus, .form-select:focus {
     color: #212529;
     background-color: #fff;
     border-color: var(--col);
