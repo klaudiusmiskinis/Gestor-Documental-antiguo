@@ -30,7 +30,7 @@ function findUserBySubdepartamento(subdepartamento) {
     });
 }
 
-function getArchivos() {
+function findArchivos() {
     return new Promise(async (resolve, reject) => {
         try {
             let db = await conexion(process.env.DB_2);
