@@ -63,11 +63,19 @@ app.get('/home', async (req, res) => {
 
 app.get('/subdepartamento', async(req, res) => {
     if (req.session.user === process.env.ROL_HIGH) {
-        res.send(await mysql.findUserBySubdepartamento(12));
+        res.send(await mysql.findUserBySubdepartamento(process.env.SUBDEPARTAMENTO));
     } else {
         res.send(['Sin permiso']);
     }
 })
+
+app.get('/archivos', async(req, res) => {
+    if (req.session.user === process.env.ROL_HIGH) {
+        res.send(await mysql.getArchivos());
+    } else {
+        res.send(['Sin permiso']);
+    }
+}) 
 
 // POSTs //
 /* LOGIN */
@@ -119,9 +127,6 @@ function actualizar() {
     allDirectories = directorios[0];
     allFiles = directorios[1];
     dirFilter = directorios[2];
-    
-    console.log(process.env)
-
     nomRutas = directorios[3];
     nomRutas.forEach(nom => {
         transformado = encodeURI(nom);
