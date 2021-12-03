@@ -15,7 +15,27 @@ function findUserBySubdepartamento(subdepartamento) {
         try {
             let db = await conexion(process.env.DB_1);
             db.query(
-                mysql.format("SELECT dni, nombre, apellido FROM login WHERE subdepartamento = ?", subdepartamento),
+                mysql.format(process.env.SQL_FINDUSER, subdepartamento),
+                function(err, rows) {
+                    if (err) {
+                        reject(err);
+                    }
+                    resolve(rows);
+                }
+            );
+            db.end();
+        } catch (err) {
+            reject(err);
+        }
+    });
+}
+
+function getArchivos() {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let db = await conexion(process.env.DB_2);
+            db.query(
+                mysql.format(process.env.SQL_ARCHIVOS),
                 function(err, rows) {
                     if (err) {
                         reject(err);
