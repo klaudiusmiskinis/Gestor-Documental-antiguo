@@ -71,7 +71,7 @@ app.get('/subdepartamento', async(req, res) => {
 
 app.get('/archivos', async(req, res) => {
     if (req.session.user === process.env.ROL_HIGH) {
-        res.send(await mysql.getArchivos());
+        res.send(await mysql.findArchivos());
     } else {
         res.send(['Sin permiso']);
     }
