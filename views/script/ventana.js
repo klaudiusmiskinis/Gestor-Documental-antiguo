@@ -30,7 +30,7 @@ window.onload = function(e) {
 
 if (document.getElementById('volver')) {
     if (document.title == 'Home') {
-        document.getElementById('volver').className += ' hide';
+        $('#volver').hide();
         document.getElementById('volver').onclick = function() {
             volver();
         };
