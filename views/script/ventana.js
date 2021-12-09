@@ -47,6 +47,14 @@ if (document.getElementById('regresar')) {
     };
 };
 
+$('ul').on('DOMSubtreeModified', function() {
+    let elemento = $(this)[0]
+    if (elemento.className.includes('show')) {
+        elemento.style.backgroundColor = "transparent";
+        elemento.style.borderColor = "transparent"
+    }
+})
+
 function volver() {
     let cookie = getCookie('position')
     cookie = decodeURI(cookie);
@@ -89,4 +97,4 @@ function toRGB(hex) {
     var aRgbHex = hex.match(/.{1,2}/g);
     aRgbHex = '#' + aRgbHex[0] + aRgbHex[1] + aRgbHex[2]
     return aRgbHex;
-  }
+}
