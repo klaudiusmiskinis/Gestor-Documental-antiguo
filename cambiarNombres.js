@@ -41,7 +41,7 @@ function recursivo(ruta) {
             let month = ("0" + (date.getMonth() + 1)).slice(-2);
             let year = date.getFullYear();
             date =  year + '/' + month +  '/' + day;
-            let ultimaParte = archivo.split('/')
+            let ultimaParte = archivo.split('/');
             ultimaParte = ultimaParte[ultimaParte.length -1];
             db.query(process.env.SQL_INSERTALL, [ultimaParte, archivo.split(ultimaParte)[0], date, 1]).then(function () {
                 return db.query('SELECT * FROM archivos');
