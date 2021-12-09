@@ -1,4 +1,18 @@
 <div class="container-fluid mt-2">
+    <!-- <div class="row mb-2 gap-2">
+        <div class="col bg-color text-light p-1">
+            <% if (directorios.nombre == '/') { %> 
+               <small class="mx-2">Te encuentras en: <b>Home</b></small>
+            <% } else { %>
+                <small class="mx-2">Te encuentras en: <b><%= directorios.nombre %></b></small>
+            <% } %>
+        </div>
+        <div class="col-sm-auto">
+            <button class="btn btn-color">
+                <i class="bi bi-eye" style="font-size: 1rem;"></i>
+            </button>
+        </div>
+    </div> -->
     <div class="row gap-2">
         <% if (directorios.archivos.length > 0) { %>
             <div class="col">
