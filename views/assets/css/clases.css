@@ -1,3 +1,7 @@
+.hide {
+    display: none;
+}
+
 .btn-close {
     fill: var(--bs-color);
     color: var(--bs-color);
@@ -5,10 +9,6 @@
 
 .btn-close:focus, .btn:focus {
     box-shadow: 0 0 0 0.25rem transparent !important;
-}
-
-.hide {
-    display: none;
 }
 
 .row {
@@ -50,13 +50,13 @@
 .file-estilo {
     border: 1px solid rgb(185, 185, 185);
     border-radius: 0.25rem;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out,border-radius .15s ease;
+    transition: var(--transicion);
 }
 
 .file-estilo:hover {
     background-color: var(--b) !important;
     box-shadow: 0 0 0 0.10rem  var(--col-transparent);
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out,border-radius .15s ease;
+    transition: var(--transicion);
 }
 
 .accordion-button:not(.collapsed) {
@@ -127,6 +127,20 @@
     background-color: var(--col) !important;
 }
 
+.link-color {
+    color: var(--col) !important;
+    transition: var(--transicion);
+}
+
+.link-color:hover {
+    color:var(--col-transparent) !important;
+    transition: var(--transicion);
+}
+
 .dropdown-item:hover {
     background-color: transparent !important;
+}
+
+.icono {
+    font-size: 1.5rem;
 }
