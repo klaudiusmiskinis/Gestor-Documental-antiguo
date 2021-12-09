@@ -126,3 +126,8 @@
     color: var(--b);
     background-color: var(--col) !important;
 }
+
+.dropdown-item:hover {
+    background-color: var(--b) !important;
+    color: var(--b) !important;
+}
