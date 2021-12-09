@@ -16,7 +16,7 @@ $('#colorPicker').on('input', function(){
 
 window.onload = function(e) {
     $(document.body).fadeIn('slow', function() {
-        let color = getComputedStyle(document.documentElement).getPropertyValue('--col');
+        getComputedStyle(document.documentElement).getPropertyValue('--col');
     });
 
     if (document.getElementById('dir-titulo')) {
