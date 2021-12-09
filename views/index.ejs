@@ -93,13 +93,23 @@
                                 <div class="col m-2 text-truncate" id="<%= 'arch-estilo' + i %>">
                                     <div class="card card-span">
                                         <div class="card-body p-2 shadow-sm border-bottom border-3 border-color">
-                                            <div class="text-end justify-content-right">
-                                                <form action="/eliminar?_method=DELETE" class="cerrar" id="<%= archivo + 'form' %>" name="formEliminar" method="POST">
-                                                    <input type="hidden" name="archivo" value="<%= archivo %>">
+                                            <div class="text-end justify-content-right dropstart">
+                                                <button type="button" class="btn btn-sm p-0 m-0" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="bi bi-three-dots-vertical" style="width: 4rem;"></i>
+                                                </button>
+                                                <ul class="dropdown-menu">
                                                     <% if (rol == 'escritura') { %>
-                                                        <button type="submit" class="btn-close"></button>
+                                                    <form action="/eliminar?_method=DELETE" class="cerrar" id="<%= archivo + 'form' %>" name="formEliminar" method="POST">
+                                                        <input type="hidden" name="archivo" value="<%= archivo %>">
+                                                        <li class="dropdown-item">
+                                                            <button type="submit" class="btn">Eliminar</button>
+                                                        </li>
+                                                    </form>
                                                     <% } %>
-                                                </form>
+                                                    <li>
+
+                                                    </li>
+                                                </ul>
                                             </div>
                                         <div class="justify-content-left align-self-center text-center">
                                             <img src="/assets/img-svg/<%= directorios.extensiones[i] %>.svg" class="m-2 svg img-archivo" width="35" alt="file <%= directorios.extensiones[i] %>">
