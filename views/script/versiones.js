@@ -23,7 +23,6 @@ $('#subir-boton').on('click', function(e) {
             nombreArchivoSubir = archivo.generarDatosPorNombreDeArchivo(nombreArchivoSubir);
         });
 
-
         if (datosFormulario.existenciaRepetida) {
             let nombreArchivoSubirDatos;
             arrayArchivos.forEach(archivo => {
