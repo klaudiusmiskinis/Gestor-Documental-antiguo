@@ -5,6 +5,7 @@
     --col-transparent: #f2752880;
     --b: #fff;
     --g: rgb(182, 182, 182);
+    --transicion: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out,border-radius .15s ease;
 }
 
 ::selection {
