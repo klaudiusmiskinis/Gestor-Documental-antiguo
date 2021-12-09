@@ -37,10 +37,11 @@ app.use(cookieSession({
 app.use('/assets', express.static('views/assets'));
 app.use('/script', express.static('views/script'));
 app.use('/jquery.js', express.static('node_modules/jquery/dist/jquery.min.js'));
+app.use('/jquery.min.map', express.static('node_modules/jquery/dist/jquery.min.map'));
 app.use('/popper.js', express.static('node_modules/@popperjs/core/dist/umd/popper.min.js'));
 app.use('/bootstrap.js', express.static('node_modules/bootstrap/dist/js/bootstrap.min.js'));
 app.use('/bootstrap.css', express.static('node_modules/bootstrap/dist/css/bootstrap.min.css'));
-app.use('/jquery.min.map', express.static('node_modules/jquery/dist/jquery.min.map'));
+app.use('/bootstrap.icons', express.static('node_modules/bootstrap-icons/font/'));
 app.use('/popper.min.js.map', express.static('node_modules/@popperjs/core/dist/umd/popper.min.js.map'));
 app.use('/bootstrap.min.js.map', express.static('node_modules/bootstrap/dist/js/bootstrap.min.js.map'));
 app.use('/bootstrap.min.css.map', express.static('node_modules/bootstrap/dist/css/bootstrap.min.css.map'));
