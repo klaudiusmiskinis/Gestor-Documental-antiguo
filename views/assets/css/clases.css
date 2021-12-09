@@ -128,6 +128,5 @@
 }
 
 .dropdown-item:hover {
-    background-color: var(--b) !important;
-    color: var(--b) !important;
+    background-color: transparent !important;
 }
