@@ -36,12 +36,15 @@ app.use(cookieSession({
 /* RUTAS ESTATICAS PARA ARCHIVOS DE ESTILO, SCRIPTS Y NODE_MODULES */
 app.use('/assets', express.static('views/assets'));
 app.use('/script', express.static('views/script'));
+app.use('/tippy.css', express.static('node_modules/tippy.js/dist/tippy.css'));
 app.use('/jquery.js', express.static('node_modules/jquery/dist/jquery.min.js'));
+app.use('/bootstrap.icons', express.static('node_modules/bootstrap-icons/font/'));
+app.use('/tippy.js', express.static('node_modules/tippy.js/dist/tippy.umd.min.js'));
 app.use('/jquery.min.map', express.static('node_modules/jquery/dist/jquery.min.map'));
 app.use('/popper.js', express.static('node_modules/@popperjs/core/dist/umd/popper.min.js'));
 app.use('/bootstrap.js', express.static('node_modules/bootstrap/dist/js/bootstrap.min.js'));
 app.use('/bootstrap.css', express.static('node_modules/bootstrap/dist/css/bootstrap.min.css'));
-app.use('/bootstrap.icons', express.static('node_modules/bootstrap-icons/font/'));
+app.use('/tippy.umd.min.js.map', express.static('node_modules/tippy.js/dist/tippy.umd.min.js.map'));
 app.use('/popper.min.js.map', express.static('node_modules/@popperjs/core/dist/umd/popper.min.js.map'));
 app.use('/bootstrap.min.js.map', express.static('node_modules/bootstrap/dist/js/bootstrap.min.js.map'));
 app.use('/bootstrap.min.css.map', express.static('node_modules/bootstrap/dist/css/bootstrap.min.css.map'));
