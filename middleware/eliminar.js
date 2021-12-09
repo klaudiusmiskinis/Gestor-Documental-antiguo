@@ -9,7 +9,7 @@ async function run(rutaRaiz, req, res){
         rutaArchivo = rutaRaiz + req.body.eliminarArchivoOculto;
     } else {
         position = position.split('%2F').join('/');
-        rutaArchivo = rutaRaiz + position + '/' + req.body.archivo;
+        rutaArchivo = rutaRaiz + position + '/' + req.body.eliminarArchivoOculto;
     }
     try {
         await fs.unlinkSync(rutaArchivo);
