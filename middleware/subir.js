@@ -40,11 +40,11 @@ async function run(rutaRaiz, req, res) {
                         await reqArchivo.mv(rutaArchivo);
                     }
                 }
-                console.log('Guardando', reqArchivo.name)
             }
         } catch(e) {
             return e;
         }
+        console.log('Guardando', reqArchivo.name)
     }
 }
 
