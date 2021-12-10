@@ -61,8 +61,8 @@ $('#sobreescribir-version').on('click', function() {
 
 $('.cerrar').on('click', function(e) {
     e.preventDefault();
-    selectPersonasDepartamento('dniEliminar');
     let archivoEliminar = $(this).children()[0];
+    selectPersonasDepartamento('dniEliminar');
     $('#eliminar-archivo-modal').modal('show');
     formularioEliminar(archivoEliminar.value, 'Eliminar', 'Formulario para eliminar');
 })
