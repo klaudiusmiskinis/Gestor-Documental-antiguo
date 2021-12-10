@@ -28,12 +28,12 @@ $('#subir-boton').on('click', function(e) {
             arrayArchivos.forEach(archivo => {
                 nombreArchivoSubirDatos = archivo.generarDatosFormularioExistente(nombreArchivoSubir);
             });
-            formularioExistenciaRepetidaValores(nombreArchivoSubirDatos, 'Nueva versión', 'Formulario para una nueva versión');
+            formularioExistenciaRepetidaValores(nombreArchivoSubirDatos, new Archivo(nombreArchivoSubir).getNombreSimple(), 'Formulario para una nueva versión');
             $('#archivo-existente').modal('show'); 
         } else {
             let nuevoArchivo = new Archivo($('#subir-campo')[0].files[0].name);
             nuevoArchivo.setNombreCompleto(nuevoArchivo.comprobarParentesis(nuevoArchivo.getNombreCompleto()));
-            formularioExistenciaRepetidaValores(nuevoArchivo.generarDatosFormularioExistente(nuevoArchivo.generarDatosPorNombreDeArchivoSinSuma(nuevoArchivo.getNombreCompleto())), 'Nuevo archivo', 'Formulario para una nueva versión');
+            formularioExistenciaRepetidaValores(nuevoArchivo.generarDatosFormularioExistente(nuevoArchivo.generarDatosPorNombreDeArchivoSinSuma(nuevoArchivo.getNombreCompleto())), nuevoArchivo.getNombreSimple(), 'Formulario para una nueva versión');
             $('#version-modal').modal('show'); 
         }
     }
@@ -55,7 +55,7 @@ $('#sobreescribir-version').on('click', function() {
     $('#archivo-existente').modal('hide');
     let nuevoArchivo = new Archivo($('#subir-campo')[0].files[0].name);
     nuevoArchivo.setNombreCompleto(nuevoArchivo.comprobarParentesis(nuevoArchivo.getNombreCompleto()));
-    formularioExistenciaRepetidaValores(nuevoArchivo.generarDatosFormularioExistente(nuevoArchivo.generarDatosPorNombreDeArchivoSinSuma(nuevoArchivo.getNombreCompleto())), 'Sobreescribir', 'Formulario para sobreescribir');
+    formularioExistenciaRepetidaValores(nuevoArchivo.generarDatosFormularioExistente(nuevoArchivo.generarDatosPorNombreDeArchivoSinSuma(nuevoArchivo.getNombreCompleto())), nuevoArchivo.getNombreSimple(), 'Formulario para sobreescribir');
     $('#version-modal').modal('show');
 })
 
@@ -67,10 +67,10 @@ $('.cerrar').on('click', function(e) {
     formularioEliminar(archivoEliminar.value, 'Eliminar', 'Formulario para eliminar');
 })
 
-function formularioExistenciaRepetidaValores(nombreArchivoSubirDatos, tipo, titulo) {
-    $('#titulo-modal').html(titulo)
+function formularioExistenciaRepetidaValores(nombreArchivoSubirDatos, nombreArchivoSubirSimple, titulo) {
+    $('#titulo-modal').html(titulo);
     $('#version-nuevo-archivo').val('Versión: ' + nombreArchivoSubirDatos[1]);
-    $('#archivoContenidoOculto')[0].files = $('#subir-campo')[0].files
+    $('#nombre-archivo-simple').val(nombreArchivoSubirSimple);
     $('#nombre-archivo').val(nombreArchivoSubirDatos[0]);
     $('#archivoOculto').val(nombreArchivoSubirDatos[0])
     $('#versionOculto').val(nombreArchivoSubirDatos[1])
