@@ -41,6 +41,9 @@ app.use('/jquery.js', express.static('node_modules/jquery/dist/jquery.min.js'));
 app.use('/bootstrap.icons', express.static('node_modules/bootstrap-icons/font/'));
 app.use('/tippy.js', express.static('node_modules/tippy.js/dist/tippy.umd.min.js'));
 app.use('/jquery.min.map', express.static('node_modules/jquery/dist/jquery.min.map'));
+app.use('/grid.css', express.static('node_modules/gridjs/dist/theme/mermaid.min.css'));
+app.use('/grid.js', express.static('node_modules/gridjs/dist/gridjs.production.min.js'));
+app.use('/gridjs.umd.js.map', express.static('node_modules/gridjs/dist/gridjs.umd.js.map'));
 app.use('/popper.js', express.static('node_modules/@popperjs/core/dist/umd/popper.min.js'));
 app.use('/bootstrap.js', express.static('node_modules/bootstrap/dist/js/bootstrap.min.js'));
 app.use('/bootstrap.css', express.static('node_modules/bootstrap/dist/css/bootstrap.min.css'));
@@ -63,6 +66,15 @@ app.get('/home', async (req, res) => {
     let modo = checkRol(req);
     res.cookie('position', '/');
     res.render('index.ejs', {directorios: recursivo.directorio('/', allFiles, dirFilter), rutas: nomRutas, rol: modo});
+});
+
+app.get('/registros', async (req, res) => {
+    let modo = checkRol(req)
+    if (req.session.user === process.env.ROL_HIGH) {
+        res.render('registros.ejs', {rol: modo, rutas: nomRutas});
+    } else {
+        res.redirect(req.get('referer'));
+    }
 });
 
 app.get('/subdepartamento', async(req, res) => {
@@ -93,7 +105,7 @@ app.post('/login', async (req, res) => {
 /* LOGOUT */
 app.post('/logout', async (req, res) => {
     req.session = null;
-    res.redirect(req.get('referer'));
+    res.redirect('/');
 });
 
 /* SUBIR */
