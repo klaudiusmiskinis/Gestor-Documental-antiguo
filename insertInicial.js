@@ -34,8 +34,8 @@ function recursivo(ruta) {
         )
 
         db.configure({host:'localhost', user: 'root', password: process.env.PWD ,database: process.env.DB_2});
-        // LOOP para saber que archivo pertenece a que directorio
-        allFiles.forEach(async (archivo) => {   
+        
+        allFiles.forEach((archivo) => {   
             let date = new Date();
             let day = ("0" + date.getDate()).slice(-2);
             let month = ("0" + (date.getMonth() + 1)).slice(-2);
