@@ -30,6 +30,6 @@ Seguidamente nos dirigimos al archivo y damos valor a las variables adaptadas a 
 
 1. Los tiempos de carga con un directorio que contenga de 1GB puede ser bastante largo. (Depende del PC donde se despliegue)
 2. El desplegable de las opciones de un archivo pierde su posicion si se activa el modo 'UltimaVersion'.
-3. La estructuraciÓn de los middleware puede implementarse de una manera más optima.
+3. La estructuración de los middleware puede implementarse de una manera más óptima.
 
 *Desarrollado exclusivamente para S.0. Windows*
