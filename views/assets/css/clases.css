@@ -160,11 +160,6 @@ thead {
     border-bottom: 2px solid var(--col) !important;
 }
 
-thead th, tr td {
-    border-right: 1px solid var(--b) !important;
-    border-left: 1px solid var(--b) !important;
-}
-
 tr {
     transition: var(--transicion);
 }
