@@ -36,14 +36,12 @@ app.use(cookieSession({
 /* RUTAS ESTATICAS PARA ARCHIVOS DE ESTILO, SCRIPTS Y NODE_MODULES */
 app.use('/assets', express.static('views/assets'));
 app.use('/script', express.static('views/script'));
+app.use('/datatable', express.static('node_modules/datatables/media'));
 app.use('/tippy.css', express.static('node_modules/tippy.js/dist/tippy.css'));
 app.use('/jquery.js', express.static('node_modules/jquery/dist/jquery.min.js'));
 app.use('/bootstrap.icons', express.static('node_modules/bootstrap-icons/font/'));
 app.use('/tippy.js', express.static('node_modules/tippy.js/dist/tippy.umd.min.js'));
 app.use('/jquery.min.map', express.static('node_modules/jquery/dist/jquery.min.map'));
-app.use('/grid.css', express.static('node_modules/gridjs/dist/theme/mermaid.min.css'));
-app.use('/grid.js', express.static('node_modules/gridjs/dist/gridjs.production.min.js'));
-app.use('/gridjs.umd.js.map', express.static('node_modules/gridjs/dist/gridjs.umd.js.map'));
 app.use('/popper.js', express.static('node_modules/@popperjs/core/dist/umd/popper.min.js'));
 app.use('/bootstrap.js', express.static('node_modules/bootstrap/dist/js/bootstrap.min.js'));
 app.use('/bootstrap.css', express.static('node_modules/bootstrap/dist/css/bootstrap.min.css'));
@@ -71,7 +69,7 @@ app.get('/home', async (req, res) => {
 app.get('/registros', async (req, res) => {
     let modo = checkRol(req)
     if (req.session.user === process.env.ROL_HIGH) {
-        res.render('registros.ejs', {rol: modo, rutas: nomRutas});
+        res.render('registros.ejs', {rol: modo, rutas: nomRutas, registros: await mysql.findArchivos()});
     } else {
         res.redirect(req.get('referer'));
     }
@@ -80,14 +78,6 @@ app.get('/registros', async (req, res) => {
 app.get('/subdepartamento', async(req, res) => {
     if (req.session.user === process.env.ROL_HIGH) {
         res.send(await mysql.findUserBySubdepartamento(process.env.SUBDEPARTAMENTO));
-    } else {
-        res.send(['Sin permiso']);
-    }
-})
-
-app.get('/archivos', async(req, res) => {
-    if (req.session.user === process.env.ROL_HIGH) {
-        res.send(await mysql.findArchivos());
     } else {
         res.send(['Sin permiso']);
     }
