@@ -31,7 +31,7 @@ app.use(fileupload());
 app.use(cookieSession({
     name: 'session',
     keys: [process.env.SECRET_SESSION],
-    maxAge: 1 * 60 * 60 * 1000
+    maxAge: 1 * 60 * 60 * 2000
 }));
 /* RUTAS ESTATICAS PARA ARCHIVOS DE ESTILO, SCRIPTS Y NODE_MODULES */
 app.use('/assets', express.static('views/assets'));
@@ -71,7 +71,7 @@ app.get('/registros', async (req, res) => {
     if (req.session.user === process.env.ROL_HIGH) {
         res.render('registros.ejs', {rol: modo, rutas: nomRutas, registros: await mysql.findArchivos()});
     } else {
-        res.redirect(req.get('referer'));
+        res.redirect('/home');
     }
 });
 
