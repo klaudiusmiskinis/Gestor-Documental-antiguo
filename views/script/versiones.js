@@ -39,6 +39,12 @@ $('#subir-boton').on('click', function(e) {
     }
 })
 
+$("#subir-campo").change(function(){
+    var $this = $(this), $clone = $this.clone();
+    $this.after($clone).appendTo('#archivoContenidoOculto');
+    console.log($this)
+});
+
 /* DESPLIEGA EL MODAL DE INFORMACION */
 $('#info').on('click', function() {
     $('#informacion-archivos-subir').modal('show'); 
@@ -74,9 +80,6 @@ function formularioExistenciaRepetidaValores(nombreArchivoSubirDatos, nombreArch
     $('#nombre-archivo').val(nombreArchivoSubirDatos[0]);
     $('#archivoOculto').val(nombreArchivoSubirDatos[0])
     $('#versionOculto').val(nombreArchivoSubirDatos[1])
-    $("#subir-campo").change(function() {
-        $(this).after($(this).clone()).appendTo($('#archivoContenidoOculto'));
-    });
 }
 
 function formularioEliminar(nombreDelArchivoEliminar, tipo, titulo) {
