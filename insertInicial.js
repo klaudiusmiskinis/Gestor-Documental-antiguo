@@ -12,7 +12,7 @@ const database = {
     multipleStatements: true,
     waitForConnections: true,
 }
-// truncate();
+truncate();
 recursivo(ruta);
 home()
 
@@ -56,13 +56,12 @@ function recursivo(ruta) {
             ultimaParte = ultimaParte[ultimaParte.length -1];
             array.push([ultimaParte, archivo.split(ultimaParte)[0], date, 1])
         })
-        // insert(array)
+        insert(array)
     }
 }
 
 async function truncate() {
     try {
-        console.log('a:')
         const mysql = require('mysql2/promise');
         const conn = await mysql.createConnection(database);
         conn.query('TRUNCATE TABLE archivos')
