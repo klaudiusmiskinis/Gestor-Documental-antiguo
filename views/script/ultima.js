@@ -18,7 +18,7 @@ function ultimaVersion(id){
 
     if ($(id).hasClass('ultima')) {
         let hijo = $(id).children()[0];
-        hijo.src = '/assets/img-svg/eyecross.svg'
+        hijo.className = 'bi bi-eye-slash-fill icono'
         arrayArchivos.forEach(archivoI => {
             arrayArchivos.forEach(archivoJ => {
                 archivoI.compararArchivosRepetidos(archivoJ);
@@ -31,7 +31,7 @@ function ultimaVersion(id){
         })
     } else {
         let hijo = $(id).children()[0];
-        hijo.src = '/assets/img-svg/eye.svg'
+        hijo.className = 'bi bi-eye-fill icono';
         arrayArchivos.forEach(archivoI => {
             archivoI.mostrar();
         });
