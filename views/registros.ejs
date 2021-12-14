@@ -10,17 +10,6 @@
 <body class="hide">
     <%- include('componentes/navbar') %> 
 
-    <div class="container-fluid my-2">
-        <div class="row justify-content-end gap-2">
-            <div class="col-auto">
-                <button class="col btn btn-color">Volver a hacer recursividad</button>
-            </div>
-            <div class="col-auto">
-                <button class="col btn btn-color">Eliminar todos los registros</button>
-            </div>
-        </div>
-    </div>
-
     <div class="container-fluid my-2 table-responsive">
         <table id="registros" class="data table-striped">
             <thead>
@@ -37,16 +26,20 @@
             <tbody class="text-truncate">
                 <% registros.forEach(registro => { %>
                 <tr >
-                    <td class="text-center">    <%= registro.idArchivo %>       </td>
-                    <td>    <%= registro.nombre %>          </td>
-                    <td>    <%= registro.ruta %>            </td>
-                    <td class="text-center">    <%= registro.fechaCreacion %>   </td>
-                    <td class="text-center">    <%= registro.versionActual %>   </td>
-                    <td class="text-center">    <%= registro.eliminado %>       </td>
+                    <td class="text-center"><%= registro.idArchivo %></td>
+                    <td><%= registro.nombre %></td>
+                    <td><%= registro.ruta %>
+                        <a href="<%= registro.ruta %>" class="link-color">
+                            <i class="bi bi-folder-symlink"></i>
+                        </a>
+                    </td>
+                    <td class="text-center"><%= registro.fechaCreacion %></td>
+                    <td class="text-center"><%= registro.versionActual %></td>
+                    <td class="text-center"><%= registro.eliminado %></td>
                     <% if (registro.fechaEliminado) { %>
-                    <td class="text-center">    <%= registro.fechaEliminado %>  </td>
+                        <td class="text-center"><%= registro.fechaEliminado %></td>
                     <% } else {  %> 
-                    <td class="text-center"> No esta eliminado </td>
+                        <td class="text-center"> No esta eliminado </td>
                     <% } %> 
                 </tr>
                 <% }) %>
