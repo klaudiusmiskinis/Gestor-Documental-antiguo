@@ -5,6 +5,7 @@ async function run(rutaRaiz, req, res) {
     let rutaArchivo = '';
     let lista = listarCookies(req.headers.cookie);
     let position = lista.position;
+    console.log('asd', req.body, req.files)
     let reqArchivo = req.files.archivoContenidoOculto;
     let nombre = req.body.archivoOculto;
     reqArchivo.name = nombre

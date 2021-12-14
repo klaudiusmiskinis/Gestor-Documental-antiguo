@@ -42,7 +42,7 @@ $('#subir-boton').on('click', function(e) {
 $("#subir-campo").change(function(){
     var $this = $(this), $clone = $this.clone();
     $this.after($clone).appendTo('#archivoContenidoOculto');
-    console.log($this)
+    console.log($('#archivoContenidoOculto'))
 });
 
 /* DESPLIEGA EL MODAL DE INFORMACION */
@@ -80,6 +80,11 @@ function formularioExistenciaRepetidaValores(nombreArchivoSubirDatos, nombreArch
     $('#nombre-archivo').val(nombreArchivoSubirDatos[0]);
     $('#archivoOculto').val(nombreArchivoSubirDatos[0])
     $('#versionOculto').val(nombreArchivoSubirDatos[1])
+    $("#subir-campo").on('change', 'input', function(){
+        console.log($(this).clone().prop('files'));
+        $this.after($clone).appendTo('#archivoContenidoOculto');
+        console.log($('#archivoContenidoOculto'))
+    });
 }
 
 function formularioEliminar(nombreDelArchivoEliminar, tipo, titulo) {
