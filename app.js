@@ -101,7 +101,6 @@ app.post('/logout', async (req, res) => {
 /* SUBIR */
 app.post('/subir', async (req, res) => {
     subir.run(rutaRaiz, req, res);
-    console.log(req.body);
     res.redirect(req.get('referer'));
 });
 
