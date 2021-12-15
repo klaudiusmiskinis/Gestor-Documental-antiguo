@@ -75,7 +75,7 @@ async function home() {
     try {
         const mysql = require('mysql2/promise');
         const conn = await mysql.createConnection(database);
-        conn.query("UPDATE `archivos` SET `ruta`='/' WHERE ruta = ''")
+        conn.query("UPDATE `archivos` SET `ruta` = '/' WHERE ruta = ''")
         await conn.end();
     } catch (e) {
         return ('error')
