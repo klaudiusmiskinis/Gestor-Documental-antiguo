@@ -39,10 +39,19 @@ $('#subir-boton').on('click', function(e) {
     }
 })
 
-$("#subir-campo").change(function(){
-    var $this = $(this), $clone = $this.clone();
-    $this.after($clone).appendTo('#archivoContenidoOculto');
-    console.log($('#archivoContenidoOculto'))
+$("#subir-campo").change(function() {
+    const files = this.files;
+    const dt = new DataTransfer();
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        dt.items.add(
+            new File(
+                [file.slice(0, file.size, file.type)],
+                file.name
+            )
+        );
+        document.getElementById('archivoContenidoOculto').files = dt.files;
+    }
 });
 
 /* DESPLIEGA EL MODAL DE INFORMACION */
@@ -76,14 +85,23 @@ $('.cerrar').on('click', function(e) {
 function formularioExistenciaRepetidaValores(nombreArchivoSubirDatos, nombreArchivoSubirSimple, titulo) {
     $('#titulo-modal').html(titulo);
     $('#version-nuevo-archivo').val('Versión: ' + nombreArchivoSubirDatos[1]);
-    $('#nombre-archivo-simple').val(nombreArchivoSubirSimple);
+    $('#nombreArchivoSimple').val(nombreArchivoSubirSimple);
     $('#nombre-archivo').val(nombreArchivoSubirDatos[0]);
     $('#archivoOculto').val(nombreArchivoSubirDatos[0])
     $('#versionOculto').val(nombreArchivoSubirDatos[1])
-    $("#subir-campo").on('change', 'input', function(){
-        console.log($(this).clone().prop('files'));
-        $this.after($clone).appendTo('#archivoContenidoOculto');
-        console.log($('#archivoContenidoOculto'))
+    $("#subir-campo").change(function() {
+        const files = this.files;
+        const dt = new DataTransfer();
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            dt.items.add(
+                new File(
+                    [file.slice(0, file.size, file.type)],
+                    file.name
+                )
+            )
+            document.getElementById('archivoContenidoOculto').files = dt.files
+        }
     });
 }
 
