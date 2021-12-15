@@ -30,8 +30,46 @@ async function findArchivos() {
     return rows;
 }
 
+async function findArchivoByNombre(nombre) {
+    const mysql = require('mysql2/promise');
+    const conn = await mysql.createConnection(databaseD);
+    const [rows, fields] = await conn.execute(process.env.SQL_FINDARCHIVOBYNOMBRE, [nombre]);
+    await conn.end();
+    return rows;
+}
+
+async function updateArchivoById(id, version) {
+    const mysql = require('mysql2/promise');
+    const conn = await mysql.createConnection(databaseD);
+    const [rows, fields] = await conn.execute(process.env.SQL_UPDATEARCHIVOBYID, [version, id]);
+    await conn.end();
+    return rows;
+}
+
+async function insertVersion(id, version, dni, motivo) {
+    const mysql = require('mysql2/promise');
+    const conn = await mysql.createConnection(databaseD);
+    const [rows, fields] = await conn.execute(process.env.SQL_INSERTVERSION, [id, version, fecha(), dni, motivo]);
+    console.log(conn.format(process.env.SQL_INSERTVERSION, [id, version, fecha(), dni, motivo]))
+    await conn.end();
+    return rows;
+}
+
+function fecha() {
+    const date = new Date();
+    const day = ("0" + date.getDate()).slice(-2);
+    const month = ("0" + (date.getMonth() + 1)).slice(-2);
+    const year = date.getFullYear();
+    console.log(year + '/' + month +  '/' + day);
+    return year + '/' + month +  '/' + day;
+}
+
+
 // EXPORTS
 module.exports = {
     findUserBySubdepartamento,
+    findArchivoByNombre,
+    updateArchivoById,
+    insertVersion,
     findArchivos,
 };
