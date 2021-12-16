@@ -37,7 +37,7 @@ async function run(rutaRaiz, req, res) {
                     renombrar = renombrar.split(cambiar).join('')
                 }
                 if (position == '%2F') {
-                    rutaArchivo = rutaRaiz + renombrar;
+                    rutaArchivo = rutaRaiz + archivo.name;
                 } else {
                     position = position.split('%2F').join('/');
                     rutaArchivo = rutaRaiz + position + '/' + renombrar;
