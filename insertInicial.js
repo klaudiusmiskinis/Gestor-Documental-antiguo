@@ -65,17 +65,7 @@ async function truncate() {
         const mysql = require('mysql2/promise');
         const conn = await mysql.createConnection(database);
         conn.query('TRUNCATE TABLE archivos')
-        await conn.end();
-    } catch (e) {
-        return ('error')
-    }
-}
-
-async function home() {
-    try {
-        const mysql = require('mysql2/promise');
-        const conn = await mysql.createConnection(database);
-        conn.query("UPDATE `archivos` SET `ruta` = '/' WHERE ruta = ''")
+        conn.query('TRUNCATE TABLE versiones')
         await conn.end();
     } catch (e) {
         return ('error')
@@ -87,6 +77,17 @@ async function insert(array) {
         const mysql = require('mysql2/promise');
         const conn = await mysql.createConnection(database);
         conn.query(process.env.SQL_INSERTALL, [array])
+        await conn.end();
+    } catch (e) {
+        return ('error')
+    }
+}
+
+async function home() {
+    try {
+        const mysql = require('mysql2/promise');
+        const conn = await mysql.createConnection(database);
+        conn.query("UPDATE `archivos` SET `ruta` = '/' WHERE ruta = ''")
         await conn.end();
     } catch (e) {
         return ('error')
