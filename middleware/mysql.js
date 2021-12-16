@@ -30,10 +30,10 @@ async function findArchivos() {
     return rows;
 }
 
-async function findArchivoByNombre(nombre) {
+async function findArchivoByNombre(nombre, ruta) {
     const mysql = require('mysql2/promise');
     const conn = await mysql.createConnection(databaseD);
-    const [rows, fields] = await conn.execute(process.env.SQL_FINDARCHIVOBYNOMBRE, [nombre]);
+    const [rows, fields] = await conn.execute(process.env.SQL_FINDARCHIVOBYNOMBRE, [nombre, ruta]);
     await conn.end();
     return rows;
 }
