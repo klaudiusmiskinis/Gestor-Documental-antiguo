@@ -17,7 +17,7 @@ const databaseD = {
 async function findUserBySubdepartamento() {
     const mysql = require('mysql2/promise');
     const conn = await mysql.createConnection(databaseU);
-    const [rows, fields] = await conn.execute(process.env.SQL_FINDUSER, [process.env.SUBDEPARTAMENTO]);
+    const [rows] = await conn.execute(process.env.SQL_FINDUSER, [process.env.SUBDEPARTAMENTO]);
     await conn.end();
     return rows;
 }
@@ -25,7 +25,7 @@ async function findUserBySubdepartamento() {
 async function findArchivos() {
     const mysql = require('mysql2/promise');
     const conn = await mysql.createConnection(databaseD);
-    const [rows, fields] = await conn.execute(process.env.SQL_ARCHIVOS);
+    const [rows] = await conn.execute(process.env.SQL_ARCHIVOS);
     await conn.end();
     return rows;
 }
@@ -33,7 +33,7 @@ async function findArchivos() {
 async function findArchivoByNombre(nombre, ruta) {
     const mysql = require('mysql2/promise');
     const conn = await mysql.createConnection(databaseD);
-    const [rows, fields] = await conn.execute(process.env.SQL_FINDARCHIVOBYNOMBRE, [nombre, ruta]);
+    const [rows] = await conn.execute(process.env.SQL_FINDARCHIVOBYNOMBRE, [nombre, ruta]);
     await conn.end();
     return rows;
 }
@@ -41,7 +41,7 @@ async function findArchivoByNombre(nombre, ruta) {
 async function updateArchivoById(id, version) {
     const mysql = require('mysql2/promise');
     const conn = await mysql.createConnection(databaseD);
-    const [rows, fields] = await conn.execute(process.env.SQL_UPDATEARCHIVOBYID, [version, id]);
+    const [rows] = await conn.execute(process.env.SQL_UPDATEARCHIVOBYID, [version, id]);
     await conn.end();
     return rows;
 }
@@ -49,7 +49,7 @@ async function updateArchivoById(id, version) {
 async function insertVersion(id, version, dni, motivo) {
     const mysql = require('mysql2/promise');
     const conn = await mysql.createConnection(databaseD);
-    const [rows, fields] = await conn.execute(conn.format(process.env.SQL_INSERTVERSION, [[id, version, fecha(), dni, motivo]]));
+    const [rows] = await conn.execute(conn.format(process.env.SQL_INSERTVERSION, [[id, version, fecha(), dni, motivo]]));
     await conn.end();
     return rows;
 }
