@@ -49,8 +49,7 @@ async function updateArchivoById(id, version) {
 async function insertVersion(id, version, dni, motivo) {
     const mysql = require('mysql2/promise');
     const conn = await mysql.createConnection(databaseD);
-    console.log(conn.format(process.env.SQL_INSERTVERSION, [[id, version, fecha(), dni, motivo]]))
-    const [rows, fields] = await conn.execute(process.env.SQL_INSERTVERSION, [[id, version, fecha(), dni, motivo]]);
+    const [rows, fields] = await conn.execute(conn.format(process.env.SQL_INSERTVERSION, [[id, version, fecha(), dni, motivo]]));
     await conn.end();
     return rows;
 }
@@ -60,7 +59,6 @@ function fecha() {
     const day = ("0" + date.getDate()).slice(-2);
     const month = ("0" + (date.getMonth() + 1)).slice(-2);
     const year = date.getFullYear();
-    console.log(year + '/' + month +  '/' + day);
     return year + '/' + month +  '/' + day;
 }
 
