@@ -170,6 +170,15 @@ tr:hover {
     transition: var(--transicion);
 }
 
+tr:hover i {
+    transition: var(--transicion);
+}
+
+tr:hover i:hover{
+    color: var(--b) !important;
+    transition: var(--transicion);
+}
+
 .odd {
     background-color: var(--col-transparent) !important;
 }
