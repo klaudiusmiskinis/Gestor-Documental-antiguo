@@ -171,11 +171,11 @@ tr:hover {
 }
 
 tr:hover i {
+    color: var(--b) !important;
     transition: var(--transicion);
 }
 
 tr:hover i:hover{
-    color: var(--b) !important;
     transition: var(--transicion);
 }
 
