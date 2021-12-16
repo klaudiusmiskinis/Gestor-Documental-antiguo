@@ -12,7 +12,6 @@ function ultimaVersion(id){
     arrayArchivos = []
 
     $(id).toggleClass('ultima');
-    console.log($('.archivo'))
     $('.archivo').each(function() {
         arrayArchivos.push(new Archivo($(this).text(), $(this).parents()[4]))
     });
