@@ -17,7 +17,7 @@ async function run(rutaRaiz, req, res) {
     archivoEncontrado = archivoEncontrado[archivoEncontrado.length - 1]
     archivo.name = nombre;
     if (archivoEncontrado) {
-        await mysql.updateArchivoByRuta(archivoEncontrado.idArchivo, req.body.versionOculto, position);
+        await mysql.updateArchivoById(archivoEncontrado.idArchivo, req.body.versionOculto);
         await mysql.insertVersion(archivoEncontrado.idArchivo, req.body.versionOculto, req.body.dni, req.body.motivo)
     }
     if (req.files) {
