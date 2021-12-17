@@ -1,4 +1,5 @@
 require('dotenv').config();
+const mysql = require('mysql2/promise');
 
 const databaseU = {
     host     : process.env.HOST,
@@ -15,7 +16,6 @@ const databaseD = {
 }
 
 async function findUserBySubdepartamento() {
-    const mysql = require('mysql2/promise');
     const conn = await mysql.createConnection(databaseU);
     const [rows] = await conn.execute(process.env.SQL_FINDUSER, [process.env.SUBDEPARTAMENTO]);
     await conn.end();
@@ -23,7 +23,6 @@ async function findUserBySubdepartamento() {
 }
 
 async function findArchivos() {
-    const mysql = require('mysql2/promise');
     const conn = await mysql.createConnection(databaseD);
     const [rows] = await conn.execute(process.env.SQL_ARCHIVOS);
     await conn.end();
@@ -31,7 +30,6 @@ async function findArchivos() {
 }
 
 async function findArchivoByNombre(nombre, ruta) {
-    const mysql = require('mysql2/promise');
     const conn = await mysql.createConnection(databaseD);
     const [rows] = await conn.execute(process.env.SQL_FINDARCHIVOBYNOMBRE, [nombre, ruta]);
     await conn.end();
@@ -39,7 +37,6 @@ async function findArchivoByNombre(nombre, ruta) {
 }
 
 async function updateArchivoById(id, version) {
-    const mysql = require('mysql2/promise');
     const conn = await mysql.createConnection(databaseD);
     const [rows] = await conn.execute(process.env.SQL_UPDATEARCHIVOBYID, [version, id]);
     await conn.end();
@@ -47,9 +44,15 @@ async function updateArchivoById(id, version) {
 }
 
 async function insertVersion(id, version, dni, motivo) {
-    const mysql = require('mysql2/promise');
     const conn = await mysql.createConnection(databaseD);
     const [rows] = await conn.execute(conn.format(process.env.SQL_INSERTVERSION, [[id, version, fecha(), dni, motivo]]));
+    await conn.end();
+    return rows;
+}
+
+async function insertArchivo(nombre, ruta) {
+    const conn = await mysql.createConnection(databaseD);
+    const [rows] = await conn.execute(conn.format(process.env.SQL_INSERTARCHIVO, [[nombre, ruta, fecha(), 1]]));
     await conn.end();
     return rows;
 }
