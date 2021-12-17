@@ -71,6 +71,7 @@ module.exports = {
     findUserBySubdepartamento,
     findArchivoByNombre,
     updateArchivoById,
+    insertArchivo,
     insertVersion,
     findArchivos,
 };
