@@ -1,6 +1,7 @@
 const fs = require('fs');
 const mysql = require('./mysql')
 const { listarCookies } = require('../middleware/cookie');
+const { data } = require('jquery');
 
 async function run(rutaRaiz, req, res) {
     let rutaArchivo = '';
@@ -18,7 +19,9 @@ async function run(rutaRaiz, req, res) {
     archivo.name = nombre;
     if (archivoEncontrado) {
         await mysql.updateArchivoById(archivoEncontrado.idArchivo, req.body.versionOculto);
-        await mysql.insertVersion(archivoEncontrado.idArchivo, req.body.versionOculto, req.body.dni, req.body.motivo)
+        await mysql.insertVersion(archivoEncontrado.idArchivo, req.body.versionOculto, req.body.dni, req.body.motivo);
+    } else {
+        await mysql.insertArchivo(nombreArchivoSimple, position);
     }
     if (req.files) {
         if (position == '%2F') {
