@@ -9,8 +9,11 @@
                 <form action="/subir" method="post" id="subir" enctype="multipart/form-data">
                     <div class="row justify-content-center">
                         <div class="input-group mb-3" id="container-subir-campo">
-                            <input type="file" class="form-control rounded-0" id="subir-campo" required>
-                            <label type="submit" class="input-group-text btn btn-color rounded-0  shadow-sm" id="subir-boton">Subir archivo</label>
+                            <label for="subir-campo" id="label-subir" class="btn btn-color col d-grid">
+                                Subir archivo
+                            </label>
+                            <input type="file" class="hide" id="subir-campo" required>
+                            <label type="submit" class="input-group-text btn btn-color col-auto d-grid rounded-0 shadow-sm" id="subir-boton">Subir archivo</label>
                         </div>
                     </div>
                 </form>
