@@ -44,6 +44,7 @@ $("#subir-campo").change(function() {
     const dt = new DataTransfer();
     for (let i = 0; i < files.length; i++) {
         const file = files[i];
+        $('#label-subir').html(file.name + ' [' + (file.size / 1024 ).toFixed(2) + 'KB]')
         dt.items.add(
             new File(
                 [file.slice(0, file.size, file.type)],
@@ -79,7 +80,7 @@ $('.cerrar').on('click', function(e) {
     let archivoEliminar = $(this).children()[0];
     selectPersonasDepartamento('dniEliminar');
     $('#eliminar-archivo-modal').modal('show');
-    formularioEliminar(archivoEliminar.value, 'Eliminar', 'Formulario para eliminar');
+    formularioEliminar(archivoEliminar.value, new Archivo(archivoEliminar.value).getNombreSimple(), 'Eliminar', 'Formulario para eliminar');
 })
 
 function formularioExistenciaRepetidaValores(nombreArchivoSubirDatos, nombreArchivoSubirSimple, titulo) {
@@ -105,9 +106,10 @@ function formularioExistenciaRepetidaValores(nombreArchivoSubirDatos, nombreArch
     });
 }
 
-function formularioEliminar(nombreDelArchivoEliminar, tipo, titulo) {
+function formularioEliminar(nombreDelArchivoEliminar, nombreDelArchivoSimple, tipo, titulo) {
     $('#titulo-eliminar').html(titulo)
     $('#eliminarTipoMotivoOculto').val(tipo);
+    $('#eliminarArchivoSimpleOculto').val(nombreDelArchivoSimple);
     $('#eliminarArchivoOculto').val(nombreDelArchivoEliminar);
     $('#eliminarArchivoNombre').val(nombreDelArchivoEliminar);
 }
