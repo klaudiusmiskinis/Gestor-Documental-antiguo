@@ -1,5 +1,7 @@
 const fs = require('fs');
-const { listarCookies } = require('../middleware/cookie');
+const { listarCookies } = require('./cookie');
+const mysql = require('./mysql')
+
 async function run(rutaRaiz, req, res){
     let rutaArchivo;
     let lista = listarCookies(req.headers.cookie);
