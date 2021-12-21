@@ -8,12 +8,16 @@ async function run(rutaRaiz, req, res){
     let position = lista.position;
 
     if (position == '%2F') {
+        position = position.split('%2F').join('/');
         rutaArchivo = rutaRaiz + req.body.eliminarArchivoOculto;
     } else {
         position = position.split('%2F').join('/');
         rutaArchivo = rutaRaiz + position + '/' + req.body.eliminarArchivoOculto;
     }
+
     try {
+        const archivoEncontrado = await mysql.findArchivoByNombre(req.body.eliminarArchivoSimpleOculto, position)
+        await mysql.deleteArchivo(archivoEncontrado[archivoEncontrado.length -1].idArchivo)
         await fs.unlinkSync(rutaArchivo);
     } catch(e) {
         return e;
