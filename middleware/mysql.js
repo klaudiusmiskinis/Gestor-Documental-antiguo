@@ -57,6 +57,14 @@ async function insertArchivo(nombre, ruta) {
     return rows;
 }
 
+async function deleteArchivo(id) {
+    const conn = await mysql.createConnection(databaseD);
+    console.log(conn.format(process.env.SQL_UPDATEELIMINADO, [1, fecha(), id]))
+    const [rows] = await conn.execute(conn.format(process.env.SQL_UPDATEELIMINADO, [1, fecha(), id]));
+    await conn.end();
+    return rows;
+}
+
 function fecha() {
     const date = new Date();
     const day = ("0" + date.getDate()).slice(-2);
@@ -73,5 +81,6 @@ module.exports = {
     updateArchivoById,
     insertArchivo,
     insertVersion,
+    deleteArchivo,
     findArchivos,
 };
