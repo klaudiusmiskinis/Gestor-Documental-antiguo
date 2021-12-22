@@ -16,14 +16,14 @@ async function run(rutaRaiz, req, res){
     }
 
     try {
-        const archivoEncontrado = await mysql.findArchivoByNombre(req.body.eliminarArchivoSimpleOculto, position)
-        await mysql.deleteArchivo(archivoEncontrado[archivoEncontrado.length -1].idArchivo)
+        const archivoEncontrado = await mysql.findArchivoByNombre(req.body.eliminarArchivoSimpleOculto, position);
+        await mysql.deleteArchivo(archivoEncontrado[archivoEncontrado.length -1].idArchivo);
         await fs.unlinkSync(rutaArchivo);
     } catch(e) {
         return e;
     }
     console.log('Eliminando:', req.body.eliminarArchivoOculto);
-}
+};
 
 module.exports = {
     run

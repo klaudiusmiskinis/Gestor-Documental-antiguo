@@ -28,7 +28,7 @@ function recursivo(rutaRaiz) {
                 allDirectories.push(archivo)
             } else if (fs.lstatSync(rutaRaiz + archivo).isFile()) {
                 allFiles.push(archivo)
-            }
+            };
         });
 
         dirFilter.push(
@@ -39,11 +39,11 @@ function recursivo(rutaRaiz) {
                 rutaAbsoluta: rutaRaiz,
                 archivos: []
             }
-        )
+        );
         
         allDirectories.forEach(dir => {
-            let separador = dir.split('/')
-            let directorio = getPadre(separador)
+            let separador = dir.split('/');
+            let directorio = getPadre(separador);
             function getPadre(separador) {
                 if (separador.length > 1) {
                     let directorioObj = {
@@ -52,7 +52,7 @@ function recursivo(rutaRaiz) {
                         rutaRelativa: dir,
                         rutaAbsoluta: rutaRaiz + dir + '/',
                         archivos: []
-                    }
+                    };
                     return directorioObj;  
                 } else {
                     let directorioObj = {
@@ -61,17 +61,17 @@ function recursivo(rutaRaiz) {
                         rutaRelativa: dir,
                         rutaAbsoluta: rutaRaiz + dir,
                         archivos: []
-                    } 
+                    };
                     return directorioObj; 
                 }
             }    
-            dirFilter.push(directorio)
+            dirFilter.push(directorio);
         })
 
         // LOOP de nombre de rutas para el HTTP
         dirFilter.forEach(directorio => {
             nomRutas.push(rutas(directorio))
-        })
+        });
         
         // LOOP para saber que archivo pertenece a que directorio
         allFiles.forEach(archivo => {   
@@ -81,13 +81,13 @@ function recursivo(rutaRaiz) {
                     directorio.archivos.push(separador[0])
                 } else if (separador.length == 2 && directorio.nombre == separador[0] && directorio.padre == '/') {
                     directorio.archivos.push(separador[1])
-                }
+                };
 
                 if (directorio.nombre == separador[separador.length-2] && directorio.padre == ((separador[separador.length-3]) + '/'))  {
                     directorio.archivos.push(separador[separador.length-1])
                 } else if (directorio.nombre == separador) {
                     directorio.archivos.push(separador)
-                }
+                };
             })
         })
     }
@@ -109,21 +109,21 @@ function directorio(nombre, allFiles, dirFilter) {
             directorioObj.hijos.push(dir);
         } else if ((nombre + '/' + dir.nombre) == dir.rutaRelativa) {
             directorioObj.hijos.push(dir);
-        }
+        };
 
         if (dir.nombre == '/') {
             directorioObj.archivos = dir.archivos;
         } else if (dir.rutaRelativa == nombre) { 
             directorioObj.archivos = dir.archivos;
-            directorioObj.archivos = _.without(directorioObj.archivos, 'Thumbs.db')
-        } 
+            directorioObj.archivos = _.without(directorioObj.archivos, 'Thumbs.db');
+        };
     });
 
     directorioObj.archivos.forEach(archivo => {
-        let extension = archivo.split('.')
-        extension = extension[extension.length - 1]
-        directorioObj.extensiones.push(extension)
-    })
+        let extension = archivo.split('.');
+        extension = extension[extension.length - 1];
+        directorioObj.extensiones.push(extension);
+    });
     return directorioObj;
 };
 
