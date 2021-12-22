@@ -1,6 +1,14 @@
 
 $(document).ready(function() {
     ultimaVersion($('#ultimaVersion').attr('id'))
+    let rutas = document.querySelectorAll('.rutas');
+    rutas.forEach(ruta => {
+        tippy(ruta, {
+            content: ruta.innerHTML,
+            placement: 'right',
+            animation: 'fade',
+        })
+    })
 })
 
 $('#ultimaVersion').on('click', function() {
