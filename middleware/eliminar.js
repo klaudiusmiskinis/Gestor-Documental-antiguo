@@ -13,7 +13,7 @@ async function run(rutaRaiz, req, res){
     } else {
         position = position.split('%2F').join('/');
         rutaArchivo = rutaRaiz + position + '/' + req.body.eliminarArchivoOculto;
-    }
+    };
 
     try {
         const archivoEncontrado = await mysql.findArchivoByNombre(req.body.eliminarArchivoSimpleOculto, position);
@@ -21,7 +21,7 @@ async function run(rutaRaiz, req, res){
         await fs.unlinkSync(rutaArchivo);
     } catch(e) {
         return e;
-    }
+    };
     console.log('Eliminando:', req.body.eliminarArchivoOculto);
 };
 
