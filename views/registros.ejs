@@ -45,7 +45,9 @@
                 <% }) %>
             </tbody>
         </table>
+    </div>
 
+    <div class="container-fluid mt-2">
         <table id="versiones" class="data table-striped">
             <thead>
                 <tr class="text-center">
@@ -61,8 +63,8 @@
                 <% versiones.forEach(version => { %>
                 <tr >
                     <td class="text-center"><%= version.idVersion %></td>
-                    <td><%= version.idArchivo %></td>
-                    <td><%= version.numVersion %></td>
+                    <td class="text-center"><%= version.idArchivo %></td>
+                    <td class="text-center"><%= version.numVersion %></td>
                     <td class="text-center"><%= version.Fecha %></td>
                     <td class="text-center"><%= version.DNI %></td>
                     <td class="text-center"><%= version.Motivo %></td>
