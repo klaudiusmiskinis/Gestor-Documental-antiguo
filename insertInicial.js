@@ -1,9 +1,20 @@
 require('dotenv').config();
 const wrench = require('wrench');
-var db = require('mysql2-promise')();
 const fs = require('fs');
 const ruta = process.env.RUTA_LOCAL;
-recursivo(ruta)
+
+const database = {
+    host     : process.env.HOST,
+    user     : process.env.USER,
+    password : process.env.PWD,
+    database : process.env.DB_2,
+    queueLimit: 10000,
+    multipleStatements: true,
+    waitForConnections: true,
+}
+truncate();
+recursivo(ruta);
+home()
 
 function recursivo(ruta) {
     let allDirectories = [];
@@ -33,8 +44,8 @@ function recursivo(ruta) {
             }
         )
 
-        db.configure({host:'localhost', user: 'root', password: process.env.PWD ,database: process.env.DB_2});
-        // LOOP para saber que archivo pertenece a que directorio
+        let array = []
+        
         allFiles.forEach(async (archivo) => {   
             let date = new Date();
             let day = ("0" + date.getDate()).slice(-2);
@@ -43,11 +54,42 @@ function recursivo(ruta) {
             date =  year + '/' + month +  '/' + day;
             let ultimaParte = archivo.split('/');
             ultimaParte = ultimaParte[ultimaParte.length -1];
-            db.query(process.env.SQL_INSERTALL, [ultimaParte, archivo.split(ultimaParte)[0], date, 1]).then(function () {
-                return db.query('SELECT * FROM archivos');
-            }).spread(function() {
-                console.log('Insertado', allFiles.length);
-            });
+            array.push([ultimaParte, archivo.split(ultimaParte)[0], date, 1])
         })
+        insert(array)
+    }
+}
+
+async function truncate() {
+    try {
+        const mysql = require('mysql2/promise');
+        const conn = await mysql.createConnection(database);
+        conn.query('TRUNCATE TABLE archivos')
+        conn.query('TRUNCATE TABLE versiones')
+        await conn.end();
+    } catch (e) {
+        return ('error')
+    }
+}
+
+async function insert(array) {
+    try {
+        const mysql = require('mysql2/promise');
+        const conn = await mysql.createConnection(database);
+        conn.query(process.env.SQL_INSERTALL, [array])
+        await conn.end();
+    } catch (e) {
+        return ('error')
+    }
+}
+
+async function home() {
+    try {
+        const mysql = require('mysql2/promise');
+        const conn = await mysql.createConnection(database);
+        conn.query("UPDATE `archivos` SET `ruta` = '/' WHERE ruta = ''")
+        await conn.end();
+    } catch (e) {
+        return ('error')
     }
 }

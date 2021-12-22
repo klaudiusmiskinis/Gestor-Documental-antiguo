@@ -5,21 +5,23 @@
                 <i class="bi bi-grip-vertical icono"></i>
             </button>
         </div>
-        <div class="col-auto">
+        <div class="col-auto mt-2">
             <div class="d-flex">
-                <a class="navbar-brand text-color" href="/home">
-                    <h6 class="mt-1 p-0">GESTOR DOCUMENTAL</h6>
+                <a class="navbar-brand link-color" href="/home">
+                    <h6>GESTOR DOCUMENTAL</h6>
                 </a>
-                <input type="color" class="form-control-color form-control mt-1 p-0 border-0" id="colorPicker">
+                <input type="color" class="form-control-color form-control border-0 border-color p-0" id="colorPicker">
             </div>
         </div>
         <div class="col-auto justify-content-right text-center">
             <a class="btn link-color" id="volver">
                 <i id="nav-volver" class="bi bi-arrow-left icono"></i>
             </a>
+            <% if (rol == 'escritura') { %>
             <a class="btn link-color" href="/registros">
                 <i id="nav-registros" class="bi bi-card-list icono"></i>
             </a>
+            <% } %>
             <a class="btn link-color" href="/home">
                 <i id="nav-home" class="bi bi-house-door-fill icono"></i>
             </a>

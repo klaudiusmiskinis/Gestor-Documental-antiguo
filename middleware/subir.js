@@ -1,50 +1,59 @@
 const fs = require('fs');
+const mysql = require('./mysql')
 const { listarCookies } = require('../middleware/cookie');
+const { data } = require('jquery');
 
 async function run(rutaRaiz, req, res) {
     let rutaArchivo = '';
     let lista = listarCookies(req.headers.cookie);
     let position = lista.position;
-    let reqArchivo = req.files.archivoContenidoOculto;
+    position = position.split('%2F').join('/');
+    if (position != '/') {
+        position = position + '/';
+    }
+    let archivo = req.files.archivoContenidoOculto;
     let nombre = req.body.archivoOculto;
-    reqArchivo.name = nombre
+    let nombreArchivoSimple = req.body.nombreArchivoSimple;
+    let archivoEncontrado = await mysql.findArchivoByNombre(nombreArchivoSimple, position);
+    archivoEncontrado = archivoEncontrado[archivoEncontrado.length - 1]
+    archivo.name = nombre;
+    if (archivoEncontrado) {
+        await mysql.updateArchivoById(archivoEncontrado.idArchivo, req.body.versionOculto);
+        await mysql.insertVersion(archivoEncontrado.idArchivo, req.body.versionOculto, req.body.dni, req.body.motivo);
+    } else {
+        await mysql.insertArchivo(nombreArchivoSimple, position);
+    }
     if (req.files) {
         if (position == '%2F') {
-            rutaArchivo = rutaRaiz + reqArchivo.name;
+            rutaArchivo = rutaRaiz + archivo.name;
         } else {
             position = position.split('%2F').join('/');
-            rutaArchivo = rutaRaiz + position + '/' + reqArchivo.name;
+            rutaArchivo = rutaRaiz + position + '/' + archivo.name;
         }
         try {
             if (!fs.existsSync(rutaArchivo)) {
-                await reqArchivo.mv(rutaArchivo);
+                await archivo.mv(rutaArchivo);
             } else {
                 let renombrar;
-                if (req.query) {
-                    if (req.query.nuevaversion == 'true') {
-                        let version = req.query.version;
-                        let nombre = (reqArchivo.name).split('.');
-                        let cambiar = nombre[0].slice(nombre[0].length-2);
-                        renombrar = nombre[0] + '_' + version  + '.' + nombre[1];
-                        if (cambiar.includes('_')) {
-                            renombrar = renombrar.split(cambiar).join('')
-                        }
-                        if (position == '%2F') {
-                            rutaArchivo = rutaRaiz + renombrar;
-                        } else {
-                            position = position.split('%2F').join('/');
-                            rutaArchivo = rutaRaiz + position + '/' + renombrar;
-                        }
-                        await reqArchivo.mv(rutaArchivo);
-                    } else {
-                        await reqArchivo.mv(rutaArchivo);
-                    }
+                let version = req.query.version;
+                let nombre = (archivo.name).split('.');
+                let cambiar = nombre[0].slice(nombre[0].length-2);
+                renombrar = nombre[0] + '_' + version  + '.' + nombre[1];
+                if (cambiar.includes('_')) {
+                    renombrar = renombrar.split(cambiar).join('')
                 }
-                console.log('Guardando', reqArchivo.name)
+                if (position == '%2F') {
+                    rutaArchivo = rutaRaiz + archivo.name;
+                } else {
+                    position = position.split('%2F').join('/');
+                    rutaArchivo = rutaRaiz + position + '/' + renombrar;
+                }
+                await archivo.mv(rutaArchivo);
             }
         } catch(e) {
             return e;
         }
+        console.log('Guardando', archivo.name)
     }
 }
 

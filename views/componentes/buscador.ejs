@@ -1,32 +1,18 @@
 <div class="container-fluid mt-2">
-    <!-- <div class="row mb-2 gap-2">
-        <div class="col bg-color text-light p-1">
-            <% if (directorios.nombre == '/') { %> 
-               <small class="mx-2">Te encuentras en: <b>Home</b></small>
-            <% } else { %>
-                <small class="mx-2">Te encuentras en: <b><%= directorios.nombre %></b></small>
-            <% } %>
-        </div>
-        <div class="col-sm-auto">
-            <button class="btn btn-color">
-                <i class="bi bi-eye" style="font-size: 1rem;"></i>
-            </button>
-        </div>
-    </div> -->
     <div class="row gap-2">
         <% if (directorios.archivos.length > 0) { %>
             <div class="col">
                 <div class="input-group mb-3 shadow-sm">
-                    <span class="input-group-text bg-color text-light border-0 border-bottom border-color border-3 rounded-0">Archivos<img class="img-fluid mx-2" src="/assets/img-svg/search.svg" width="20"></span>
-                    <input type="search" class="form-control border-0 border-0 border-bottom border-color border-1 rounded-0" id="buscador-file">
+                    <span class="input-group-text bg-color text-light border-0 border-bottom border-color border-3 rounded-0">Archivos<i class="bi bi-search mx-2"></i></span>
+                    <input type="search" class="form-control border-0 border-bottom border-color border-1 rounded-0" id="buscador-file">
                 </div>
             </div>
         <% } %> 
         <% if (directorios.hijos.length > 0) { %>
             <div class="col">
                 <div class="input-group mb-3 shadow-sm">
-                    <span class="input-group-text bg-color text-light border-0 border-bottom border-color border-3 rounded-0">Directorios<img class="img-fluid mx-2" src="/assets/img-svg/search.svg" width="20"></span>
-                    <input type="search" class="form-control border-0 border-0 border-bottom border-color border-1 rounded-0" id="buscador-dir">
+                    <span class="input-group-text bg-color text-light border-0 border-bottom border-color border-3 rounded-0">Directorios<i class="bi bi-search mx-2"></i></span>
+                    <input type="search" class="form-control border-0 border-bottom border-color border-1 rounded-0" id="buscador-dir">
                 </div>
             </div>
         <% } %>

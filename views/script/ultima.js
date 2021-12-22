@@ -1,6 +1,14 @@
 
 $(document).ready(function() {
     ultimaVersion($('#ultimaVersion').attr('id'))
+    let rutas = document.querySelectorAll('.rutas');
+    rutas.forEach(ruta => {
+        tippy(ruta, {
+            content: ruta.innerHTML,
+            placement: 'right',
+            animation: 'fade',
+        })
+    })
 })
 
 $('#ultimaVersion').on('click', function() {
@@ -15,10 +23,9 @@ function ultimaVersion(id){
     $('.archivo').each(function() {
         arrayArchivos.push(new Archivo($(this).text(), $(this).parents()[4]))
     });
-
     if ($(id).hasClass('ultima')) {
         let hijo = $(id).children()[0];
-        hijo.src = '/assets/img-svg/eyecross.svg'
+        hijo.className = 'bi bi-eye-slash-fill icono'
         arrayArchivos.forEach(archivoI => {
             arrayArchivos.forEach(archivoJ => {
                 archivoI.compararArchivosRepetidos(archivoJ);
@@ -31,7 +38,7 @@ function ultimaVersion(id){
         })
     } else {
         let hijo = $(id).children()[0];
-        hijo.src = '/assets/img-svg/eye.svg'
+        hijo.className = 'bi bi-eye-fill icono';
         arrayArchivos.forEach(archivoI => {
             archivoI.mostrar();
         });

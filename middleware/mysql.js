@@ -1,57 +1,93 @@
 require('dotenv').config();
-const mysql = require('mysql2');
+const mysql = require('mysql2/promise');
 
-const conexion = async (database) => {
-    return await mysql.createConnection({
-        host     : process.env.HOST,
-        user     : process.env.USER,
-        password : process.env.PWD,
-        database : database
-    });
-}
+const databaseU = {
+    host     : process.env.HOST,
+    user     : process.env.USER,
+    password : process.env.PWD,
+    database : process.env.DB_1
+};
 
-function findUserBySubdepartamento(subdepartamento) {
-    return new Promise(async (resolve, reject) => {
-        try {
-            let db = await conexion(process.env.DB_1);
-            db.query(
-                mysql.format(process.env.SQL_FINDUSER, subdepartamento),
-                function(err, rows) {
-                    if (err) {
-                        reject(err);
-                    }
-                    resolve(rows);
-                }
-            );
-            db.end();
-        } catch (err) {
-            reject(err);
-        }
-    });
-}
+const databaseD = {
+    host     : process.env.HOST,
+    user     : process.env.USER,
+    password : process.env.PWD,
+    database : process.env.DB_2
+};
 
-function findArchivos() {
-    return new Promise(async (resolve, reject) => {
-        try {
-            let db = await conexion(process.env.DB_2);
-            db.query(
-                mysql.format(process.env.SQL_ARCHIVOS),
-                function(err, rows) {
-                    if (err) {
-                        reject(err);
-                    }
-                    resolve(rows);
-                }
-            );
-            db.end();
-        } catch (err) {
-            reject(err);
-        }
-    });
-}
+async function findUserBySubdepartamento() {
+    const conn = await mysql.createConnection(databaseU);
+    const [rows] = await conn.execute(process.env.SQL_FINDUSER, [process.env.SUBDEPARTAMENTO]);
+    await conn.end();
+    return rows;
+};
+
+async function findArchivos() {
+    const conn = await mysql.createConnection(databaseD);
+    const [rows] = await conn.execute(process.env.SQL_ARCHIVOS);
+    await conn.end();
+    return rows;
+};
+
+async function findVersiones() {
+    const conn = await mysql.createConnection(databaseD);
+    const [rows] = await conn.execute(process.env.SQL_VERSIONES);
+    await conn.end();
+    return rows;
+};
+
+async function findArchivoByNombre(nombre, ruta) {
+    const conn = await mysql.createConnection(databaseD);
+    const [rows] = await conn.execute(process.env.SQL_FINDARCHIVOBYNOMBRE, [nombre, ruta]);
+    await conn.end();
+    return rows;
+};
+
+async function updateArchivoById(id, version) {
+    const conn = await mysql.createConnection(databaseD);
+    const [rows] = await conn.execute(conn.format(process.env.SQL_UPDATEARCHIVOBYID, [version, id]));
+    await conn.end();
+    return rows;
+};
+
+async function insertVersion(id, version, dni, motivo) {
+    const conn = await mysql.createConnection(databaseD);
+    const [rows] = await conn.execute(conn.format(process.env.SQL_INSERTVERSION, [[id, version, fecha(), dni, motivo]]));
+    await conn.end();
+    return rows;
+};
+
+async function insertArchivo(nombre, ruta) {
+    const conn = await mysql.createConnection(databaseD);
+    const [rows] = await conn.execute(conn.format(process.env.SQL_INSERTARCHIVO, [[nombre, ruta, fecha(), 1]]));
+    await conn.end();
+    return rows;
+};
+
+async function deleteArchivo(id) {
+    const conn = await mysql.createConnection(databaseD);
+    const [rows] = await conn.execute(conn.format(process.env.SQL_UPDATEELIMINADO, [1, fecha(), id]));
+    await conn.end();
+    return rows;
+};
+
+function fecha() {
+    const date = new Date();
+    const day = ("0" + date.getDate()).slice(-2);
+    const month = ("0" + (date.getMonth() + 1)).slice(-2);
+    const year = date.getFullYear();
+    return year + '/' + month +  '/' + day;
+};
+
 
 // EXPORTS
 module.exports = {
-    conexion,
     findUserBySubdepartamento,
+    findArchivoByNombre,
+    updateArchivoById,
+    insertArchivo,
+    insertVersion,
+    deleteArchivo,
+    findVersiones,
+    findArchivos,
 };

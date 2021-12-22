@@ -11,7 +11,7 @@ document.onreadystatechange = function(e) {
 
 $('#colorPicker').on('input', function(){
     document.documentElement.style.setProperty('--col', $(this).val());
-    document.documentElement.style.setProperty('--col-transparent', $(this).val() + '7e');
+    document.documentElement.style.setProperty('--col-transparent', $(this).val() + '27');
 })
 
 window.onload = function(e) {

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('componentes/links') %> 
+    <title>Registros</title>
+</head>
+<body class="hide">
+
+    <%- include('componentes/navbar') %> 
+    <div class="container-fluid my-2 table-responsive">
+        <table id="registros" class="data table-striped">
+            <thead>
+                <tr class="text-center">
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Ruta</th>
+                    <th>Creado</th>
+                    <th>Versión</th>
+                    <th>Eliminado</th>
+                    <th>Fecha Eliminado</th>
+                </tr>
+            </thead>
+            <tbody class="text-truncate">
+                <% archivos.forEach(archivo => { %>
+                <tr >
+                    <td class="text-center"><%= archivo.idArchivo %></td>
+                    <td><%= archivo.nombre %></td>
+                    <td><%= archivo.ruta %>
+                        <a href="<%= archivo.ruta %>" class="link-color">
+                            <i class="bi bi-folder-symlink"></i>
+                        </a>
+                    </td>
+                    <td class="text-center"><%= archivo.fechaCreacion %></td>
+                    <td class="text-center"><%= archivo.versionActual %></td>
+                    <td class="text-center"><%= archivo.eliminado %></td>
+                    <% if (archivo.fechaEliminado) { %>
+                        <td class="text-center"><%= archivo.fechaEliminado %></td>
+                    <% } else {  %> 
+                        <td class="text-center"> No esta eliminado </td>
+                    <% } %> 
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container-fluid mt-2">
+        <table id="versiones" class="data table-striped">
+            <thead>
+                <tr class="text-center">
+                    <th>ID Version</th>
+                    <th>ID Archivo</th>
+                    <th>Versión</th>
+                    <th>Fecha</th>
+                    <th>DNI</th>
+                    <th>Motivo</th>
+                </tr>
+            </thead>
+            <tbody class="text-truncate">
+                <% versiones.forEach(version => { %>
+                <tr >
+                    <td class="text-center"><%= version.idVersion %></td>
+                    <td class="text-center"><%= version.idArchivo %></td>
+                    <td class="text-center"><%= version.numVersion %></td>
+                    <td class="text-center"><%= version.Fecha %></td>
+                    <td class="text-center"><%= version.DNI %></td>
+                    <td class="text-center"><%= version.Motivo %></td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+
+    <%- include('componentes/modal') %> 
+    <%- include('componentes/cerrar') %> 
+    <%- include('componentes/lateral') %> 
+    <%- include('componentes/login') %> 
+    <%- include('componentes/scripts') %> 
+</body>

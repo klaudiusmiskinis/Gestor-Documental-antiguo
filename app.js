@@ -31,11 +31,12 @@ app.use(fileupload());
 app.use(cookieSession({
     name: 'session',
     keys: [process.env.SECRET_SESSION],
-    maxAge: 1 * 60 * 60 * 1000
+    maxAge: 1 * 60 * 60 * 2000
 }));
 /* RUTAS ESTATICAS PARA ARCHIVOS DE ESTILO, SCRIPTS Y NODE_MODULES */
 app.use('/assets', express.static('views/assets'));
 app.use('/script', express.static('views/script'));
+app.use('/datatable', express.static('node_modules/datatables/media'));
 app.use('/tippy.css', express.static('node_modules/tippy.js/dist/tippy.css'));
 app.use('/jquery.js', express.static('node_modules/jquery/dist/jquery.min.js'));
 app.use('/bootstrap.icons', express.static('node_modules/bootstrap-icons/font/'));
@@ -65,17 +66,18 @@ app.get('/home', async (req, res) => {
     res.render('index.ejs', {directorios: recursivo.directorio('/', allFiles, dirFilter), rutas: nomRutas, rol: modo});
 });
 
+app.get('/registros', async (req, res) => {
+    let modo = checkRol(req)
+    if (req.session.user === process.env.ROL_HIGH) {
+        res.render('registros.ejs', {rol: modo, rutas: nomRutas, archivos: await mysql.findArchivos(), versiones: await mysql.findVersiones()});
+    } else {
+        res.redirect('/home');
+    }
+});
+
 app.get('/subdepartamento', async(req, res) => {
     if (req.session.user === process.env.ROL_HIGH) {
         res.send(await mysql.findUserBySubdepartamento(process.env.SUBDEPARTAMENTO));
-    } else {
-        res.send(['Sin permiso']);
-    }
-})
-
-app.get('/archivos', async(req, res) => {
-    if (req.session.user === process.env.ROL_HIGH) {
-        res.send(await mysql.findArchivos());
     } else {
         res.send(['Sin permiso']);
     }
@@ -93,13 +95,12 @@ app.post('/login', async (req, res) => {
 /* LOGOUT */
 app.post('/logout', async (req, res) => {
     req.session = null;
-    res.redirect(req.get('referer'));
+    res.redirect('/');
 });
 
 /* SUBIR */
 app.post('/subir', async (req, res) => {
-    subir.run(rutaRaiz, req, res);
-    console.log(req.body);
+    await subir.run(rutaRaiz, req, res);
     res.redirect(req.get('referer'));
 });
 
@@ -112,8 +113,7 @@ app.post('/descargar', async (req, res) => {
 // DELETEs //
 /* ELIMINAR */
 app.delete('/eliminar', async (req, res) => {
-    eliminar.run(rutaRaiz, req, res);
-    console.log(req.body)
+    await eliminar.run(rutaRaiz, req, res);
     res.redirect(req.get('referer'));
 });
 
