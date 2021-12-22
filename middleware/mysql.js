@@ -29,6 +29,13 @@ async function findArchivos() {
     return rows;
 }
 
+async function findVersiones() {
+    const conn = await mysql.createConnection(databaseD);
+    const [rows] = await conn.execute(process.env.SQL_VERSIONES);
+    await conn.end();
+    return rows;
+}
+
 async function findArchivoByNombre(nombre, ruta) {
     const conn = await mysql.createConnection(databaseD);
     const [rows] = await conn.execute(process.env.SQL_FINDARCHIVOBYNOMBRE, [nombre, ruta]);
@@ -59,7 +66,6 @@ async function insertArchivo(nombre, ruta) {
 
 async function deleteArchivo(id) {
     const conn = await mysql.createConnection(databaseD);
-    console.log(conn.format(process.env.SQL_UPDATEELIMINADO, [1, fecha(), id]))
     const [rows] = await conn.execute(conn.format(process.env.SQL_UPDATEELIMINADO, [1, fecha(), id]));
     await conn.end();
     return rows;
@@ -82,5 +88,6 @@ module.exports = {
     insertArchivo,
     insertVersion,
     deleteArchivo,
+    findVersiones,
     findArchivos,
 };
