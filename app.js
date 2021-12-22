@@ -69,7 +69,7 @@ app.get('/home', async (req, res) => {
 app.get('/registros', async (req, res) => {
     let modo = checkRol(req)
     if (req.session.user === process.env.ROL_HIGH) {
-        res.render('registros.ejs', {rol: modo, rutas: nomRutas, registros: await mysql.findArchivos()});
+        res.render('registros.ejs', {rol: modo, rutas: nomRutas, archivos: await mysql.findArchivos(), versiones: await mysql.findVersiones()});
     } else {
         res.redirect('/home');
     }
