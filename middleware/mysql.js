@@ -38,7 +38,7 @@ async function findArchivoByNombre(nombre, ruta) {
 
 async function updateArchivoById(id, version) {
     const conn = await mysql.createConnection(databaseD);
-    const [rows] = await conn.execute(process.env.SQL_UPDATEARCHIVOBYID, [version, id]);
+    const [rows] = await conn.execute(conn.format(process.env.SQL_UPDATEARCHIVOBYID, [version, id]));
     await conn.end();
     return rows;
 }
