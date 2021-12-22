@@ -1,19 +1,20 @@
 <% if (rol == 'escritura') { %>
 <div class="container-fluid my-2">
     <div class="subir-archivo">
-        <div class="d-flex text-color">Subir un archivo
-            <i id="info" class="bi bi-info-circle-fill mx-2 mt-1"></i>
-        </div>
+        <label id="info" class="text-color mb-1">
+            <i class="bi bi-info-square-fill"></i>
+            Subir un archivo
+        </label>
         <div class="row">
             <div class="col">
                 <form action="/subir" method="post" id="subir" enctype="multipart/form-data">
                     <div class="row justify-content-center">
                         <div class="input-group mb-3" id="container-subir-campo">
                             <label for="subir-campo" id="label-subir" class="btn btn-color col d-grid">
-                                Subir archivo
+                                Seleccionar un archivo
                             </label>
                             <input type="file" class="hide" id="subir-campo" required>
-                            <label type="submit" class="input-group-text btn btn-color col-auto d-grid rounded-0 shadow-sm" id="subir-boton">Subir archivo</label>
+                            <label type="submit" class="input-group-text btn btn-color col-auto d-grid rounded-0 shadow-sm hide" id="subir-boton">Subir archivo</label>
                         </div>
                     </div>
                 </form>
