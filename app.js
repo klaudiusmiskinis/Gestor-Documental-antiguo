@@ -114,7 +114,6 @@ app.post('/descargar', async (req, res) => {
 /* ELIMINAR */
 app.delete('/eliminar', async (req, res) => {
     await eliminar.run(rutaRaiz, req, res);
-    console.log(req.body)
     res.redirect(req.get('referer'));
 });
 
